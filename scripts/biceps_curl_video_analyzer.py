@@ -86,6 +86,20 @@ class BicepsCurlVideoAnalyzer:
                 left_arm_angle = angles.get('left_arm')
                 right_arm_angle = angles.get('right_arm')
                 
+                # Get arm visibility status with depth filtering
+                visibility_status = self.pose_detector.get_arms_visibility_with_depth(
+                    min_confidence=self.rep_counter.min_landmark_confidence,
+                    depth_threshold=self.rep_counter.depth_threshold,
+                    depth_filter_enabled=self.rep_counter.depth_filter_enabled
+                )
+                
+                left_arm_visible = visibility_status['left']['visible']
+                right_arm_visible = visibility_status['right']['visible']
+                left_confidence = visibility_status['left']['confidence']
+                right_confidence = visibility_status['right']['confidence']
+                left_depth = visibility_status['left']['depth']
+                right_depth = visibility_status['right']['depth']
+                
                 # Calculate torso angles (deviation from vertical)
                 left_torso_angle = self._get_torso_angle(frame.shape, 'left')
                 right_torso_angle = self._get_torso_angle(frame.shape, 'right')
@@ -93,8 +107,16 @@ class BicepsCurlVideoAnalyzer:
                 left_alignment = self._check_arm_alignment(frame.shape, 'left')
                 right_alignment = self._check_arm_alignment(frame.shape, 'right')
 
-                # Update rep counter
-                self.rep_counter.update(left_arm_angle, right_arm_angle, left_alignment, right_alignment, left_torso_angle, right_torso_angle)
+                # Update rep counter with visibility info
+                self.rep_counter.update(
+                    left_arm_angle, right_arm_angle, 
+                    left_alignment, right_alignment, 
+                    left_torso_angle, right_torso_angle,
+                    left_arm_visible=left_arm_visible,
+                    right_arm_visible=right_arm_visible,
+                    left_confidence=left_confidence,
+                    right_confidence=right_confidence
+                )
 
             status = self.rep_counter.get_status()
             left_reps = status.get('left_reps', 0)
@@ -227,8 +249,8 @@ class BicepsCurlVideoAnalyzer:
         h, w = frame.shape[:2]
 
         # Panel background
-        cv2.rectangle(frame, (10, 10), (w - 10, 120), (0, 0, 0), thickness=-1)
-        cv2.addWeighted(frame[10:120, 10:w-10], 0.6, np.zeros_like(frame[10:120, 10:w-10]), 0.4, 0, frame[10:120, 10:w-10])
+        cv2.rectangle(frame, (10, 10), (w - 10, 150), (0, 0, 0), thickness=-1)
+        cv2.addWeighted(frame[10:150, 10:w-10], 0.6, np.zeros_like(frame[10:150, 10:w-10]), 0.4, 0, frame[10:150, 10:w-10])
 
         # Header
         cv2.putText(frame, "Biceps Curl Analyzer", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255,255,255), 2, cv2.LINE_AA)
@@ -248,21 +270,64 @@ class BicepsCurlVideoAnalyzer:
         cv2.putText(frame, f"L: {left_reps} ({left_correct_reps})", (180, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,0) if left_aligned else (0,140,0), 2, cv2.LINE_AA)
         cv2.putText(frame, f"R: {right_reps} ({right_correct_reps})", (320, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,200,255) if right_aligned else (0,120,160), 2, cv2.LINE_AA)
 
-        # Angle badges
+        # Arm visibility and depth info
+        left_visible = status.get('left_arm_visible', True)
+        right_visible = status.get('right_arm_visible', True)
+        left_conf = status.get('left_avg_confidence', 1.0)
+        right_conf = status.get('right_avg_confidence', 1.0)
+        
+        # Show which arms are being analyzed
+        analyzed_text = ""
+        if left_visible and right_visible:
+            analyzed_text = "Analyzing: BOTH ARMS"
+            analyzed_color = (0, 255, 0)
+        elif left_visible:
+            analyzed_text = "Analyzing: LEFT ARM ONLY"
+            analyzed_color = (0, 165, 255)
+        elif right_visible:
+            analyzed_text = "Analyzing: RIGHT ARM ONLY"
+            analyzed_color = (0, 165, 255)
+        else:
+            analyzed_text = "Analyzing: NEITHER ARM"
+            analyzed_color = (0, 0, 255)
+        
+        cv2.putText(frame, analyzed_text, (20, 130), cv2.FONT_HERSHEY_SIMPLEX, 0.6, analyzed_color, 2, cv2.LINE_AA)
+
+        # Angle badges with visibility indicators
         la = f"{left_angle:.0f}°" if left_angle is not None else "--"
         ra = f"{right_angle:.0f}°" if right_angle is not None else "--"
-        self._badge(frame, (w-210, 35), f"L angle: {la}", ok=left_aligned)
-        self._badge(frame, (w-210, 85), f"R angle: {ra}", ok=right_aligned)
+        
+        # Add visibility indicator to angle badges
+        if not left_visible:
+            la = f"{la} [HIDDEN]"
+        if not right_visible:
+            ra = f"{ra} [HIDDEN]"
+            
+        self._badge(frame, (w-270, 35), f"L: {la}", ok=left_aligned and left_visible)
+        self._badge(frame, (w-270, 85), f"R: {ra}", ok=right_aligned and right_visible)
 
         # Optional angle arcs near elbows if landmarks available
-        self._draw_angle_arc(frame, arm="left", angle_deg=left_angle, color_ok=left_aligned)
-        self._draw_angle_arc(frame, arm="right", angle_deg=right_angle, color_ok=right_aligned)
+        if left_visible:
+            self._draw_angle_arc(frame, arm="left", angle_deg=left_angle, color_ok=left_aligned)
+        if right_visible:
+            self._draw_angle_arc(frame, arm="right", angle_deg=right_angle, color_ok=right_aligned)
 
-        # Alignment warnings
-        if not left_aligned:
-            self._warning(frame, (20, h-60), "Keep left elbow closer to your side")
-        if not right_aligned:
-            self._warning(frame, (20, h-25), "Keep right elbow closer to your side")
+        # Alignment warnings (only for visible arms)
+        warning_y = h - 80
+        if left_visible and not left_aligned:
+            self._warning(frame, (20, warning_y), "Keep left elbow closer to your side")
+            warning_y += 35
+        if right_visible and not right_aligned:
+            self._warning(frame, (20, warning_y), "Keep right elbow closer to your side")
+        
+        # Visibility warnings for occluded arms
+        vis_msg_left = status.get('left_visibility_message', '')
+        vis_msg_right = status.get('right_visibility_message', '')
+        if vis_msg_left:
+            self._warning(frame, (20, warning_y), vis_msg_left)
+            warning_y += 35
+        if vis_msg_right:
+            self._warning(frame, (20, warning_y), vis_msg_right)
 
     def _badge(self, frame, origin, text, ok=True):
         x, y = origin

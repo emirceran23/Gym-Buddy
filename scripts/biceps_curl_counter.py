@@ -16,7 +16,10 @@ class BicepsCurlCounter:
                  angle_threshold_down=160,  # Arm extended (down position) - >160°
                  angle_threshold_up=50,     # Arm curled (up position) - <50°
                  torso_angle_threshold=30,  # Max torso angle deviation during transition - 20-25°
-                 min_hold_time=0.2):        # Minimum time to hold position
+                 min_hold_time=0.2,         # Minimum time to hold position
+                 min_landmark_confidence=0.5,  # Minimum landmark confidence for measurement
+                 depth_threshold=0.1,       # Minimum z-difference to filter background arm
+                 depth_filter_enabled=True): # Enable depth-based filtering
         """
         Initialize biceps curl counter
         
@@ -25,11 +28,17 @@ class BicepsCurlCounter:
             angle_threshold_up: Maximum angle for up position (degrees) - arm < 50°
             torso_angle_threshold: Maximum torso angle deviation during transition (degrees) - 20-25°
             min_hold_time: Minimum time to hold position to count (seconds)
+            min_landmark_confidence: Minimum landmark visibility confidence (0.0-1.0)
+            depth_threshold: Minimum z-difference to consider one arm occluded (default: 0.1)
+            depth_filter_enabled: Whether to apply depth-based filtering (default: True)
         """
         self.angle_threshold_down = angle_threshold_down
         self.angle_threshold_up = angle_threshold_up
         self.torso_angle_threshold = torso_angle_threshold
         self.min_hold_time = min_hold_time
+        self.min_landmark_confidence = min_landmark_confidence
+        self.depth_threshold = depth_threshold
+        self.depth_filter_enabled = depth_filter_enabled
 
         self.violation_min_duration = 0.25  # seconds to consider a violation meaningful
 
@@ -43,6 +52,14 @@ class BicepsCurlCounter:
         self.right_max_torso_angle = 0.0
         # Hysteresis zones to prevent oscillation
         self.hysteresis = 0  # degrees
+        
+        # Arm visibility tracking
+        self.left_arm_visible = True
+        self.right_arm_visible = True
+        self.left_avg_confidence = 1.0
+        self.right_avg_confidence = 1.0
+        self.left_visibility_message = ""
+        self.right_visibility_message = ""
         
         # Rep counting variables
         self.left_reps = 0
@@ -129,8 +146,27 @@ class BicepsCurlCounter:
     
     def update(self, left_arm_angle, right_arm_angle,
                left_alignment=True, right_alignment=True,
-               left_torso_angle=0, right_torso_angle=0):
+               left_torso_angle=0, right_torso_angle=0,
+               left_arm_visible=True, right_arm_visible=True,
+               left_confidence=1.0, right_confidence=1.0):
         current_time = time.time()
+
+        # Store visibility information
+        self.left_arm_visible = left_arm_visible
+        self.right_arm_visible = right_arm_visible
+        self.left_avg_confidence = left_confidence
+        self.right_avg_confidence = right_confidence
+        
+        # Generate visibility messages
+        if not left_arm_visible:
+            self.left_visibility_message = f"Sol kol net görünmüyor (güven: {left_confidence*100:.0f}%)"
+        else:
+            self.left_visibility_message = ""
+            
+        if not right_arm_visible:
+            self.right_visibility_message = f"Sağ kol net görünmüyor (güven: {right_confidence*100:.0f}%)"
+        else:
+            self.right_visibility_message = ""
 
         self.left_alignment_warning = not left_alignment
         self.right_alignment_warning = not right_alignment
@@ -178,9 +214,10 @@ class BicepsCurlCounter:
         self.left_raw_angle = left_arm_angle
         self.right_raw_angle = right_arm_angle
         
-        if left_arm_angle is not None:
+        # Only update arm state if arm is visible
+        if left_arm_angle is not None and left_arm_visible:
             self._update_arm_state('left', left_arm_angle, left_torso_angle, left_alignment, current_time)
-        if right_arm_angle is not None:
+        if right_arm_angle is not None and right_arm_visible:
             self._update_arm_state('right', right_arm_angle, right_torso_angle, right_alignment, current_time)
 
         return self.get_status()
@@ -452,9 +489,10 @@ class BicepsCurlCounter:
 
             # Debug
             if self.debug_mode:
+                confidence = self.left_avg_confidence if arm == 'left' else self.right_avg_confidence
                 print(f"[DEBUG] {arm.upper()} - State change: {state} -> {new_state} | "
                       f"Angle: {angle:.1f}° | Torso: {torso_angle:.1f}° | "
-                      f"Aligned: {is_aligned} | form_ok={form_ok}")
+                      f"Aligned: {is_aligned} | Confidence: {confidence*100:.0f}% | form_ok={form_ok}")
 
             # Yaz
             if arm == 'left':
@@ -531,7 +569,13 @@ class BicepsCurlCounter:
             'left_smoothed_angle': left_smoothed,
             'right_smoothed_angle': right_smoothed,
             'left_cycle_index': self.left_cycle_index,
-            'right_cycle_index': self.right_cycle_index
+            'right_cycle_index': self.right_cycle_index,
+            'left_arm_visible': self.left_arm_visible,
+            'right_arm_visible': self.right_arm_visible,
+            'left_avg_confidence': self.left_avg_confidence,
+            'right_avg_confidence': self.right_avg_confidence,
+            'left_visibility_message': self.left_visibility_message,
+            'right_visibility_message': self.right_visibility_message
         }
     
     def reset(self):
@@ -633,6 +677,10 @@ class BicepsCurlTracker:
         self.csv_enabled = True
         self.csv_rows = []
         self.frame_count = 0
+        
+        # Visibility tracking for logging
+        self._last_left_visible = None
+        self._last_right_visible = None
         
     
     def start_camera(self):
@@ -766,6 +814,47 @@ class BicepsCurlTracker:
         left_arm_angle = angles.get('left_arm')
         right_arm_angle = angles.get('right_arm')
 
+        # Get arm visibility status WITH DEPTH FILTERING
+        visibility_status = self.pose_detector.get_arms_visibility_with_depth(
+            min_confidence=self.rep_counter.min_landmark_confidence,
+            depth_threshold=self.rep_counter.depth_threshold,
+            depth_filter_enabled=self.rep_counter.depth_filter_enabled
+        )
+        
+        left_arm_visible = visibility_status['left']['visible']
+        right_arm_visible = visibility_status['right']['visible']
+        left_confidence = visibility_status['left']['confidence']
+        right_confidence = visibility_status['right']['confidence']
+        left_depth = visibility_status['left']['depth']
+        right_depth = visibility_status['right']['depth']
+        left_occluded = visibility_status['left']['occluded']
+        right_occluded = visibility_status['right']['occluded']
+        
+        # Log visibility status changes (only on changes to avoid spam)
+        if hasattr(self, '_last_left_visible'):
+            if self._last_left_visible != left_arm_visible:
+                if left_arm_visible:
+                    print(f"✓ Sol kol artık görünüyor (güven: {left_confidence*100:.0f}%, depth: {left_depth:.3f})")
+                else:
+                    reason = visibility_status['left']['occlusion_reason']
+                    if left_occluded:
+                        print(f"⚠ Sol kol {reason}")
+                    else:
+                        print(f"⚠ Sol kol net görünmüyor (güven: {left_confidence*100:.0f}%, depth: {left_depth:.3f})")
+        if hasattr(self, '_last_right_visible'):
+            if self._last_right_visible != right_arm_visible:
+                if right_arm_visible:
+                    print(f"✓ Sağ kol artık görünüyor (güven: {right_confidence*100:.0f}%, depth: {right_depth:.3f})")
+                else:
+                    reason = visibility_status['right']['occlusion_reason']
+                    if right_occluded:
+                        print(f"⚠ Sağ kol {reason}")
+                    else:
+                        print(f"⚠ Sağ kol net görünmüyor (güven: {right_confidence*100:.0f}%, depth: {right_depth:.3f})")
+        
+        self._last_left_visible = left_arm_visible
+        self._last_right_visible = right_arm_visible
+
         # Alignment
         left_alignment = self._check_arm_alignment(frame.shape, 'left')
         right_alignment = self._check_arm_alignment(frame.shape, 'right')
@@ -774,12 +863,16 @@ class BicepsCurlTracker:
         left_torso_angle = self._get_torso_angle(frame.shape, 'left')
         right_torso_angle = self._get_torso_angle(frame.shape, 'right')
 
-        # Rep counter (artık torso da geçiyor)
+        # Rep counter (artık visibility bilgisi de geçiyor)
         status = self.rep_counter.update(
             left_arm_angle, right_arm_angle,
             left_alignment, right_alignment,
             left_torso_angle=left_torso_angle,
-            right_torso_angle=right_torso_angle
+            right_torso_angle=right_torso_angle,
+            left_arm_visible=left_arm_visible,
+            right_arm_visible=right_arm_visible,
+            left_confidence=left_confidence,
+            right_confidence=right_confidence
         )
 
         # Açılar UI
@@ -928,17 +1021,39 @@ class BicepsCurlTracker:
         
         # Alignment warnings
         y_pos = 135
-        if status.get('left_alignment_warning', False):
+        
+        # Visibility warnings (higher priority than alignment)
+        if status.get('left_visibility_message'):
+            cv2.putText(frame, status['left_visibility_message'], (20, y_pos), 
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 165, 255), 1)  # Orange
+            y_pos += 15
+        
+        if status.get('right_visibility_message'):
+            cv2.putText(frame, status['right_visibility_message'], (20, y_pos), 
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 165, 255), 1)  # Orange
+            y_pos += 15
+        
+        # Show confidence scores if both arms visible
+        if status.get('left_arm_visible') and status.get('right_arm_visible'):
+            left_conf = status.get('left_avg_confidence', 0) * 100
+            right_conf = status.get('right_avg_confidence', 0) * 100
+            cv2.putText(frame, f'✓ Kollar görünüyor (L:{left_conf:.0f}% R:{right_conf:.0f}%)', 
+                       (20, y_pos), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 255, 0), 1)
+            y_pos += 15
+        
+        # Alignment warnings (if arms are visible)
+        if status.get('left_arm_visible') and status.get('left_alignment_warning', False):
             cv2.putText(frame, '⚠ Left arm not parallel', (20, y_pos), 
                        cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 1)
             y_pos += 15
         
-        if status.get('right_alignment_warning', False):
+        if status.get('right_arm_visible') and status.get('right_alignment_warning', False):
             cv2.putText(frame, '⚠ Right arm not parallel', (20, y_pos), 
                        cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 1)
             y_pos += 15
         
-        if not status.get('left_alignment_warning', False) and not status.get('right_alignment_warning', False):
+        if (status.get('left_arm_visible') and not status.get('left_alignment_warning', False) and 
+            status.get('right_arm_visible') and not status.get('right_alignment_warning', False)):
             cv2.putText(frame, '✓ Good alignment', (20, y_pos), 
                        cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1)
             y_pos += 15
@@ -1056,6 +1171,10 @@ class BicepsCurlTracker:
             'right_torso_angle_deg': round(right_torso_angle, 2) if right_torso_angle is not None else '',
             'left_aligned': int(bool(left_alignment)),
             'right_aligned': int(bool(right_alignment)),
+            'left_arm_visible': int(status.get('left_arm_visible', False)),
+            'right_arm_visible': int(status.get('right_arm_visible', False)),
+            'left_avg_confidence': round(status.get('left_avg_confidence', 0.0), 3),
+            'right_avg_confidence': round(status.get('right_avg_confidence', 0.0), 3),
             'left_reps': status.get('left_reps', 0),
             'right_reps': status.get('right_reps', 0),
             'left_correct_reps': status.get('left_correct_reps', 0),

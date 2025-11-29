@@ -130,6 +130,168 @@ class PoseDetector:
             return (x, y)
         return None
     
+    def get_landmark_visibility(self, landmark_id):
+        """
+        Get visibility/confidence score of a specific landmark
+        
+        Args:
+            landmark_id: ID of the landmark (0-32)
+            
+        Returns:
+            float: Visibility score (0.0-1.0) or None if not detected
+        """
+        if self.landmarks and landmark_id in self.landmarks:
+            return self.landmarks[landmark_id]['visibility']
+        return None
+    
+    def check_arm_visibility(self, arm_side, min_confidence=0.5):
+        """
+        Check if an arm has sufficient landmark visibility for measurement
+        
+        Args:
+            arm_side: 'left' or 'right'
+            min_confidence: Minimum confidence threshold (0.0-1.0)
+            
+        Returns:
+            tuple: (is_visible: bool, avg_confidence: float, avg_depth: float, details: dict)
+        """
+        if not self.landmarks:
+            return False, 0.0, 0.0, {}
+        
+        # Define landmark IDs for the arm
+        if arm_side == 'left':
+            shoulder_id, elbow_id, wrist_id = 11, 13, 15
+        else:  # right
+            shoulder_id, elbow_id, wrist_id = 12, 14, 16
+        
+        # Get visibility scores
+        shoulder_vis = self.get_landmark_visibility(shoulder_id)
+        elbow_vis = self.get_landmark_visibility(elbow_id)
+        wrist_vis = self.get_landmark_visibility(wrist_id)
+        
+        # Get z-coordinates (depth)
+        shoulder_z = self.landmarks[shoulder_id]['z'] if shoulder_id in self.landmarks else None
+        elbow_z = self.landmarks[elbow_id]['z'] if elbow_id in self.landmarks else None
+        wrist_z = self.landmarks[wrist_id]['z'] if wrist_id in self.landmarks else None
+        
+        # Check if all landmarks are detected
+        if None in [shoulder_vis, elbow_vis, wrist_vis, shoulder_z, elbow_z, wrist_z]:
+            return False, 0.0, 0.0, {
+                'shoulder': shoulder_vis,
+                'elbow': elbow_vis,
+                'wrist': wrist_vis,
+                'shoulder_z': shoulder_z,
+                'elbow_z': elbow_z,
+                'wrist_z': wrist_z
+            }
+        
+        # Calculate average confidence
+        avg_confidence = (shoulder_vis + elbow_vis + wrist_vis) / 3.0
+        
+        # Calculate average depth (z-coordinate)
+        avg_depth = (shoulder_z + elbow_z + wrist_z) / 3.0
+        
+        # Determine visibility (all landmarks should meet threshold)
+        is_visible = all([
+            shoulder_vis >= min_confidence,
+            elbow_vis >= min_confidence,
+            wrist_vis >= min_confidence
+        ])
+        
+        details = {
+            'shoulder': shoulder_vis,
+            'elbow': elbow_vis,
+            'wrist': wrist_vis,
+            'shoulder_z': shoulder_z,
+            'elbow_z': elbow_z,
+            'wrist_z': wrist_z
+        }
+        
+        return is_visible, avg_confidence, avg_depth, details
+    
+    def get_arms_visibility_status(self, min_confidence=0.5):
+        """
+        Get visibility status for both arms (without depth filtering)
+        
+        Args:
+            min_confidence: Minimum confidence threshold (0.0-1.0)
+            
+        Returns:
+            dict: Visibility information for both arms
+        """
+        left_visible, left_conf, left_z, left_details = self.check_arm_visibility('left', min_confidence)
+        right_visible, right_conf, right_z, right_details = self.check_arm_visibility('right', min_confidence)
+        
+        return {
+            'left': {
+                'visible': left_visible,
+                'confidence': left_conf,
+                'depth': left_z,
+                'details': left_details
+            },
+            'right': {
+                'visible': right_visible,
+                'confidence': right_conf,
+                'depth': right_z,
+                'details': right_details
+            }
+        }
+    
+    def get_arms_visibility_with_depth(self, min_confidence=0.5, depth_threshold=0.1, depth_filter_enabled=True):
+        """
+        Get visibility status for both arms with depth-based occlusion filtering
+        
+        Args:
+            min_confidence: Minimum confidence threshold (0.0-1.0)
+            depth_threshold: Minimum z-difference to consider one arm occluded (default: 0.1)
+            depth_filter_enabled: Whether to apply depth filtering (default: True)
+            
+        Returns:
+            dict: Enhanced visibility information with depth filtering
+        """
+        # Get basic visibility for both arms
+        left_visible, left_conf, left_z, left_details = self.check_arm_visibility('left', min_confidence)
+        right_visible, right_conf, right_z, right_details = self.check_arm_visibility('right', min_confidence)
+        
+        # Initialize result
+        result = {
+            'left': {
+                'visible': left_visible,
+                'confidence': left_conf,
+                'depth': left_z,
+                'details': left_details,
+                'occluded': False,
+                'occlusion_reason': ''
+            },
+            'right': {
+                'visible': right_visible,
+                'confidence': right_conf,
+                'depth': right_z,
+                'details': right_details,
+                'occluded': False,
+                'occlusion_reason': ''
+            }
+        }
+        
+        # Apply depth filtering if enabled and both arms have valid depth
+        if depth_filter_enabled and left_z > 0 and right_z > 0:
+            depth_diff = abs(left_z - right_z)
+            
+            # If depth difference exceeds threshold, mark background arm as occluded
+            if depth_diff > depth_threshold:
+                if left_z > right_z:
+                    # Left arm is farther (in background)
+                    result['left']['visible'] = False
+                    result['left']['occluded'] = True
+                    result['left']['occlusion_reason'] = f'Arkada kaldı (z:{left_z:.3f} vs {right_z:.3f})'
+                else:
+                    # Right arm is farther (in background)
+                    result['right']['visible'] = False
+                    result['right']['occluded'] = True
+                    result['right']['occlusion_reason'] = f'Arkada kaldı (z:{right_z:.3f} vs {left_z:.3f})'
+        
+        return result
+    
     def calculate_angle(self, point1, point2, point3):
         """
         Calculate angle between three points
