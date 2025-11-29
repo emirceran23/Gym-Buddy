@@ -1,0 +1,235 @@
+frame,time_s,left_cycle_index,right_cycle_index,left_state,right_state,left_angle_raw_deg,right_angle_raw_deg,left_angle_smoothed_deg,right_angle_smoothed_deg,left_torso_arm_angle_deg,right_torso_arm_angle_deg,left_aligned,right_aligned,left_reps,right_reps,left_correct_reps,right_correct_reps,left_incorrect_reps,right_incorrect_reps,total_reps,left_last_rep_reasons,right_last_rep_reasons
+1,0.033,0,0,unknown,unknown,32.76,23.84,32.76,23.84,43.24,50.99,0,0,0,0,0,0,0,0,0,,
+2,0.067,0,0,up,up,27.05,20.56,29.91,22.2,50.87,57.53,0,0,0,0,0,0,0,0,0,,
+3,0.1,0,0,up,up,25.57,18.59,28.46,20.99,51.84,55.45,0,0,0,0,0,0,0,0,0,,
+4,0.133,0,0,up,up,23.36,16.16,27.19,19.79,54.15,50.64,0,0,0,0,0,0,0,0,0,,
+5,0.167,0,0,up,up,24.4,14.7,26.63,18.77,50.92,50.51,0,0,0,0,0,0,0,0,0,,
+6,0.2,0,0,up,up,28.46,17.88,26.93,18.62,39.53,51.35,0,0,0,0,0,0,0,0,0,,
+7,0.234,0,0,up,up,27.9,16.43,27.07,18.31,40.6,54.88,0,0,0,0,0,0,0,0,0,,
+8,0.267,0,0,up,up,26.7,12.91,27.02,17.63,42.17,54.3,0,0,0,0,0,0,0,0,0,,
+9,0.3,0,0,up,up,29.66,14.02,27.32,17.23,39.35,51.89,0,0,0,0,0,0,0,0,0,,
+10,0.334,0,0,up,up,28.68,13.21,27.45,16.83,38.27,48.43,0,0,0,0,0,0,0,0,0,,
+11,0.367,0,0,up,up,25.95,9.96,27.32,16.2,40.81,47.02,0,0,0,0,0,0,0,0,0,,
+12,0.4,0,0,up,up,24.3,10.58,27.07,15.74,41.67,44.81,0,0,0,0,0,0,0,0,0,,
+13,0.434,0,0,up,up,22.77,5.5,26.23,14.21,43.62,47.09,0,0,0,0,0,0,0,0,0,,
+14,0.467,0,0,up,up,31.15,2.66,26.57,12.72,38.2,44.08,0,0,0,0,0,0,0,0,0,,
+15,0.501,0,0,up,up,36.7,5.54,27.5,11.63,36.3,41.54,0,0,0,0,0,0,0,0,0,,
+16,0.534,0,0,up,up,41.12,10.45,28.98,11.15,33.74,37.94,0,0,0,0,0,0,0,0,0,,
+17,0.567,0,0,up,up,45.44,12.64,30.73,10.98,34.56,40.27,0,0,0,0,0,0,0,0,0,,
+18,0.601,0,0,up,up,62.3,16.83,33.55,10.89,29.73,36.16,0,0,0,0,0,0,0,0,0,,
+19,0.634,0,0,transition,up,72.71,8.86,37.29,10.26,25.72,30.66,0,0,0,0,0,0,0,0,0,,
+20,0.667,0,0,transition,up,136.73,13.3,46.46,10.3,21.26,20.91,1,1,0,0,0,0,0,0,0,,
+21,0.701,0,0,transition,up,115.45,11.07,53.61,10.05,17.38,20.03,1,1,0,0,0,0,0,0,0,,
+22,0.734,0,0,transition,up,136.88,27.57,62.62,11.25,17.26,20.76,1,1,0,0,0,0,0,0,0,,
+23,0.767,0,0,transition,up,130.2,59.41,71.31,15.37,16.36,20.89,1,1,0,0,0,0,0,0,0,,
+24,0.801,0,0,transition,transition,140.71,120.93,81.01,24.56,15.04,17.18,1,1,0,0,0,0,0,0,0,,
+25,0.834,0,0,transition,transition,147.0,176.31,91.37,38.8,14.56,17.18,1,1,0,0,0,0,0,0,0,,
+26,0.868,0,0,transition,transition,148.21,93.61,101.12,46.38,14.73,18.23,1,1,0,0,0,0,0,0,0,,
+27,0.901,0,0,transition,transition,152.47,169.1,110.77,60.01,15.52,17.57,1,1,0,0,0,0,0,0,0,,
+28,0.934,0,0,transition,down,151.53,165.39,119.97,,15.11,17.72,1,1,0,0,0,0,0,0,0,,Torso angle exceeded 30° (3-frame avg) during rep cycle
+29,0.968,0,0,transition,down,155.39,167.16,129.13,167.16,14.75,17.18,1,1,0,0,0,0,0,0,0,,Torso angle exceeded 30° (3-frame avg) during rep cycle
+30,1.001,0,0,transition,down,161.85,172.22,137.43,169.69,14.13,17.16,1,1,0,0,0,0,0,0,0,,Torso angle exceeded 30° (3-frame avg) during rep cycle
+31,1.034,0,0,down,down,164.78,177.93,,172.44,14.07,17.99,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+32,1.068,0,0,down,down,173.43,176.13,173.43,173.36,16.03,19.33,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+33,1.101,0,0,down,down,172.98,177.57,173.2,174.2,14.96,18.49,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+34,1.134,0,0,down,down,170.58,179.75,172.33,175.13,15.25,19.43,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+35,1.168,0,0,down,down,169.88,177.78,171.72,175.51,15.78,19.73,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+36,1.201,0,0,down,down,173.42,175.57,172.06,175.51,16.27,18.51,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+37,1.235,0,0,down,down,179.84,177.38,173.35,175.72,16.3,18.56,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+38,1.268,0,0,down,down,175.75,173.75,173.7,175.52,16.95,18.48,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+39,1.301,0,0,down,down,176.33,177.21,174.02,175.68,16.96,18.27,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+40,1.335,0,0,down,down,177.11,179.54,174.37,176.0,16.28,18.66,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+41,1.368,0,0,down,down,176.54,177.77,174.59,176.88,16.25,17.44,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+42,1.401,0,0,down,down,169.38,165.9,174.11,176.36,15.84,17.86,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+43,1.435,0,0,down,down,179.3,179.41,174.54,176.48,15.7,17.9,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+44,1.468,0,0,down,down,172.48,173.43,174.47,176.25,15.2,19.3,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+45,1.502,0,0,down,down,172.75,174.97,174.45,176.04,15.27,19.62,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+46,1.535,0,0,down,down,173.14,174.69,174.66,175.62,15.87,19.61,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+47,1.568,0,0,down,down,170.63,165.31,174.72,174.58,15.67,17.79,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+48,1.602,0,0,down,down,167.71,178.84,174.25,174.85,17.05,17.7,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+49,1.635,0,0,down,down,157.89,179.4,172.42,175.02,16.28,18.57,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+50,1.668,0,0,transition,down,153.88,172.17,170.6,174.89,17.38,17.98,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+51,1.702,0,0,transition,down,151.17,83.19,168.5,167.05,18.31,20.0,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+52,1.735,0,0,transition,transition,145.27,68.73,165.85,157.82,17.13,19.77,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+53,1.768,0,0,transition,transition,157.82,75.65,164.29,149.31,18.95,18.9,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+54,1.802,0,0,transition,transition,137.69,72.21,161.65,141.5,19.36,19.87,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+55,1.835,0,0,transition,transition,59.08,56.61,151.63,131.27,18.78,20.18,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+56,1.869,0,0,transition,transition,117.48,30.89,147.04,119.39,18.41,20.19,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+57,1.902,0,0,transition,up,61.81,33.04,137.8,107.56,18.24,19.63,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+58,1.935,0,0,transition,up,69.9,24.76,129.19,95.07,17.99,17.25,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+59,1.969,0,0,transition,up,44.77,20.38,118.71,82.99,17.96,17.77,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+60,2.002,0,0,transition,up,20.89,19.95,106.47,69.75,18.05,18.97,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+61,2.035,0,0,up,up,0.54,17.01,93.36,56.21,19.37,16.86,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+62,2.069,0,0,up,up,13.82,11.76,81.69,42.85,20.95,15.82,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+63,2.102,0,0,up,up,12.15,12.01,70.1,36.92,21.4,16.84,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+64,2.135,0,0,up,up,16.83,17.45,59.4,32.64,22.13,15.1,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+65,2.169,0,0,up,up,15.84,15.95,47.57,27.67,22.4,17.55,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+66,2.202,0,0,up,up,16.29,19.12,37.45,23.24,22.93,13.34,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+67,2.236,0,0,up,up,18.6,7.96,34.08,19.19,24.68,16.68,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+68,2.269,0,0,up,up,22.08,1.83,26.13,16.77,25.41,17.38,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+69,2.302,0,0,up,up,22.43,2.77,22.85,14.25,25.82,20.45,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+70,2.336,0,0,up,up,22.55,4.81,18.9,12.58,26.83,20.13,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+71,2.369,0,0,up,up,23.31,5.89,17.11,11.38,27.38,20.71,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+72,2.402,0,0,up,up,23.28,4.12,17.31,10.06,27.93,20.47,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+73,2.436,0,0,up,up,24.04,3.55,19.27,8.94,28.68,18.83,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+74,2.469,0,0,up,up,25.91,0.8,20.28,8.02,28.42,18.13,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+75,2.502,0,0,up,up,25.9,4.2,21.42,7.37,29.82,19.83,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+76,2.536,0,0,up,up,25.83,3.69,22.17,6.22,29.87,20.6,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+77,2.569,0,0,up,up,27.22,6.05,23.12,5.4,29.92,19.53,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+78,2.603,0,0,up,up,27.35,7.24,24.04,4.41,30.43,18.72,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+79,2.636,0,0,up,up,26.76,6.27,24.72,4.27,29.62,16.3,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+80,2.669,0,0,up,up,25.81,5.11,25.03,4.54,30.15,17.56,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+81,2.703,0,0,up,up,25.65,4.74,25.3,4.71,29.32,18.14,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+82,2.736,0,0,up,up,26.51,9.77,25.63,5.12,29.82,19.3,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+83,2.769,0,0,up,up,27.29,6.52,25.96,5.17,29.14,18.14,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+84,2.803,0,0,up,up,25.31,4.79,26.13,5.23,28.99,18.95,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+85,2.836,0,0,up,up,25.24,7.05,26.23,5.52,28.29,19.53,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+86,2.87,0,0,up,up,24.43,8.28,26.11,6.14,27.94,18.8,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+87,2.903,0,0,up,up,24.59,6.28,26.0,6.32,27.05,18.27,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+88,2.936,0,0,up,up,21.21,6.09,25.61,6.52,26.95,18.57,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+89,2.97,0,0,up,up,20.59,6.76,25.06,6.58,25.65,19.14,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+90,3.003,0,0,up,up,20.62,3.29,24.5,6.25,24.9,19.19,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+91,3.036,0,0,up,up,16.94,1.34,23.68,5.84,24.55,18.21,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+92,3.07,0,0,up,up,16.49,0.74,22.91,5.47,24.25,18.73,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+93,3.103,0,0,up,up,15.23,1.18,22.04,5.17,22.52,18.86,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+94,3.136,0,0,up,up,15.08,5.78,21.08,4.84,21.37,18.3,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+95,3.17,0,0,up,up,14.82,2.86,20.05,4.54,20.15,14.36,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+96,3.203,0,0,up,up,17.72,5.39,19.41,4.59,20.3,14.26,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+97,3.237,0,0,up,up,7.6,11.56,17.94,4.96,18.75,12.72,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+98,3.27,0,0,up,up,28.34,16.0,18.27,5.61,17.8,16.37,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+99,3.303,0,0,up,up,76.48,14.14,22.59,6.26,17.06,18.22,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+100,3.337,0,0,up,up,17.84,19.88,22.31,7.41,16.56,18.87,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+101,3.37,0,0,up,up,42.6,22.91,24.15,8.76,16.22,18.86,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+102,3.403,0,0,up,up,77.65,26.99,28.9,10.73,15.83,19.93,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+103,3.437,0,0,up,up,146.86,42.8,39.73,14.19,18.38,20.31,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+104,3.47,0,0,up,up,160.68,64.23,51.74,19.48,18.47,21.12,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+105,3.504,0,0,up,up,145.76,65.82,62.62,24.86,17.75,21.18,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+106,3.537,0,0,up,transition,145.5,67.67,73.49,30.02,17.81,19.7,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+107,3.57,0,0,transition,transition,149.16,75.59,84.68,36.08,16.47,19.91,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+108,3.604,0,0,transition,transition,158.04,152.81,96.38,48.37,19.13,17.98,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+109,3.637,0,0,transition,transition,157.56,178.34,108.87,62.27,17.91,17.55,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+110,3.67,0,0,transition,transition,158.39,173.04,119.71,75.35,16.94,18.05,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,Torso angle exceeded 30° (3-frame avg) during rep cycle
+111,3.704,0,1,transition,down,160.12,179.04,126.68,,15.25,18.74,1,1,0,1,0,1,0,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+112,3.737,1,1,down,down,164.47,179.53,,179.53,17.16,18.63,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+113,3.77,1,1,down,down,168.98,171.05,168.98,175.29,16.19,19.25,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+114,3.804,1,1,down,down,173.23,172.64,171.11,174.41,16.91,19.34,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+115,3.837,1,1,down,down,174.4,168.51,172.2,172.93,17.97,19.69,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+116,3.871,1,1,down,down,171.66,172.16,172.07,172.78,16.99,21.59,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+117,3.904,1,1,down,down,172.6,173.28,172.17,172.86,16.96,21.34,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+118,3.937,1,1,down,down,174.47,169.58,172.56,172.39,18.26,19.49,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+119,3.971,1,1,down,down,175.92,170.05,173.04,172.1,19.43,19.52,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+120,4.004,1,1,down,down,178.19,172.61,173.68,172.16,18.8,19.65,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+121,4.037,1,1,down,down,171.02,174.28,173.39,172.37,18.82,19.85,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+122,4.071,1,1,down,down,167.49,170.41,172.8,172.19,18.56,20.15,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+123,4.104,1,1,down,down,169.79,171.49,172.52,172.13,18.49,20.18,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+124,4.137,1,1,down,down,170.66,175.06,172.37,171.76,18.36,19.57,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+125,4.171,1,1,down,down,170.8,178.65,172.52,172.39,17.87,19.79,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+126,4.204,1,1,down,down,170.4,172.2,172.28,172.36,17.31,20.67,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+127,4.238,1,1,down,down,169.4,173.97,171.87,172.81,17.54,21.1,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+128,4.271,1,1,down,down,169.93,170.0,171.72,172.63,17.7,20.04,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+129,4.304,1,1,down,down,172.73,159.99,171.73,171.52,17.63,20.12,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+130,4.338,1,1,down,down,176.47,150.63,171.9,169.94,16.97,19.55,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+131,4.371,1,1,down,down,173.49,169.17,171.7,169.87,17.65,20.47,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+132,4.404,1,1,down,down,174.23,164.96,171.37,169.23,17.21,21.87,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+133,4.438,1,1,down,down,174.92,171.08,171.69,168.97,17.08,21.28,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+134,4.471,1,1,down,down,176.04,161.98,172.4,168.27,16.18,21.26,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+135,4.505,1,1,down,down,166.41,175.42,172.12,168.59,16.67,20.64,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+136,4.538,1,1,down,down,160.06,176.52,171.24,168.71,16.46,20.44,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+137,4.571,1,1,down,down,157.04,171.94,170.09,168.16,18.52,19.77,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+138,4.605,1,1,down,down,151.61,137.23,168.53,165.24,18.9,20.26,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+139,4.638,1,1,transition,down,151.6,116.65,167.04,160.46,19.3,20.1,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+140,4.671,1,1,transition,transition,147.51,78.51,165.18,152.84,20.2,19.5,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+141,4.705,1,1,transition,transition,144.31,70.9,162.81,145.42,19.8,20.32,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+142,4.738,1,1,transition,transition,143.21,60.53,160.04,137.91,19.97,21.42,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+143,4.771,1,1,transition,transition,50.28,56.16,149.77,128.49,19.98,22.31,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+144,4.805,1,1,transition,transition,83.91,37.16,142.24,117.84,19.77,22.21,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+145,4.838,1,1,transition,transition,20.39,32.24,129.37,106.27,18.52,21.94,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+146,4.872,1,1,transition,up,5.32,29.03,115.14,95.19,18.84,21.59,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+147,4.905,1,1,transition,up,69.2,30.38,107.04,83.11,19.07,21.99,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+148,4.938,1,1,transition,up,7.93,29.28,94.36,70.84,18.87,21.55,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+149,4.972,1,1,transition,up,41.66,28.88,84.75,58.91,19.25,21.63,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+150,5.005,1,1,up,up,3.53,20.44,72.4,49.18,19.37,20.61,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+151,5.038,1,1,up,up,7.61,20.18,60.41,41.14,19.01,20.63,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+152,5.072,1,1,up,up,9.99,13.1,48.95,35.69,19.76,20.26,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+153,5.105,1,1,up,up,8.63,11.08,37.64,30.71,19.62,20.94,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+154,5.138,1,1,up,up,13.66,10.31,26.84,26.52,20.35,21.59,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+155,5.172,1,1,up,up,7.56,11.42,23.28,22.79,20.91,20.97,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+156,5.205,1,1,up,up,7.59,7.23,16.92,20.3,21.29,20.49,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+157,5.239,1,1,up,up,6.17,7.68,15.74,18.25,20.93,20.92,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+158,5.272,1,1,up,up,8.67,14.5,16.02,17.04,21.13,21.36,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+159,5.305,1,1,up,up,0.64,8.77,10.3,15.24,21.11,20.9,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+160,5.339,1,1,up,up,7.53,14.72,10.27,14.03,20.9,21.2,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+161,5.372,1,1,up,up,9.65,4.78,7.6,12.02,21.36,19.99,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+162,5.405,1,1,up,up,10.95,2.05,8.22,10.49,21.42,19.52,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+163,5.439,1,1,up,up,11.58,0.13,8.55,8.81,21.53,19.66,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+164,5.472,1,1,up,up,3.11,5.91,7.98,8.22,21.71,18.63,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+165,5.506,1,1,up,up,10.55,4.86,8.14,7.7,21.37,18.78,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+166,5.539,1,1,up,up,12.2,4.97,8.02,7.25,21.26,19.58,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+167,5.572,1,1,up,up,12.52,3.1,8.43,6.56,21.56,20.22,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+168,5.606,1,1,up,up,15.1,3.3,9.06,6.23,21.24,20.58,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+169,5.639,1,1,up,up,15.53,0.26,9.84,5.61,21.66,20.95,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+170,5.672,1,1,up,up,14.08,0.82,10.29,4.47,22.42,21.64,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+171,5.706,1,1,up,up,13.18,2.41,11.33,3.94,22.75,21.81,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+172,5.739,1,1,up,up,13.48,0.42,11.83,2.75,22.96,20.86,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+173,5.772,1,1,up,up,13.82,3.78,12.18,2.67,23.72,20.78,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+174,5.806,1,1,up,up,15.32,2.53,12.54,2.71,24.54,19.76,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+175,5.839,1,1,up,up,16.07,8.41,12.91,3.4,25.02,18.64,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+176,5.873,1,1,up,up,14.13,1.52,13.83,3.03,25.76,20.95,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+177,5.906,1,1,up,up,18.0,3.35,14.45,2.91,26.34,19.01,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+178,5.939,1,1,up,up,17.98,2.97,14.93,2.74,26.97,19.67,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+179,5.973,1,1,up,up,22.28,7.09,15.75,3.07,27.2,17.77,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+180,6.006,1,1,up,up,22.23,4.3,16.34,3.15,28.7,20.09,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+181,6.039,1,1,up,up,23.17,2.58,16.98,3.35,29.02,21.84,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+182,6.073,1,1,up,up,23.15,2.66,17.73,3.5,29.29,19.98,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+183,6.106,1,1,up,up,22.61,4.49,18.52,3.68,29.85,22.0,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+184,6.139,1,1,up,up,25.79,3.78,19.55,3.96,30.29,23.46,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+185,6.173,1,1,up,up,26.53,3.81,20.6,3.96,30.57,22.44,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+186,6.206,1,1,up,up,26.95,4.6,21.57,4.13,30.67,22.47,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+187,6.24,1,1,up,up,27.49,8.12,22.53,4.11,31.31,21.97,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+188,6.273,1,1,up,up,27.25,9.81,23.62,4.8,31.82,22.11,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+189,6.306,1,1,up,up,27.35,11.82,24.4,5.5,31.82,23.52,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+190,6.34,1,1,up,up,27.31,12.58,25.17,6.3,32.18,23.58,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+191,6.373,1,1,up,up,27.16,12.09,25.58,6.72,32.06,22.75,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+192,6.406,1,1,up,up,27.22,12.1,26.0,7.37,32.06,22.63,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+193,6.44,1,1,up,up,27.16,13.19,26.33,8.26,31.78,23.46,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+194,6.473,1,1,up,up,27.23,12.05,26.67,9.04,31.79,23.21,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+195,6.506,1,1,up,up,26.62,11.07,27.0,9.59,30.78,22.46,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+196,6.54,1,1,up,up,26.96,9.46,27.1,10.06,30.52,21.62,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+197,6.573,1,1,up,up,27.65,6.75,27.2,10.3,30.21,22.54,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+198,6.607,1,1,up,up,27.73,7.22,27.26,10.52,29.66,22.84,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+199,6.64,1,1,up,up,25.56,4.47,27.1,10.22,28.91,21.8,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+200,6.673,1,1,up,up,23.75,2.2,26.81,9.58,27.89,21.52,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+201,6.707,1,1,up,up,23.25,3.32,26.47,8.88,27.36,21.52,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+202,6.74,1,1,up,up,20.67,3.0,25.91,8.08,27.31,19.51,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+203,6.773,1,1,up,up,20.82,4.63,25.38,7.46,27.2,18.61,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+204,6.807,1,1,up,up,19.68,4.31,24.76,6.81,26.58,18.76,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+205,6.84,1,1,up,up,16.79,5.16,23.89,6.14,26.23,19.32,0,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+206,6.874,1,1,up,up,18.28,7.07,23.15,5.72,24.91,18.92,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+207,6.907,1,1,up,up,18.99,2.83,22.51,5.04,23.61,17.81,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+208,6.94,1,1,up,up,22.24,9.73,22.12,5.06,22.63,17.57,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+209,6.974,1,1,up,up,22.63,0.68,21.7,4.55,21.85,14.23,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+210,7.007,1,1,up,up,15.02,0.16,20.64,3.96,21.76,13.35,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+211,7.04,1,1,up,up,54.39,6.83,23.04,4.16,17.27,13.76,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+212,7.074,1,1,up,up,71.88,9.79,27.05,4.79,17.94,16.48,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+213,7.107,1,1,transition,up,71.84,26.51,31.1,6.73,17.74,18.19,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+214,7.14,1,1,transition,up,18.46,31.84,30.92,9.13,18.61,18.72,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+215,7.174,1,1,transition,up,174.0,39.54,43.68,12.04,20.18,20.64,1,1,1,1,0,1,1,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+216,7.207,2,1,down,up,164.75,57.47,,16.47,20.57,21.34,1,1,2,1,0,1,2,0,3,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+217,7.241,2,1,down,transition,170.18,64.28,170.18,21.39,19.37,20.18,1,1,2,1,0,1,2,0,3,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+218,7.274,2,1,down,transition,151.29,65.99,160.73,26.3,19.56,19.72,1,1,2,1,0,1,2,0,3,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+219,7.307,2,1,down,transition,158.35,80.9,159.94,32.81,17.82,20.11,1,1,2,1,0,1,2,0,3,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+220,7.341,2,1,down,transition,161.68,164.56,160.38,45.71,19.29,18.72,1,1,2,1,0,1,2,0,3,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+221,7.374,2,1,down,transition,165.4,174.93,161.38,60.23,18.06,17.99,1,1,2,1,0,1,2,0,3,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+222,7.407,2,2,down,down,166.72,179.59,162.27,,17.72,19.13,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+223,7.441,2,2,down,down,172.76,173.41,163.77,173.41,18.93,19.34,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+224,7.474,2,2,down,down,179.83,168.34,165.78,170.87,17.82,19.76,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+225,7.508,2,2,down,down,178.32,167.36,167.17,169.7,20.48,19.97,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+226,7.541,2,2,down,down,174.95,166.69,167.95,168.95,18.62,20.75,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+227,7.574,2,2,down,down,174.25,169.05,168.52,168.97,19.13,20.88,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+228,7.608,2,2,down,down,176.71,165.72,169.2,168.43,19.85,21.04,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+229,7.641,2,2,down,down,176.32,165.67,169.72,168.03,19.95,20.77,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+230,7.674,2,2,down,down,175.08,164.49,171.7,167.59,19.14,20.57,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+231,7.708,2,2,down,down,176.04,167.97,173.17,167.63,18.45,20.23,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+232,7.741,2,2,down,down,174.35,168.44,174.23,167.71,19.11,20.14,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+233,7.774,2,2,down,down,174.56,170.0,174.99,167.92,19.12,19.97,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+234,7.808,2,2,down,down,176.17,169.63,175.78,168.06,19.31,20.17,1,1,2,2,0,2,2,0,4,Torso angle exceeded 30° (3-frame avg) during rep cycle,
