@@ -23,23 +23,25 @@ warnings.filterwarnings('ignore')
 
 def extract_features(csv_path):
     """
-    Extract 14 comprehensive features from a single CSV file.
+    Extract 16 comprehensive features from a single CSV file.
     
     Features:
     1. ROM (Range of Motion) - Active arm
-    2. Torso Stability Left - Std dev of left torso angle
-    3. Tempo/Duration - Total time
-    4. Symmetry - Absolute difference between left/right ROM
-    5. Torso Stability Right - Std dev of right torso angle
-    6. Bilateral Torso Stability - Mean of both torso stabilities
-    7. Alignment Consistency - % frames with good alignment
-    8. Movement Smoothness - Jerkiness metric
-    9. Peak Flexion Angle - Minimum angle (full contraction)
-    10. Peak Extension Angle - Maximum angle (full extension)
-    11. Total Reps - Number of repetitions
-    12. Correct Rep Ratio - Proportion of correct reps
-    13. Angle Consistency (CV) - Coefficient of variation
-    14. Frame Count - Total frames in video
+    2. True Torso Stability Left Mean - Mean angle from vertical
+    3. True Torso Stability Left Std - Body movement variation
+    4. Tempo/Duration - Total time
+    5. Symmetry - Absolute difference between left/right ROM
+    6. True Torso Stability Right Mean - Mean angle from vertical
+    7. True Torso Stability Right Std - Body movement variation
+    8. Bilateral True Torso Mean - Average body angle from vertical
+    9. Bilateral True Torso Std - Average body movement
+    10. Movement Smoothness - Jerkiness metric
+    11. Peak Flexion Angle - Minimum angle (full contraction)
+    12. Peak Extension Angle - Maximum angle (full extension)
+    13. Total Reps - Number of repetitions
+    14. Correct Rep Ratio - Proportion of correct reps
+    15. Angle Consistency (CV) - Coefficient of variation
+    16. Frame Count - Total frames in video
     
     Args:
         csv_path (str): Path to CSV file
@@ -54,8 +56,16 @@ def extract_features(csv_path):
         # Handle missing values
         left_angle = df['left_angle_smoothed_deg'].dropna()
         right_angle = df['right_angle_smoothed_deg'].dropna()
-        left_torso = df['left_torso_arm_angle_deg'].dropna()
-        right_torso = df['right_torso_arm_angle_deg'].dropna()
+        
+        # Check if we have new format (with true torso angles) or old format
+        if 'left_true_torso_angle_deg' in df.columns:
+            # New format - use true torso angles for stability
+            left_true_torso = df['left_true_torso_angle_deg'].dropna()
+            right_true_torso = df['right_true_torso_angle_deg'].dropna()
+        else:
+            # Old format - fall back to elbow alignment angles (will be less effective)
+            left_true_torso = df['left_torso_arm_angle_deg'].dropna() if 'left_torso_arm_angle_deg' in df.columns else pd.Series([0])
+            right_true_torso = df['right_torso_arm_angle_deg'].dropna() if 'right_torso_arm_angle_deg' in df.columns else pd.Series([0])
         
         # Calculate ROM for both arms
         left_rom = left_angle.max() - left_angle.min() if len(left_angle) > 0 else 0
@@ -68,27 +78,32 @@ def extract_features(csv_path):
         # 1. ROM - Range of Motion
         rom = active_arm_rom
         
-        # 2. Torso Stability Left
-        torso_stability_left = left_torso.std() if len(left_torso) > 0 else 0
+        # 2. True Torso Stability Left (mean angle from vertical)
+        true_torso_stability_left_mean = left_true_torso.mean() if len(left_true_torso) > 0 else 0
         
-        # 3. Tempo/Duration
+        # 3. True Torso Stability Left (std dev - body movement)
+        true_torso_stability_left_std = left_true_torso.std() if len(left_true_torso) > 0 else 0
+        
+        # 4. Tempo/Duration
         tempo = df['time_s'].max() - df['time_s'].min() if len(df) > 0 else 0
         
-        # 4. Symmetry
+        # 5. Symmetry
         symmetry = abs(left_rom - right_rom)
         
-        # 5. Torso Stability Right
-        torso_stability_right = right_torso.std() if len(right_torso) > 0 else 0
+        # 6. True Torso Stability Right (mean angle from vertical)
+        true_torso_stability_right_mean = right_true_torso.mean() if len(right_true_torso) > 0 else 0
         
-        # 6. Bilateral Torso Stability
-        bilateral_torso_stability = (torso_stability_left + torso_stability_right) / 2
+        # 7. True Torso Stability Right (std dev - body movement)
+        true_torso_stability_right_std = right_true_torso.std() if len(right_true_torso) > 0 else 0
         
-        # 7. Alignment Consistency
-        left_aligned = df['left_aligned'].sum() / len(df) if len(df) > 0 else 0
-        right_aligned = df['right_aligned'].sum() / len(df) if len(df) > 0 else 0
-        alignment_consistency = (left_aligned + right_aligned) / 2
+        # 8. Bilateral True Torso Stability (mean)
+        bilateral_true_torso_mean = (true_torso_stability_left_mean + true_torso_stability_right_mean) / 2
         
-        # 8. Movement Smoothness (jerkiness metric)
+        # 9. Bilateral True Torso Stability (std dev)
+        bilateral_true_torso_std = (true_torso_stability_left_std + true_torso_stability_right_std) / 2
+        
+        
+        # 10. Movement Smoothness (jerkiness metric)
         left_raw = df['left_angle_raw_deg'].dropna()
         left_smooth = df['left_angle_smoothed_deg'].dropna()
         right_raw = df['right_angle_raw_deg'].dropna()
@@ -99,36 +114,38 @@ def extract_features(csv_path):
         right_jerk = abs(right_raw - right_smooth).mean() if len(right_raw) > 0 and len(right_smooth) > 0 else 0
         movement_smoothness = (left_jerk + right_jerk) / 2
         
-        # 9. Peak Flexion Angle (minimum - full contraction)
+        # 11. Peak Flexion Angle (minimum - full contraction)
         peak_flexion = active_angle.min() if len(active_angle) > 0 else 0
         
-        # 10. Peak Extension Angle (maximum - full extension)
+        # 12. Peak Extension Angle (maximum - full extension)
         peak_extension = active_angle.max() if len(active_angle) > 0 else 0
         
-        # 11. Total Reps
+        # 13. Total Reps
         total_reps = df['total_reps'].max() if 'total_reps' in df.columns else 0
         
-        # 12. Correct Rep Ratio
+        # 14. Correct Rep Ratio
         left_correct = df['left_correct_reps'].max() if 'left_correct_reps' in df.columns else 0
         right_correct = df['right_correct_reps'].max() if 'right_correct_reps' in df.columns else 0
         total_possible_reps = total_reps * 2 if total_reps > 0 else 1  # Avoid division by zero
         correct_rep_ratio = (left_correct + right_correct) / total_possible_reps if total_possible_reps > 0 else 0
         
-        # 13. Angle Consistency (Coefficient of Variation)
+        # 15. Angle Consistency (Coefficient of Variation)
         angle_cv = (active_angle.std() / active_angle.mean()) if len(active_angle) > 0 and active_angle.mean() != 0 else 0
         
-        # 14. Frame Count
+        # 16. Frame Count
         frame_count = len(df)
         
         # Return feature dictionary
         features = {
             'rom': rom,
-            'torso_stability_left': torso_stability_left,
+            'true_torso_stability_left_mean': true_torso_stability_left_mean,
+            'true_torso_stability_left_std': true_torso_stability_left_std,
             'tempo': tempo,
             'symmetry': symmetry,
-            'torso_stability_right': torso_stability_right,
-            'bilateral_torso_stability': bilateral_torso_stability,
-            'alignment_consistency': alignment_consistency,
+            'true_torso_stability_right_mean': true_torso_stability_right_mean,
+            'true_torso_stability_right_std': true_torso_stability_right_std,
+            'bilateral_true_torso_mean': bilateral_true_torso_mean,
+            'bilateral_true_torso_std': bilateral_true_torso_std,
             'movement_smoothness': movement_smoothness,
             'peak_flexion': peak_flexion,
             'peak_extension': peak_extension,
@@ -137,6 +154,7 @@ def extract_features(csv_path):
             'angle_cv': angle_cv,
             'frame_count': frame_count
         }
+
         
         return features
         

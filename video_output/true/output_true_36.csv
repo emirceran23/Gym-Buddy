@@ -1,0 +1,94 @@
+frame,time_s,left_cycle_index,right_cycle_index,left_state,right_state,left_angle_raw_deg,right_angle_raw_deg,left_angle_smoothed_deg,right_angle_smoothed_deg,left_torso_arm_angle_deg,right_torso_arm_angle_deg,left_aligned,right_aligned,left_reps,right_reps,left_correct_reps,right_correct_reps,left_incorrect_reps,right_incorrect_reps,total_reps,left_last_rep_reasons,right_last_rep_reasons
+1,0.033,0,0,unknown,unknown,21.48,57.89,21.48,57.89,22.4,19.07,1,1,0,0,0,0,0,0,0,,
+2,0.067,0,0,up,transition,33.45,60.67,27.46,59.28,23.17,20.34,1,1,0,0,0,0,0,0,0,,
+3,0.1,0,0,up,transition,33.95,65.73,29.62,61.43,23.54,18.67,1,1,0,0,0,0,0,0,0,,
+4,0.133,0,0,up,transition,47.13,69.63,34.0,63.48,25.95,18.38,0,1,0,0,0,0,0,0,0,,
+5,0.167,0,0,up,transition,57.18,73.15,38.64,65.41,24.72,18.75,1,1,0,0,0,0,0,0,0,,
+6,0.2,0,0,up,transition,71.36,82.37,44.09,68.24,25.6,18.24,0,1,0,0,0,0,0,0,0,,
+7,0.233,0,0,transition,transition,73.33,93.26,48.27,71.81,25.21,17.73,0,1,0,0,0,0,0,0,0,,
+8,0.267,0,0,transition,transition,86.54,96.88,53.05,74.95,25.88,18.46,0,1,0,0,0,0,0,0,0,,
+9,0.3,0,0,transition,transition,85.75,105.91,56.69,78.39,24.37,18.61,1,1,0,0,0,0,0,0,0,,
+10,0.333,0,0,transition,transition,90.59,117.16,60.08,82.27,25.76,17.71,1,1,0,0,0,0,0,0,0,,
+11,0.367,0,0,transition,transition,96.32,123.06,63.37,85.97,26.06,15.82,0,1,0,0,0,0,0,0,0,,
+12,0.4,0,0,transition,transition,111.99,128.45,67.42,89.51,25.89,16.29,1,1,0,0,0,0,0,0,0,,
+13,0.433,0,0,transition,transition,125.3,139.48,76.07,96.31,25.2,17.4,1,1,0,0,0,0,0,0,0,,
+14,0.467,0,0,transition,transition,127.42,142.5,83.91,103.13,26.12,18.77,1,1,0,0,0,0,0,0,0,,
+15,0.5,0,0,transition,transition,128.89,144.88,91.82,109.73,27.83,17.28,0,1,0,0,0,0,0,0,0,,
+16,0.533,0,0,transition,transition,132.38,146.92,98.92,116.17,28.34,16.79,0,1,0,0,0,0,0,0,0,,
+17,0.567,0,0,transition,transition,136.17,152.32,105.5,122.77,28.1,16.63,0,1,0,0,0,0,0,0,0,,
+18,0.6,0,0,transition,transition,137.41,154.13,111.01,128.75,28.37,15.74,0,1,0,0,0,0,0,0,0,,
+19,0.633,0,0,transition,transition,144.56,156.32,116.94,134.0,27.83,15.42,0,1,0,0,0,0,0,0,0,,
+20,0.667,0,0,transition,transition,147.81,156.12,122.05,138.94,26.8,14.13,0,1,0,0,0,0,0,0,0,,
+21,0.7,0,0,transition,transition,149.48,157.73,127.36,143.26,27.39,13.73,0,1,0,0,0,0,0,0,0,,
+22,0.733,0,0,transition,transition,150.74,162.03,132.37,147.0,27.61,13.56,0,1,0,0,0,0,0,0,0,,
+23,0.767,0,0,transition,transition,153.59,163.74,137.14,150.39,27.19,13.4,0,1,0,0,0,0,0,0,0,,
+24,0.8,0,0,transition,down,158.18,163.88,140.99,,27.7,12.23,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+25,0.833,0,0,transition,down,158.18,166.82,143.73,166.82,27.97,11.63,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+26,0.867,0,0,transition,down,159.24,168.85,146.39,167.83,28.45,11.83,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+27,0.9,0,0,transition,down,161.23,173.74,149.08,169.8,28.14,11.57,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+28,0.933,0,0,transition,down,161.79,175.29,151.53,171.17,28.64,11.28,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+29,0.967,0,0,down,down,164.16,178.35,,172.61,29.39,10.7,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+30,1.0,0,0,down,down,164.16,179.32,164.16,173.73,29.73,11.25,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+31,1.033,0,0,down,down,164.97,177.95,164.56,174.33,30.2,13.09,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+32,1.067,0,0,down,down,166.44,179.14,165.19,174.93,29.38,11.35,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+33,1.1,0,0,down,down,165.83,179.95,165.35,175.49,29.53,10.89,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+34,1.133,0,0,down,down,168.0,177.82,165.88,175.72,28.87,9.23,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+35,1.167,0,0,down,down,167.5,178.52,166.15,175.98,29.0,9.27,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+36,1.2,0,0,down,down,166.94,178.48,166.26,176.19,29.22,9.23,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+37,1.233,0,0,down,down,166.51,178.47,166.29,177.16,28.97,9.97,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+38,1.267,0,0,down,down,164.27,179.35,166.07,178.03,29.56,9.97,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+39,1.3,0,0,down,down,164.61,177.11,165.92,178.31,29.15,9.2,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+40,1.333,0,0,down,down,162.65,179.04,165.62,178.63,30.03,11.39,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+41,1.367,0,0,down,down,162.85,175.18,165.39,178.36,29.67,10.06,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+42,1.4,0,0,down,down,159.61,172.84,165.01,177.82,29.76,10.76,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+43,1.433,0,0,transition,down,156.99,171.54,164.35,177.29,29.21,12.11,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+44,1.467,0,0,transition,down,154.12,166.98,163.32,176.27,29.43,12.68,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+45,1.5,0,0,transition,down,149.77,163.51,161.98,174.9,29.94,14.08,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+46,1.533,0,0,transition,down,147.15,159.56,160.25,173.38,29.04,13.74,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+47,1.567,0,0,transition,transition,143.11,150.66,158.22,171.06,29.55,13.59,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+48,1.6,0,0,transition,transition,135.53,147.65,155.6,168.49,29.86,14.21,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+49,1.633,0,0,transition,transition,131.42,147.21,152.67,165.89,29.44,16.14,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+50,1.667,0,0,transition,transition,126.75,141.39,149.55,162.72,28.64,16.35,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+51,1.7,0,0,transition,transition,119.41,136.28,145.78,159.32,26.34,16.83,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+52,1.733,0,0,transition,transition,107.65,130.76,141.2,155.3,25.7,17.55,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+53,1.767,0,0,transition,transition,102.61,121.13,136.18,150.79,25.84,16.15,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+54,1.8,0,0,transition,transition,84.91,115.09,129.95,145.98,25.56,18.71,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+55,1.833,0,0,transition,transition,64.8,104.5,122.27,140.39,24.78,19.83,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+56,1.867,0,0,transition,transition,65.78,92.09,114.91,134.15,24.15,17.99,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+57,1.9,0,0,transition,transition,54.4,88.06,106.96,127.87,25.92,18.24,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+58,1.933,0,0,transition,transition,57.24,78.6,99.47,121.12,24.69,18.1,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+59,1.967,0,0,transition,transition,40.82,72.22,90.94,114.58,23.13,18.59,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+60,2.0,0,0,transition,transition,37.93,67.86,82.81,107.93,22.52,17.71,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+61,2.033,0,0,up,transition,27.77,61.98,74.17,100.83,22.22,16.49,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+62,2.067,0,0,up,transition,27.5,60.39,65.9,94.08,22.99,16.69,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+63,2.1,0,0,up,transition,21.28,57.43,57.73,87.51,22.68,15.67,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+64,2.133,0,0,up,transition,18.99,57.81,50.34,81.43,22.58,15.47,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+65,2.167,0,0,up,transition,17.94,58.45,43.28,76.21,22.08,15.5,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+66,2.2,0,0,up,transition,28.13,62.01,38.55,71.78,23.9,16.82,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+67,2.233,0,0,up,transition,26.95,63.58,35.4,68.37,23.03,14.82,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+68,2.267,0,0,up,transition,19.1,66.78,31.51,66.26,22.38,15.9,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+69,2.3,0,0,up,transition,33.47,71.46,29.76,64.88,23.23,16.29,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+70,2.333,0,0,up,transition,45.84,78.37,28.81,64.86,23.56,16.07,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+71,2.367,0,0,up,transition,63.51,85.68,30.7,65.98,23.75,15.59,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+72,2.4,0,0,up,transition,59.04,86.86,32.46,67.57,24.06,15.63,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+73,2.433,0,0,transition,transition,59.16,96.43,35.08,70.44,23.38,16.07,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+74,2.467,0,0,transition,transition,76.31,101.44,39.14,73.86,23.96,17.12,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+75,2.5,0,0,transition,transition,78.97,114.79,43.95,78.64,24.42,16.56,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+76,2.533,0,0,transition,transition,88.83,122.29,49.77,84.01,24.78,17.49,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+77,2.567,0,0,transition,transition,96.96,128.11,56.36,89.82,24.58,17.6,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+78,2.6,0,0,transition,transition,125.66,129.81,64.48,95.47,24.31,17.38,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+79,2.633,0,0,transition,transition,119.37,137.72,72.19,101.64,25.21,17.38,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+80,2.667,0,0,transition,transition,113.52,141.88,80.05,107.9,25.57,16.16,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+81,2.7,0,0,transition,transition,132.29,144.0,88.29,113.95,25.17,16.85,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+82,2.733,0,0,transition,transition,137.25,151.1,95.91,120.01,25.07,16.46,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+83,2.767,0,0,transition,transition,144.7,154.82,102.67,125.77,24.63,16.76,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+84,2.8,0,0,transition,transition,148.41,152.87,110.12,131.27,25.41,14.31,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+85,2.833,0,0,transition,transition,151.11,155.51,117.78,136.19,26.52,12.72,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+86,2.867,0,0,transition,transition,152.19,156.66,124.11,140.8,28.68,11.68,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+87,2.9,0,0,transition,transition,155.15,160.27,130.45,144.59,29.25,11.58,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+88,2.933,0,0,transition,transition,156.41,164.26,136.08,148.08,29.75,12.25,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°)
+89,2.967,0,0,transition,down,155.63,168.06,140.97,,29.63,12.0,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected
+90,3.0,0,0,transition,down,157.53,168.34,143.63,168.34,29.81,12.4,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected
+91,3.033,0,0,transition,down,159.23,169.02,146.95,168.68,29.51,10.86,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected
+92,3.067,0,0,transition,down,158.8,170.24,150.72,169.2,30.91,10.94,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected
+93,3.1,0,0,transition,down,159.7,171.73,153.01,169.83,30.34,10.52,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected

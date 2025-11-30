@@ -78,7 +78,8 @@ class BicepsCurlVideoAnalyzer:
             frame, results = self.pose_detector.detect_pose(frame, draw=draw_pose)
 
             left_arm_angle = right_arm_angle = None
-            left_torso_angle = right_torso_angle = None
+            left_elbow_alignment_angle = right_elbow_alignment_angle = None
+            left_true_torso_angle = right_true_torso_angle = None
             left_alignment = right_alignment = True
 
             if self.pose_detector.is_pose_detected():
@@ -100,18 +101,22 @@ class BicepsCurlVideoAnalyzer:
                 left_depth = visibility_status['left']['depth']
                 right_depth = visibility_status['right']['depth']
                 
-                # Calculate torso angles (deviation from vertical)
-                left_torso_angle = self._get_torso_angle(frame.shape, 'left')
-                right_torso_angle = self._get_torso_angle(frame.shape, 'right')
+                # Calculate elbow alignment angles (elbow-shoulder-hip, measures arm position relative to torso)
+                left_elbow_alignment_angle = self._get_elbow_alignment_angle(frame.shape, 'left')
+                right_elbow_alignment_angle = self._get_elbow_alignment_angle(frame.shape, 'right')
+                
+                # Calculate true torso angles (hip-shoulder-vertical, measures actual body stability)
+                left_true_torso_angle = self._get_true_torso_angle(frame.shape, 'left')
+                right_true_torso_angle = self._get_true_torso_angle(frame.shape, 'right')
 
                 left_alignment = self._check_arm_alignment(frame.shape, 'left')
                 right_alignment = self._check_arm_alignment(frame.shape, 'right')
 
-                # Update rep counter with visibility info
+                # Update rep counter with visibility info (still using elbow alignment angle for form checks)
                 self.rep_counter.update(
                     left_arm_angle, right_arm_angle, 
                     left_alignment, right_alignment, 
-                    left_torso_angle, right_torso_angle,
+                    left_elbow_alignment_angle, right_elbow_alignment_angle,
                     left_arm_visible=left_arm_visible,
                     right_arm_visible=right_arm_visible,
                     left_confidence=left_confidence,
@@ -171,8 +176,10 @@ class BicepsCurlVideoAnalyzer:
                 "right_angle_raw_deg": round(status.get('right_raw_angle'), 2) if status.get('right_raw_angle') is not None else "",
                 "left_angle_smoothed_deg": round(status.get('left_smoothed_angle'), 2) if status.get('left_smoothed_angle') is not None else "",
                 "right_angle_smoothed_deg": round(status.get('right_smoothed_angle'), 2) if status.get('right_smoothed_angle') is not None else "",
-                "left_torso_arm_angle_deg": round(left_torso_angle, 2) if left_torso_angle is not None else "",
-                "right_torso_arm_angle_deg": round(right_torso_angle, 2) if right_torso_angle is not None else "",
+                "left_elbow_alignment_angle_deg": round(left_elbow_alignment_angle, 2) if left_elbow_alignment_angle is not None else "",
+                "right_elbow_alignment_angle_deg": round(right_elbow_alignment_angle, 2) if right_elbow_alignment_angle is not None else "",
+                "left_true_torso_angle_deg": round(left_true_torso_angle, 2) if left_true_torso_angle is not None else "",
+                "right_true_torso_angle_deg": round(right_true_torso_angle, 2) if right_true_torso_angle is not None else "",
                 "left_aligned": int(bool(left_alignment)),
                 "right_aligned": int(bool(right_alignment)),
                 "left_reps": status.get('left_reps', 0),
@@ -199,11 +206,12 @@ class BicepsCurlVideoAnalyzer:
 
     # ---- helpers ----
 
-    def _get_torso_angle(self, image_shape, side):
+    def _get_elbow_alignment_angle(self, image_shape, side):
         """
-        Torso angle: angle at shoulder between elbow-shoulder-hip.
+        Elbow alignment angle: angle at shoulder between elbow-shoulder-hip.
+        Measures how far the elbow is from the torso.
         Should be < 30° for correct form (elbow stays close to body).
-        side: 'left' veya 'right'
+        side: 'left' or 'right'
         """
         if side == 'left':
             elbow = self.pose_detector.get_landmark_position(13, image_shape)    # LEFT_ELBOW
@@ -219,6 +227,34 @@ class BicepsCurlVideoAnalyzer:
 
         # Calculate angle at shoulder: elbow-shoulder-hip
         angle = self.pose_detector.calculate_angle(elbow, shoulder, hip)
+        return float(angle) if angle is not None else 999.0
+    
+    def _get_true_torso_angle(self, image_shape, side):
+        """
+        True torso stability angle: angle between hip-shoulder line and vertical.
+        Measures how upright the body is (important for exercise classification).
+        Should be < 20° for standing exercises like biceps curls.
+        For pushups/planks, this would be 60-90° (body horizontal).
+        side: 'left' or 'right'
+        """
+        if side == 'left':
+            shoulder = self.pose_detector.get_landmark_position(11, image_shape)  # LEFT_SHOULDER
+            hip = self.pose_detector.get_landmark_position(23, image_shape)       # LEFT_HIP
+        else:
+            shoulder = self.pose_detector.get_landmark_position(12, image_shape)  # RIGHT_SHOULDER
+            hip = self.pose_detector.get_landmark_position(24, image_shape)        # RIGHT_HIP
+        
+        if None in [shoulder, hip]:
+            return 999.0  # Invalid - return high value
+        
+        # Create a vertical reference point (same x as shoulder, but y above)
+        # The vertical is straight up from the shoulder
+        vertical_point = (shoulder[0], shoulder[1] - 100)  # 100 pixels up
+        
+        # Calculate angle at shoulder: vertical-shoulder-hip
+        # This gives us the deviation from vertical
+        angle = self.pose_detector.calculate_angle(vertical_point, shoulder, hip)
+        
         return float(angle) if angle is not None else 999.0
     
     def _check_arm_alignment(self, image_shape, arm):
