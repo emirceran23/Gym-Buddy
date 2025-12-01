@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
 
 from biceps_curl_video_analyzer import BicepsCurlVideoAnalyzer
+import meal_planner_module as mpm
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for mobile app
@@ -137,6 +138,105 @@ def analyze_video_with_output():
     return jsonify({'error': 'Not implemented yet'}), 501
 
 
+@app.route('/api/generate-meal-plan', methods=['POST'])
+def generate_meal_plan():
+    """
+    Generate a personalized 7-day meal plan using LLM
+    
+    Expects JSON body with:
+        - age: int
+        - gender: string (Turkish: "Erkek" or "Kadın", or English: "Male" or "Female")
+        - height: float (cm)
+        - weight: float (kg)
+        - targetWeight: float (kg)
+        - weeklyGoal: float (kg per week)
+        - goal: string (Turkish: "Kilo almak"/"Kilo vermek", or English goal text)
+        
+    Returns:
+        JSON with diet_plan (7 days) and notes
+    """
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No JSON data provided'}), 400
+        
+        # Extract and validate required fields
+        required_fields = ['age', 'gender', 'height', 'weight', 'targetWeight', 'weeklyGoal', 'goal']
+        missing_fields = [field for field in required_fields if field not in data]
+        
+        if missing_fields:
+            return jsonify({
+                'error': 'Missing required fields',
+                'missingFields': missing_fields
+            }), 400
+        
+        # Map Turkish terms to English
+        gender = data['gender']
+        if gender.lower() in ['erkek', 'male', 'm']:
+            gender = 'Male'
+        elif gender.lower() in ['kadın', 'female', 'f']:
+            gender = 'Female'
+        
+        goal = data['goal']
+        goal_lower = goal.lower()
+        
+        # Map Turkish/English goal terms
+        if any(word in goal_lower for word in ['almak', 'artırmak', 'gain', 'bulk', 'kas']):
+            # "Kilo almak", "Kas oranını artırmak", "muscle gain"
+            goal = 'muscle_gain'
+        elif any(word in goal_lower for word in ['vermek', 'azaltmak', 'lose', 'burn', 'yağ']):
+            # "Kilo vermek", "Yağ oranını azaltmak", "fat burn"
+            goal = 'fat_burn'
+        elif 'korumak' in goal_lower or 'maintain' in goal_lower:
+            # "Formumu korumak" - default to muscle_gain for maintenance
+            goal = 'muscle_gain'
+        else:
+            # Default to muscle_gain if unclear
+            goal = 'muscle_gain'
+        
+        print(f"📊 Generating meal plan for user:")
+        print(f"   Age: {data['age']}, Gender: {gender}")
+        print(f"   Height: {data['height']}cm, Weight: {data['weight']}kg")
+        print(f"   Target: {data['targetWeight']}kg, Goal: {goal}")
+        
+        # Load dataset
+        df = mpm.load_dataset()
+        
+        # Generate meal plan using the LLM
+        plan = mpm.generate_plan_for_user(
+            df=df,
+            age=int(data['age']),
+            gender=gender,
+            height_cm=float(data['height']),
+            weight_kg=float(data['weight']),
+            target_weight_kg=float(data['targetWeight']),
+            weekly_goal_kg=float(data['weeklyGoal']),
+            goal_text=goal,
+            hf_api_key="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"  # Use the key from original code
+        )
+        
+        print("✅ Meal plan generated successfully")
+        
+        return jsonify(plan), 200
+        
+    except ValueError as e:
+        print(f"❌ Value error: {str(e)}")
+        return jsonify({
+            'error': 'Invalid input data',
+            'details': str(e)
+        }), 400
+        
+    except Exception as e:
+        print(f"❌ Error generating meal plan: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            'error': 'Failed to generate meal plan',
+            'details': str(e)
+        }), 500
+
+
 if __name__ == '__main__':
     print("🚀 Starting GymBuddy Exercise Analysis Server...")
     print("📍 Server will be available at http://localhost:5000")
@@ -146,6 +246,7 @@ if __name__ == '__main__':
     print("\n🔍 Endpoints:")
     print("   GET  /api/health")
     print("   POST /api/analyze-video")
+    print("   POST /api/generate-meal-plan")
     print("\n")
     
     # Run server (0.0.0.0 = listen on all network interfaces)
