@@ -1,343 +1,205 @@
 """
-Biceps Curl Form Evaluation - Model Training Script
-
-This script trains a RandomForestClassifier to evaluate biceps curl exercise form
-from pose estimation data. It extracts 14 features from frame-by-frame CSV files
-and outputs a trained model for prediction.
-
-Author: Senior Data Scientist & Python Developer
-Date: 2025-11-30
+Model Training Script for Biceps Curl Form Evaluation
+Trains a RandomForestClassifier to predict form correctness from biomechanical features.
 """
 
+import os
+import glob
 import pandas as pd
 import numpy as np
-import glob
-import os
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import joblib
-import warnings
-warnings.filterwarnings('ignore')
+from feature_extractor import extract_features
 
 
-def extract_features(csv_path):
+def load_data(base_dir='videos'):
     """
-    Extract 16 comprehensive features from a single CSV file.
-    
-    Features:
-    1. ROM (Range of Motion) - Active arm
-    2. True Torso Stability Left Mean - Mean angle from vertical
-    3. True Torso Stability Left Std - Body movement variation
-    4. Tempo/Duration - Total time
-    5. Symmetry - Absolute difference between left/right ROM
-    6. True Torso Stability Right Mean - Mean angle from vertical
-    7. True Torso Stability Right Std - Body movement variation
-    8. Bilateral True Torso Mean - Average body angle from vertical
-    9. Bilateral True Torso Std - Average body movement
-    10. Movement Smoothness - Jerkiness metric
-    11. Peak Flexion Angle - Minimum angle (full contraction)
-    12. Peak Extension Angle - Maximum angle (full extension)
-    13. Total Reps - Number of repetitions
-    14. Correct Rep Ratio - Proportion of correct reps
-    15. Angle Consistency (CV) - Coefficient of variation
-    16. Frame Count - Total frames in video
+    Load all CSV files and extract features.
     
     Args:
-        csv_path (str): Path to CSV file
+        base_dir: Base directory containing true/false subdirectories
         
     Returns:
-        dict: Dictionary of features
+        X: Feature matrix (n_samples, 16)
+        y: Labels (n_samples,)
+        filenames: List of CSV filenames
     """
-    try:
-        # Read CSV with encoding to handle special characters
-        df = pd.read_csv(csv_path, encoding='latin-1')
-        
-        # Handle missing values
-        left_angle = df['left_angle_smoothed_deg'].dropna()
-        right_angle = df['right_angle_smoothed_deg'].dropna()
-        
-        # Check if we have new format (with true torso angles) or old format
-        if 'left_true_torso_angle_deg' in df.columns:
-            # New format - use true torso angles for stability
-            left_true_torso = df['left_true_torso_angle_deg'].dropna()
-            right_true_torso = df['right_true_torso_angle_deg'].dropna()
-        else:
-            # Old format - fall back to elbow alignment angles (will be less effective)
-            left_true_torso = df['left_torso_arm_angle_deg'].dropna() if 'left_torso_arm_angle_deg' in df.columns else pd.Series([0])
-            right_true_torso = df['right_torso_arm_angle_deg'].dropna() if 'right_torso_arm_angle_deg' in df.columns else pd.Series([0])
-        
-        # Calculate ROM for both arms
-        left_rom = left_angle.max() - left_angle.min() if len(left_angle) > 0 else 0
-        right_rom = right_angle.max() - right_angle.min() if len(right_angle) > 0 else 0
-        
-        # Determine active arm (greater ROM)
-        active_arm_rom = max(left_rom, right_rom)
-        active_angle = left_angle if left_rom >= right_rom else right_angle
-        
-        # 1. ROM - Range of Motion
-        rom = active_arm_rom
-        
-        # 2. True Torso Stability Left (mean angle from vertical)
-        true_torso_stability_left_mean = left_true_torso.mean() if len(left_true_torso) > 0 else 0
-        
-        # 3. True Torso Stability Left (std dev - body movement)
-        true_torso_stability_left_std = left_true_torso.std() if len(left_true_torso) > 0 else 0
-        
-        # 4. Tempo/Duration
-        tempo = df['time_s'].max() - df['time_s'].min() if len(df) > 0 else 0
-        
-        # 5. Symmetry
-        symmetry = abs(left_rom - right_rom)
-        
-        # 6. True Torso Stability Right (mean angle from vertical)
-        true_torso_stability_right_mean = right_true_torso.mean() if len(right_true_torso) > 0 else 0
-        
-        # 7. True Torso Stability Right (std dev - body movement)
-        true_torso_stability_right_std = right_true_torso.std() if len(right_true_torso) > 0 else 0
-        
-        # 8. Bilateral True Torso Stability (mean)
-        bilateral_true_torso_mean = (true_torso_stability_left_mean + true_torso_stability_right_mean) / 2
-        
-        # 9. Bilateral True Torso Stability (std dev)
-        bilateral_true_torso_std = (true_torso_stability_left_std + true_torso_stability_right_std) / 2
-        
-        
-        # 10. Movement Smoothness (jerkiness metric)
-        left_raw = df['left_angle_raw_deg'].dropna()
-        left_smooth = df['left_angle_smoothed_deg'].dropna()
-        right_raw = df['right_angle_raw_deg'].dropna()
-        right_smooth = df['right_angle_smoothed_deg'].dropna()
-        
-        # Calculate smoothness for both arms
-        left_jerk = abs(left_raw - left_smooth).mean() if len(left_raw) > 0 and len(left_smooth) > 0 else 0
-        right_jerk = abs(right_raw - right_smooth).mean() if len(right_raw) > 0 and len(right_smooth) > 0 else 0
-        movement_smoothness = (left_jerk + right_jerk) / 2
-        
-        # 11. Peak Flexion Angle (minimum - full contraction)
-        peak_flexion = active_angle.min() if len(active_angle) > 0 else 0
-        
-        # 12. Peak Extension Angle (maximum - full extension)
-        peak_extension = active_angle.max() if len(active_angle) > 0 else 0
-        
-        # 13. Total Reps
-        total_reps = df['total_reps'].max() if 'total_reps' in df.columns else 0
-        
-        # 14. Correct Rep Ratio
-        left_correct = df['left_correct_reps'].max() if 'left_correct_reps' in df.columns else 0
-        right_correct = df['right_correct_reps'].max() if 'right_correct_reps' in df.columns else 0
-        total_possible_reps = total_reps * 2 if total_reps > 0 else 1  # Avoid division by zero
-        correct_rep_ratio = (left_correct + right_correct) / total_possible_reps if total_possible_reps > 0 else 0
-        
-        # 15. Angle Consistency (Coefficient of Variation)
-        angle_cv = (active_angle.std() / active_angle.mean()) if len(active_angle) > 0 and active_angle.mean() != 0 else 0
-        
-        # 16. Frame Count
-        frame_count = len(df)
-        
-        # Return feature dictionary
-        features = {
-            'rom': rom,
-            'true_torso_stability_left_mean': true_torso_stability_left_mean,
-            'true_torso_stability_left_std': true_torso_stability_left_std,
-            'tempo': tempo,
-            'symmetry': symmetry,
-            'true_torso_stability_right_mean': true_torso_stability_right_mean,
-            'true_torso_stability_right_std': true_torso_stability_right_std,
-            'bilateral_true_torso_mean': bilateral_true_torso_mean,
-            'bilateral_true_torso_std': bilateral_true_torso_std,
-            'movement_smoothness': movement_smoothness,
-            'peak_flexion': peak_flexion,
-            'peak_extension': peak_extension,
-            'total_reps': total_reps,
-            'correct_rep_ratio': correct_rep_ratio,
-            'angle_cv': angle_cv,
-            'frame_count': frame_count
-        }
-
-        
-        return features
-        
-    except Exception as e:
-        print(f"Error processing {csv_path}: {str(e)}")
-        return None
-
-
-def load_dataset(data_dir):
-    """
-    Load all CSV files and extract features with labels.
+    true_csvs = glob.glob(os.path.join(base_dir, 'true', 'csv', 'output_true_*.csv'))
+    false_csvs = glob.glob(os.path.join(base_dir, 'false', 'csv', 'output_false_*.csv'))
     
-    Args:
-        data_dir (str): Base directory containing true/false CSV folders
-        
-    Returns:
-        tuple: (X, y, filenames) - Features, labels, and file paths
-    """
-    # Find all CSV files
-    true_files = glob.glob(os.path.join(data_dir, 'videos', 'true', 'csv', 'output_true_*.csv'))
-    false_files = glob.glob(os.path.join(data_dir, 'videos', 'false', 'csv', 'output_false_*.csv'))
+    print(f"Found {len(true_csvs)} true samples and {len(false_csvs)} false samples")
     
-    print(f"Found {len(true_files)} positive samples (correct form)")
-    print(f"Found {len(false_files)} negative samples (incorrect form)")
-    print(f"Total dataset size: {len(true_files) + len(false_files)} samples\n")
-    
-    # Extract features
     features_list = []
     labels = []
     filenames = []
     
-    # Process positive samples (label = 1)
-    print("Processing positive samples...")
-    for file_path in true_files:
-        features = extract_features(file_path)
-        if features is not None:
-            features_list.append(features)
-            labels.append(1)
-            filenames.append(file_path)
+    # Process true samples (label = 1)
+    print("\nProcessing true samples...")
+    for csv_path in true_csvs:
+        features = extract_features(csv_path)
+        features_list.append(features)
+        labels.append(1)
+        filenames.append(os.path.basename(csv_path))
     
-    # Process negative samples (label = 0)
-    print("Processing negative samples...")
-    for file_path in false_files:
-        features = extract_features(file_path)
-        if features is not None:
-            features_list.append(features)
-            labels.append(0)
-            filenames.append(file_path)
+    # Process false samples (label = 0)
+    print("Processing false samples...")
+    for csv_path in false_csvs:
+        features = extract_features(csv_path)
+        features_list.append(features)
+        labels.append(0)
+        filenames.append(os.path.basename(csv_path))
     
-    # Convert to DataFrame
-    X = pd.DataFrame(features_list)
+    # Convert to DataFrame and numpy arrays
+    df_features = pd.DataFrame(features_list)
+    X = df_features.values
     y = np.array(labels)
     
-    print(f"\nSuccessfully processed {len(X)} samples")
-    print(f"Feature matrix shape: {X.shape}")
-    print(f"\nFeature summary statistics:")
-    print(X.describe())
+    print(f"\nDataset shape: {X.shape}")
+    print(f"Feature columns: {list(df_features.columns)}")
     
-    return X, y, filenames
+    return X, y, filenames, df_features.columns.tolist()
 
 
-def train_model(X, y):
+def train_model(X, y, feature_names):
     """
-    Train RandomForestClassifier with 80/20 train-test split.
+    Train RandomForestClassifier with proper train/test split.
     
     Args:
-        X (DataFrame): Feature matrix
-        y (array): Labels
+        X: Feature matrix
+        y: Labels
+        feature_names: List of feature names
         
     Returns:
-        tuple: (model, X_train, X_test, y_train, y_test)
+        model: Trained RandomForestClassifier
+        scaler: Fitted StandardScaler
+        X_train, X_test, y_train, y_test: Split data for evaluation
     """
-    # Train-test split
+    # Split data (80% train, 20% test)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
     
-    print(f"\nTrain set size: {len(X_train)} samples")
-    print(f"Test set size: {len(X_test)} samples")
-    print(f"Train set distribution: {np.bincount(y_train)}")
-    print(f"Test set distribution: {np.bincount(y_test)}\n")
+    print(f"\nTrain set: {len(X_train)} samples")
+    print(f"Test set: {len(X_test)} samples")
+    print(f"Train class distribution: {np.bincount(y_train)}")
+    print(f"Test class distribution: {np.bincount(y_test)}")
+    
+    # Scale features
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
     
     # Train RandomForest
-    print("Training RandomForestClassifier...")
+    print("\nTraining RandomForestClassifier...")
     model = RandomForestClassifier(
         n_estimators=100,
-        random_state=42,
         max_depth=10,
         min_samples_split=5,
         min_samples_leaf=2,
+        random_state=42,
         class_weight='balanced'  # Handle class imbalance
     )
     
-    model.fit(X_train, y_train)
-    print("Training complete!\n")
-    
-    return model, X_train, X_test, y_train, y_test
-
-
-def evaluate_model(model, X_train, X_test, y_train, y_test, feature_names):
-    """
-    Evaluate model performance and display metrics.
-    
-    Args:
-        model: Trained model
-        X_train, X_test: Feature matrices
-        y_train, y_test: Labels
-        feature_names: List of feature names
-    """
-    # Predictions
-    y_train_pred = model.predict(X_train)
-    y_test_pred = model.predict(X_test)
-    
-    # Accuracy scores
-    train_accuracy = accuracy_score(y_train, y_train_pred)
-    test_accuracy = accuracy_score(y_test, y_test_pred)
-    
-    print("=" * 70)
-    print("MODEL EVALUATION RESULTS")
-    print("=" * 70)
-    print(f"\nTrain Accuracy: {train_accuracy:.4f} ({train_accuracy*100:.2f}%)")
-    print(f"Test Accuracy:  {test_accuracy:.4f} ({test_accuracy*100:.2f}%)")
-    
-    # Classification report
-    print("\n" + "-" * 70)
-    print("CLASSIFICATION REPORT (Test Set)")
-    print("-" * 70)
-    print(classification_report(y_test, y_test_pred, 
-                                target_names=['Incorrect Form (0)', 'Correct Form (1)']))
-    
-    # Confusion matrix
-    print("-" * 70)
-    print("CONFUSION MATRIX (Test Set)")
-    print("-" * 70)
-    cm = confusion_matrix(y_test, y_test_pred)
-    print(f"\n{cm}")
-    print("\n[[TN  FP]")
-    print(" [FN  TP]]\n")
+    model.fit(X_train_scaled, y_train)
     
     # Feature importance
-    print("-" * 70)
-    print("FEATURE IMPORTANCE (Top 10)")
-    print("-" * 70)
-    importances = pd.DataFrame({
+    feature_importance = pd.DataFrame({
         'feature': feature_names,
         'importance': model.feature_importances_
     }).sort_values('importance', ascending=False)
     
-    print(importances.head(10).to_string(index=False))
-    print("\n" + "=" * 70)
+    print("\n" + "="*60)
+    print("TOP 10 MOST IMPORTANT FEATURES:")
+    print("="*60)
+    print(feature_importance.head(10).to_string(index=False))
+    
+    return model, scaler, X_train_scaled, X_test_scaled, y_train, y_test
+
+
+def evaluate_model(model, X_test, y_test):
+    """
+    Evaluate model performance on test set.
+    
+    Args:
+        model: Trained model
+        X_test: Test features
+        y_test: Test labels
+    """
+    y_pred = model.predict(X_test)
+    y_proba = model.predict_proba(X_test)
+    
+    print("\n" + "="*60)
+    print("MODEL EVALUATION RESULTS")
+    print("="*60)
+    
+    # Accuracy
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"\nAccuracy: {accuracy:.2%}")
+    
+    # Classification Report
+    print("\nClassification Report:")
+    print(classification_report(y_test, y_pred, target_names=['Incorrect Form (0)', 'Correct Form (1)']))
+    
+    # Confusion Matrix
+    cm = confusion_matrix(y_test, y_pred)
+    print("\nConfusion Matrix:")
+    print("                  Predicted")
+    print("                  0 (False)  1 (True)")
+    print(f"Actual  0 (False)    {cm[0,0]:3d}        {cm[0,1]:3d}")
+    print(f"        1 (True)     {cm[1,0]:3d}        {cm[1,1]:3d}")
+    
+    # Probability distribution
+    print("\nPrediction Probability Distribution:")
+    print(f"  Mean probability for class 1: {y_proba[:, 1].mean():.3f}")
+    print(f"  Min probability for class 1: {y_proba[:, 1].min():.3f}")
+    print(f"  Max probability for class 1: {y_proba[:, 1].max():.3f}")
+
+
+def save_model(model, scaler, model_path='biceps_model.pkl', scaler_path='scaler.pkl'):
+    """
+    Save trained model and scaler to disk.
+    
+    Args:
+        model: Trained model
+        scaler: Fitted scaler
+        model_path: Path to save model
+        scaler_path: Path to save scaler
+    """
+    joblib.dump(model, model_path)
+    joblib.dump(scaler, scaler_path)
+    
+    print("\n" + "="*60)
+    print("MODEL SAVED SUCCESSFULLY")
+    print("="*60)
+    print(f"Model saved to: {model_path}")
+    print(f"Scaler saved to: {scaler_path}")
 
 
 def main():
     """Main training pipeline."""
-    print("\n" + "=" * 70)
+    print("="*60)
     print("BICEPS CURL FORM EVALUATION - MODEL TRAINING")
-    print("=" * 70 + "\n")
+    print("="*60)
     
-    # Set data directory
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    
-    # Load dataset
-    X, y, filenames = load_dataset(script_dir)
+    # Load data
+    X, y, filenames, feature_names = load_data()
     
     # Train model
-    model, X_train, X_test, y_train, y_test = train_model(X, y)
+    model, scaler, X_train, X_test, y_train, y_test = train_model(X, y, feature_names)
     
     # Evaluate model
-    evaluate_model(model, X_train, X_test, y_train, y_test, X.columns.tolist())
+    evaluate_model(model, X_test, y_test)
     
     # Save model
-    model_path = os.path.join(script_dir, 'biceps_model.pkl')
-    joblib.dump(model, model_path)
-    print(f"\n✅ Model saved successfully to: {model_path}")
-    print(f"   Model file size: {os.path.getsize(model_path) / 1024:.2f} KB\n")
+    save_model(model, scaler)
     
-    print("=" * 70)
+    print("\n" + "="*60)
     print("TRAINING COMPLETE!")
-    print("=" * 70)
-    print("\nNext steps:")
-    print("1. Review the accuracy and classification report above")
-    print("2. Use predict.py to score new biceps curl videos")
-    print("3. Example: python predict.py videos/true/csv/output_true_1.csv\n")
+    print("="*60)
+    print("\nYou can now use predict.py to score new videos.")
 
 
 if __name__ == "__main__":
