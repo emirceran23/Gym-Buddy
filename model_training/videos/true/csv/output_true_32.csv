@@ -1,148 +1,142 @@
-frame,time_s,left_cycle_index,right_cycle_index,left_state,right_state,left_angle_raw_deg,right_angle_raw_deg,left_angle_smoothed_deg,right_angle_smoothed_deg,left_torso_arm_angle_deg,right_torso_arm_angle_deg,left_aligned,right_aligned,left_reps,right_reps,left_correct_reps,right_correct_reps,left_incorrect_reps,right_incorrect_reps,total_reps,left_last_rep_reasons,right_last_rep_reasons
-1,0.033,0,0,unknown,unknown,179.14,172.61,179.14,172.61,16.67,15.35,1,1,0,0,0,0,0,0,0,,
-2,0.067,0,0,down,down,177.76,176.51,178.45,174.56,14.64,13.67,1,1,0,0,0,0,0,0,0,,
-3,0.1,0,0,down,down,178.89,177.29,178.6,175.47,15.77,12.93,1,1,0,0,0,0,0,0,0,,
-4,0.133,0,0,down,down,176.01,177.01,177.95,175.85,14.03,13.08,1,1,0,0,0,0,0,0,0,,
-5,0.167,0,0,down,down,175.98,173.26,177.56,175.34,14.4,14.55,1,1,0,0,0,0,0,0,0,,
-6,0.2,0,0,down,down,175.64,174.39,177.24,175.18,13.97,14.15,1,1,0,0,0,0,0,0,0,,
-7,0.234,0,0,down,down,177.06,174.23,177.21,175.04,14.41,14.06,1,1,0,0,0,0,0,0,0,,
-8,0.267,0,0,down,down,177.18,173.52,177.21,174.85,14.94,15.54,1,1,0,0,0,0,0,0,0,,
-9,0.3,0,0,down,down,176.42,174.19,177.12,174.78,15.61,15.7,1,1,0,0,0,0,0,0,0,,
-10,0.334,0,0,down,down,177.43,173.19,177.15,174.62,16.4,16.59,1,1,0,0,0,0,0,0,0,,
-11,0.367,0,0,down,down,177.03,175.98,177.14,174.74,17.17,16.14,1,1,0,0,0,0,0,0,0,,
-12,0.4,0,0,down,down,174.15,179.09,176.89,175.11,16.83,14.18,1,1,0,0,0,0,0,0,0,,
-13,0.434,0,0,down,down,172.06,179.94,176.3,175.72,18.24,15.11,1,1,0,0,0,0,0,0,0,,
-14,0.467,0,0,down,down,164.68,171.79,175.21,175.32,19.63,16.15,1,1,0,0,0,0,0,0,0,,
-15,0.501,0,0,down,down,161.95,126.82,173.8,171.12,20.85,17.73,1,1,0,0,0,0,0,0,0,,
-16,0.534,0,0,down,down,132.65,12.36,170.19,157.4,20.88,19.35,1,1,0,0,0,0,0,0,0,,
-17,0.567,0,0,down,down,69.11,37.75,161.28,146.1,15.47,18.26,1,1,0,0,0,0,0,0,0,,
-18,0.601,0,0,down,up,49.38,27.67,150.76,133.88,13.42,18.79,1,1,0,0,0,0,0,0,0,,
-19,0.634,0,0,up,up,34.41,12.19,138.87,120.37,15.92,18.81,1,1,0,0,0,0,0,0,0,,
-20,0.667,0,0,up,up,22.45,11.9,125.98,106.91,17.68,19.68,1,1,0,0,0,0,0,0,0,,
-21,0.701,0,0,up,up,25.8,14.66,113.43,93.61,18.27,18.12,1,1,0,0,0,0,0,0,0,,
-22,0.734,0,0,up,up,25.24,11.48,100.74,80.14,18.98,17.04,1,1,0,0,0,0,0,0,0,,
-23,0.767,0,0,up,up,25.82,9.17,88.14,66.23,19.56,17.43,1,1,0,0,0,0,0,0,0,,
-24,0.801,0,0,up,up,25.78,9.42,75.78,52.1,19.82,17.16,1,1,0,0,0,0,0,0,0,,
-25,0.834,0,0,up,up,21.84,9.73,63.26,37.91,20.04,17.16,1,1,0,0,0,0,0,0,0,,
-26,0.868,0,0,up,up,19.88,10.23,51.19,24.45,20.13,17.55,1,1,0,0,0,0,0,0,0,,
-27,0.901,0,0,up,up,19.14,10.79,39.29,14.78,20.1,17.37,1,1,0,0,0,0,0,0,0,,
-28,0.934,0,0,up,up,18.64,11.03,29.79,14.67,18.98,17.28,1,1,0,0,0,0,0,0,0,,
-29,0.968,0,0,up,up,18.4,9.66,25.56,12.33,18.59,16.82,1,1,0,0,0,0,0,0,0,,
-30,1.001,0,0,up,up,18.19,10.31,22.97,10.88,18.15,16.83,1,1,0,0,0,0,0,0,0,,
-31,1.034,0,0,up,up,18.84,9.93,21.67,10.69,16.52,16.18,1,1,0,0,0,0,0,0,0,,
-32,1.068,0,0,up,up,21.21,9.57,21.57,10.5,16.86,16.11,1,1,0,0,0,0,0,0,0,,
-33,1.101,0,0,up,up,22.74,9.27,21.31,10.05,16.32,15.5,1,1,0,0,0,0,0,0,0,,
-34,1.134,0,0,up,up,24.74,9.84,21.27,9.91,16.71,15.78,1,1,0,0,0,0,0,0,0,,
-35,1.168,0,0,up,up,23.17,10.76,21.05,10.05,16.21,14.69,1,1,0,0,0,0,0,0,0,,
-36,1.201,0,0,up,up,22.85,11.93,20.8,10.25,15.43,14.6,1,1,0,0,0,0,0,0,0,,
-37,1.235,0,0,up,up,23.67,12.61,20.96,10.49,15.36,14.93,1,1,0,0,0,0,0,0,0,,
-38,1.268,0,0,up,up,23.71,11.15,21.28,10.57,14.77,14.78,1,1,0,0,0,0,0,0,0,,
-39,1.301,0,0,up,up,16.96,11.28,21.09,10.61,13.3,15.06,1,1,0,0,0,0,0,0,0,,
-40,1.335,0,0,up,up,22.91,12.64,21.45,10.75,12.33,15.26,1,1,0,0,0,0,0,0,0,,
-41,1.368,0,0,up,up,31.09,12.05,22.51,10.95,12.25,16.46,1,1,0,0,0,0,0,0,0,,
-42,1.401,0,0,up,up,38.97,15.29,24.24,11.36,9.74,17.14,1,1,0,0,0,0,0,0,0,,
-43,1.435,0,0,up,up,45.0,11.31,26.42,11.48,9.07,18.16,1,1,0,0,0,0,0,0,0,,
-44,1.468,0,0,up,up,48.2,26.95,28.67,12.92,10.06,15.24,1,1,0,0,0,0,0,0,0,,
-45,1.502,0,0,up,up,65.74,18.19,32.25,13.67,12.41,17.68,1,1,0,0,0,0,0,0,0,,
-46,1.535,0,0,up,up,90.99,37.63,37.77,15.98,13.74,17.68,1,1,0,0,0,0,0,0,0,,
-47,1.568,0,0,transition,up,128.46,100.93,46.54,23.5,18.17,17.73,1,1,0,0,0,0,0,0,0,,
-48,1.602,0,0,transition,transition,142.81,140.47,56.54,34.21,20.19,16.81,1,1,0,0,0,0,0,0,0,,
-49,1.635,0,0,transition,transition,150.36,173.31,67.1,47.6,19.69,16.39,1,1,0,0,0,0,0,0,0,,
-50,1.668,0,0,transition,transition,162.11,169.76,78.63,60.82,18.52,14.83,1,1,0,0,0,0,0,0,0,,
-51,1.702,1,1,down,down,165.03,173.16,,,18.68,14.64,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-52,1.735,1,1,down,down,164.57,173.33,164.57,173.33,17.64,14.14,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-53,1.768,1,1,down,down,169.93,178.9,167.25,176.11,17.12,14.0,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-54,1.802,1,1,down,down,172.25,176.47,168.92,176.23,16.98,14.45,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-55,1.835,1,1,down,down,172.74,174.7,169.87,175.85,16.61,15.25,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-56,1.869,1,1,down,down,172.5,176.26,170.4,175.93,16.17,15.13,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-57,1.902,1,1,down,down,172.65,173.98,170.77,175.61,15.5,15.54,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-58,1.935,1,1,down,down,173.37,173.5,171.14,175.31,15.46,15.64,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-59,1.969,1,1,down,down,173.96,171.84,171.5,174.87,15.33,16.01,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-60,2.002,1,1,down,down,173.35,172.25,171.7,174.58,15.01,15.24,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-61,2.035,1,1,down,down,175.59,172.74,172.09,174.4,15.35,15.65,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-62,2.069,1,1,down,down,173.96,172.79,172.26,174.25,14.93,15.17,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-63,2.102,1,1,down,down,173.37,173.27,172.35,174.17,14.61,14.9,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-64,2.135,1,1,down,down,176.59,171.87,173.36,174.05,15.69,15.14,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-65,2.169,1,1,down,down,177.14,171.99,173.96,173.47,15.99,14.92,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-66,2.202,1,1,down,down,177.16,173.08,174.37,173.19,15.7,15.02,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-67,2.236,1,1,down,down,178.42,173.55,174.84,173.09,15.35,15.03,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-68,2.269,1,1,down,down,178.8,174.42,175.36,172.94,15.12,14.86,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-69,2.302,1,1,down,down,178.26,175.34,175.83,173.05,14.67,14.42,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-70,2.336,1,1,down,down,178.12,176.4,176.23,173.29,14.56,13.73,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-71,2.369,1,1,down,down,177.74,176.85,176.54,173.71,13.72,14.16,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-72,2.402,1,1,down,down,177.15,177.59,176.86,174.16,13.44,13.3,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-73,2.436,1,1,down,down,177.42,177.37,177.01,174.54,13.9,13.32,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-74,2.469,1,1,down,down,177.48,177.45,177.3,174.93,13.79,13.58,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-75,2.502,1,1,down,down,177.3,176.39,177.63,175.19,13.78,13.25,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-76,2.536,1,1,down,down,177.78,176.38,177.73,175.57,13.77,13.4,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-77,2.569,1,1,down,down,177.48,176.38,177.76,175.93,13.46,13.57,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-78,2.603,1,1,down,down,177.86,176.03,177.82,176.18,13.77,13.7,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-79,2.636,1,1,down,down,177.9,176.32,177.77,176.41,13.75,13.41,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-80,2.669,1,1,down,down,177.95,176.32,177.7,176.57,13.77,13.58,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-81,2.703,1,1,down,down,177.87,176.68,177.67,176.68,13.89,13.41,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-82,2.736,1,1,down,down,178.52,175.97,177.7,176.65,14.21,13.62,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-83,2.769,1,1,down,down,178.46,175.85,177.76,176.56,14.33,13.74,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-84,2.803,1,1,down,down,177.87,173.38,177.82,176.21,14.16,14.85,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-85,2.836,1,1,down,down,177.72,173.5,177.85,175.89,14.18,14.57,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-86,2.87,1,1,down,down,177.96,172.31,177.89,175.46,14.56,15.73,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-87,2.903,1,1,down,down,175.68,170.93,177.75,175.0,13.48,16.14,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-88,2.936,1,1,down,down,178.69,170.82,177.83,174.54,15.32,16.13,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-89,2.97,1,1,down,down,178.3,170.07,177.9,174.01,15.71,16.18,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-90,3.003,1,1,down,down,178.18,169.88,177.93,173.5,16.05,16.95,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-91,3.036,1,1,down,down,178.01,171.15,177.93,173.07,17.48,16.93,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-92,3.07,1,1,down,down,179.29,170.39,178.05,172.58,18.49,18.55,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-93,3.103,1,1,down,down,177.88,171.48,178.05,172.14,18.05,18.6,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-94,3.136,1,1,down,down,177.05,168.67,177.92,171.54,18.37,17.72,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-95,3.17,1,1,down,down,170.63,164.75,177.27,170.61,19.09,17.86,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-96,3.203,1,1,down,down,168.94,127.56,176.53,166.79,20.62,17.67,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-97,3.237,1,1,down,down,156.54,65.29,174.76,157.77,21.9,18.57,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-98,3.27,1,1,transition,down,144.18,14.17,171.95,144.6,23.02,19.48,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-99,3.303,1,1,transition,down,69.52,12.99,163.1,131.43,16.79,19.92,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-100,3.337,1,1,transition,up,48.75,20.89,152.27,118.94,14.39,19.98,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-101,3.37,1,1,up,up,31.25,19.05,140.02,106.36,14.97,18.15,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-102,3.403,1,1,up,up,20.95,13.92,126.92,93.36,18.31,19.48,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-103,3.437,1,1,up,up,21.49,13.77,113.87,80.24,18.01,18.71,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-104,3.47,1,1,up,up,24.02,12.35,100.93,67.07,18.23,16.84,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-105,3.504,1,1,up,up,23.5,11.2,88.07,53.72,19.55,17.51,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-106,3.537,1,1,up,up,22.0,11.93,75.15,40.66,19.71,18.18,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-107,3.57,1,1,up,up,18.54,10.89,62.47,27.83,19.91,17.39,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-108,3.604,1,1,up,up,20.01,10.8,50.06,18.1,19.99,18.39,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-109,3.637,1,1,up,up,19.02,9.85,38.6,13.48,19.78,18.01,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-110,3.67,1,1,up,up,18.83,8.28,28.16,12.99,19.86,18.04,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-111,3.704,1,1,up,up,18.54,8.09,23.91,12.58,19.41,17.52,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-112,3.737,1,1,up,up,19.13,9.58,21.44,11.64,19.08,17.66,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-113,3.77,1,1,up,up,19.2,10.09,20.44,10.9,19.05,16.99,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-114,3.804,1,1,up,up,19.81,10.09,20.34,10.58,19.01,16.35,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-115,3.837,1,1,up,up,19.85,10.23,20.2,10.28,18.74,15.38,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-116,3.871,1,1,up,up,22.43,9.79,20.07,10.07,17.47,14.99,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-117,3.904,1,1,up,up,24.3,10.46,20.14,10.01,16.62,14.32,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-118,3.937,1,1,up,up,23.26,10.69,20.24,9.9,15.89,13.32,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-119,3.971,1,1,up,up,24.25,11.28,20.72,9.94,15.92,13.15,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-120,4.004,1,1,up,up,25.9,12.26,21.21,10.06,14.96,13.18,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-121,4.037,1,1,up,up,23.42,12.92,21.58,10.31,13.77,15.85,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-122,4.071,1,1,up,up,26.69,13.88,22.23,10.78,12.94,14.03,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-123,4.104,1,1,up,up,32.5,11.09,23.4,11.03,14.04,15.43,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-124,4.137,1,1,up,up,46.42,18.79,25.67,11.8,12.53,15.18,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-125,4.171,1,1,up,up,54.54,35.13,28.61,13.88,13.88,15.32,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-126,4.204,1,1,up,up,74.31,37.78,33.16,16.19,13.15,16.62,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-127,4.238,1,1,transition,up,114.08,114.85,41.01,24.91,16.24,17.72,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-128,4.271,1,1,transition,transition,148.5,148.91,51.51,36.5,21.27,16.91,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-129,4.304,1,1,transition,transition,146.62,154.15,61.71,48.48,19.17,16.08,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-130,4.338,1,1,transition,transition,154.22,159.61,72.62,60.89,18.8,14.29,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-131,4.371,1,1,transition,transition,163.9,177.25,84.26,74.72,18.07,14.56,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-132,4.404,1,1,transition,transition,168.68,174.88,96.16,88.27,18.5,13.74,1,1,1,1,0,0,1,1,2,Did not reach UP position (arm angle must be < 50°),Did not reach UP position (arm angle must be < 50°)
-133,4.438,2,2,down,down,171.25,179.87,,,17.61,13.05,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-134,4.471,2,2,down,down,171.67,179.13,171.67,179.13,16.48,12.96,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-135,4.505,2,2,down,down,173.92,177.61,172.8,178.37,16.12,13.44,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-136,4.538,2,2,down,down,173.22,174.1,172.94,176.95,15.43,14.31,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-137,4.571,2,2,down,down,172.4,173.85,172.8,176.17,15.09,14.28,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-138,4.605,2,2,down,down,174.6,174.25,173.16,175.79,15.34,13.82,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-139,4.638,2,2,down,down,174.35,172.78,173.36,175.29,14.54,15.14,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-140,4.671,2,2,down,down,175.14,172.75,173.61,174.92,14.59,14.91,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-141,4.705,2,2,down,down,174.05,173.16,173.67,174.7,14.05,14.53,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-142,4.738,2,2,down,down,174.75,173.19,173.79,174.53,13.5,14.92,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-143,4.771,2,2,down,down,175.83,174.8,173.99,174.56,14.12,14.05,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-144,4.805,2,2,down,down,177.45,175.37,174.31,174.64,14.17,13.83,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-145,4.838,2,2,down,down,177.26,175.83,174.55,174.73,13.95,13.58,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-146,4.872,2,2,down,down,178.88,173.81,175.15,174.29,14.46,13.82,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
-147,4.905,2,2,down,down,178.16,174.74,175.51,174.05,13.82,13.36,1,1,2,2,1,0,1,2,4,,Did not reach UP position (arm angle must be < 50°)
+frame,time_s,left_cycle_index,right_cycle_index,left_state,right_state,left_angle_raw_deg,right_angle_raw_deg,left_angle_smoothed_deg,right_angle_smoothed_deg,left_elbow_alignment_angle_deg,right_elbow_alignment_angle_deg,left_true_torso_angle_deg,right_true_torso_angle_deg,left_aligned,right_aligned,left_reps,right_reps,left_correct_reps,right_correct_reps,left_incorrect_reps,right_incorrect_reps,total_reps,left_last_rep_reasons,right_last_rep_reasons
+1,0.033,0,0,unknown,unknown,116.54,127.96,116.54,,8.32,1.33,175.55,178.34,1,1,0,0,0,0,0,0,0,,
+2,0.067,0,0,transition,unknown,110.04,121.02,113.29,,12.1,2.97,172.48,178.67,1,1,0,0,0,0,0,0,0,,
+3,0.1,0,0,transition,unknown,108.25,114.05,111.61,,11.35,2.0,171.42,180.0,1,1,0,0,0,0,0,0,0,,
+4,0.133,0,0,transition,unknown,103.47,113.89,109.57,,10.63,2.12,172.15,177.75,1,1,0,0,0,0,0,0,0,,
+5,0.167,0,0,transition,unknown,96.31,106.51,106.92,,10.89,2.31,171.16,176.63,1,1,0,0,0,0,0,0,0,,
+6,0.2,0,0,transition,unknown,94.62,98.19,104.87,,8.69,4.03,172.45,176.32,1,1,0,0,0,0,0,0,0,,
+7,0.234,0,0,transition,unknown,91.16,96.29,102.91,,7.55,4.69,172.68,177.4,1,1,0,0,0,0,0,0,0,,
+8,0.267,0,0,transition,unknown,85.04,92.41,100.68,,6.74,6.11,172.8,177.36,1,1,0,0,0,0,0,0,0,,
+9,0.3,0,0,transition,unknown,78.86,79.72,98.26,,6.56,7.1,173.21,176.88,1,1,0,0,0,0,0,0,0,,
+10,0.334,0,0,transition,unknown,74.32,80.64,95.86,,5.16,7.6,173.23,176.29,1,1,0,0,0,0,0,0,0,,
+11,0.367,0,0,transition,unknown,68.67,88.79,93.39,,3.95,15.59,173.3,175.63,1,1,0,0,0,0,0,0,0,,
+12,0.4,0,0,transition,unknown,63.43,82.67,90.89,,2.71,18.3,172.75,175.11,1,0,0,0,0,0,0,0,0,,
+13,0.434,0,0,transition,unknown,59.31,86.54,86.12,,2.63,20.67,172.55,175.02,1,0,0,0,0,0,0,0,0,,
+14,0.467,0,0,transition,unknown,55.53,95.44,81.58,,3.32,23.11,171.44,175.33,1,0,0,0,0,0,0,0,0,,
+15,0.5,0,0,transition,unknown,53.03,93.97,76.98,,0.95,19.17,171.41,174.9,1,1,0,0,0,0,0,0,0,,
+16,0.534,0,0,transition,unknown,48.6,79.7,72.41,,1.06,12.25,171.93,175.7,1,1,0,0,0,0,0,0,0,,
+17,0.567,0,0,up,unknown,46.77,87.58,68.28,,0.55,14.14,171.25,174.98,1,1,0,0,0,0,0,0,0,,
+18,0.601,0,0,up,unknown,45.45,74.89,64.18,,0.21,13.83,170.56,174.61,1,1,0,0,0,0,0,0,0,,
+19,0.634,0,0,up,unknown,43.81,79.77,60.24,,1.15,18.47,169.89,175.32,1,0,0,0,0,0,0,0,0,,
+20,0.667,0,0,up,unknown,40.86,75.22,56.56,,1.76,19.0,170.77,175.39,1,0,0,0,0,0,0,0,0,,
+21,0.701,0,0,up,unknown,40.37,73.39,53.35,,2.21,11.81,170.49,175.25,1,1,0,0,0,0,0,0,0,,
+22,0.734,0,0,up,unknown,40.67,70.41,50.54,,3.5,13.78,171.0,174.82,1,1,0,0,0,0,0,0,0,,
+23,0.767,0,0,up,unknown,40.59,77.94,48.2,,3.25,13.64,171.03,175.2,1,1,0,0,0,0,0,0,0,,
+24,0.801,0,0,up,unknown,38.76,66.76,46.15,,2.25,11.26,171.53,174.63,1,1,0,0,0,0,0,0,0,,
+25,0.834,0,0,up,unknown,41.16,91.1,44.64,,2.15,24.55,171.24,175.24,1,0,0,0,0,0,0,0,0,,
+26,0.867,0,0,up,unknown,41.95,94.45,43.5,,3.07,24.99,172.27,176.2,1,0,0,0,0,0,0,0,0,,
+27,0.901,0,0,up,unknown,43.99,83.94,42.75,,2.37,17.87,172.3,175.67,1,1,0,0,0,0,0,0,0,,
+28,0.934,0,0,up,unknown,46.08,96.88,42.54,,2.46,24.08,172.47,176.07,1,0,0,0,0,0,0,0,0,,
+29,0.968,0,0,up,unknown,50.41,92.3,42.84,,1.9,15.55,172.55,176.22,1,1,0,0,0,0,0,0,0,,
+30,1.001,0,0,transition,unknown,52.73,75.14,43.45,,0.97,7.37,173.42,176.77,1,1,0,0,0,0,0,0,0,,
+31,1.034,0,0,transition,unknown,55.24,82.8,44.4,,0.19,8.83,173.22,176.15,1,1,0,0,0,0,0,0,0,,
+32,1.068,0,0,transition,unknown,61.46,72.16,46.12,,0.01,8.75,172.72,175.62,1,1,0,0,0,0,0,0,0,,
+33,1.101,0,0,transition,unknown,64.1,74.73,48.09,,1.69,10.97,172.6,175.59,1,1,0,0,0,0,0,0,0,,
+34,1.134,0,0,transition,unknown,68.87,86.05,50.44,,2.12,14.24,173.29,176.17,1,1,0,0,0,0,0,0,0,,
+35,1.168,0,0,transition,unknown,74.63,90.35,53.28,,1.14,14.01,173.64,176.17,1,1,0,0,0,0,0,0,0,,
+36,1.201,0,0,transition,unknown,78.28,101.61,56.57,,2.66,10.71,173.52,176.26,1,1,0,0,0,0,0,0,0,,
+37,1.234,0,0,transition,unknown,80.93,86.76,59.89,,3.39,6.07,173.92,176.28,1,1,0,0,0,0,0,0,0,,
+38,1.268,0,0,transition,unknown,82.56,87.17,63.27,,2.69,5.51,174.42,176.1,1,1,0,0,0,0,0,0,0,,
+39,1.301,0,0,transition,unknown,86.01,94.27,66.77,,3.8,6.89,173.96,175.78,1,1,0,0,0,0,0,0,0,,
+40,1.335,0,0,transition,unknown,88.16,103.44,70.28,,3.99,3.89,174.67,176.36,1,1,0,0,0,0,0,0,0,,
+41,1.368,0,0,transition,unknown,92.46,111.86,73.78,,5.03,5.7,173.84,175.9,1,1,0,0,0,0,0,0,0,,
+42,1.401,0,0,transition,unknown,95.45,101.1,77.34,,5.89,1.35,174.11,175.82,1,1,0,0,0,0,0,0,0,,
+43,1.435,0,0,transition,unknown,100.67,110.38,81.13,,5.07,0.52,174.7,176.02,1,1,0,0,0,0,0,0,0,,
+44,1.468,0,0,transition,unknown,105.86,120.26,84.83,,3.76,1.59,175.12,176.63,1,1,0,0,0,0,0,0,0,,
+45,1.501,0,0,transition,unknown,110.02,134.77,88.66,,3.12,2.9,174.42,177.08,1,1,0,0,0,0,0,0,0,,
+46,1.535,0,0,transition,unknown,114.61,134.45,92.47,,3.17,4.88,174.32,177.49,1,1,0,0,0,0,0,0,0,,
+47,1.568,0,0,transition,unknown,121.17,144.43,96.35,,2.14,4.94,174.15,177.86,1,1,0,0,0,0,0,0,0,,
+48,1.601,0,0,transition,unknown,127.41,145.31,100.44,,1.43,2.91,173.25,176.2,1,1,0,0,0,0,0,0,0,,
+49,1.635,0,0,transition,unknown,129.94,143.19,104.53,,3.42,0.83,172.65,177.43,1,1,0,0,0,0,0,0,0,,
+50,1.668,0,0,transition,unknown,135.84,150.22,108.97,,2.9,2.48,173.41,177.23,1,1,0,0,0,0,0,0,0,,
+51,1.702,0,0,transition,unknown,136.09,151.56,113.14,,2.47,5.24,174.79,178.04,1,1,0,0,0,0,0,0,0,,
+52,1.735,0,0,transition,unknown,135.68,152.64,117.1,,3.79,5.27,174.83,178.83,1,1,0,0,0,0,0,0,0,,
+53,1.768,0,0,transition,unknown,138.38,154.97,120.93,,3.7,2.42,174.93,177.85,1,1,0,0,0,0,0,0,0,,
+54,1.802,0,0,transition,unknown,141.97,157.9,124.8,,6.6,2.68,173.17,178.21,1,1,0,0,0,0,0,0,0,,
+55,1.835,0,0,transition,unknown,145.1,157.27,128.51,,7.69,4.05,171.61,177.51,1,1,0,0,0,0,0,0,0,,
+56,1.868,0,0,transition,unknown,149.33,160.67,132.13,,6.26,5.11,173.27,177.87,1,1,0,0,0,0,0,0,0,,
+57,1.902,0,0,transition,unknown,153.04,161.21,135.71,,4.19,3.92,173.97,178.59,1,1,0,0,0,0,0,0,0,,
+58,1.935,0,0,transition,unknown,155.56,154.79,139.13,,4.99,0.19,174.57,179.45,1,1,0,0,0,0,0,0,0,,
+59,1.968,0,0,transition,unknown,157.03,169.11,142.11,,3.2,2.53,175.7,178.22,1,1,0,0,0,0,0,0,0,,
+60,2.002,0,0,transition,unknown,158.47,167.59,144.7,,2.99,3.44,176.79,178.64,1,1,0,0,0,0,0,0,0,,
+61,2.035,0,0,transition,unknown,162.07,167.75,147.38,,2.84,0.91,177.16,178.75,1,1,0,0,0,0,0,0,0,,
+62,2.069,0,0,down,unknown,165.35,175.73,,,1.84,2.86,177.94,178.89,1,1,0,0,0,0,0,0,0,,
+63,2.102,0,0,down,unknown,166.98,173.95,166.98,,2.72,0.14,176.84,179.03,1,1,0,0,0,0,0,0,0,,
+64,2.135,0,0,down,unknown,168.64,174.33,167.81,,2.42,0.33,177.58,179.45,1,1,0,0,0,0,0,0,0,,
+65,2.169,0,0,down,unknown,168.1,177.29,167.9,,3.12,2.39,177.99,179.86,1,1,0,0,0,0,0,0,0,,
+66,2.202,0,0,down,unknown,168.47,173.91,168.05,,4.04,0.55,177.73,179.86,1,1,0,0,0,0,0,0,0,,
+67,2.235,0,0,down,unknown,170.96,173.2,168.63,,3.26,1.16,178.72,180.0,1,1,0,0,0,0,0,0,0,,
+68,2.269,0,0,down,unknown,169.59,172.16,168.79,,4.37,1.47,178.73,179.6,1,1,0,0,0,0,0,0,0,,
+69,2.302,0,0,down,unknown,170.03,172.22,168.97,,4.11,0.36,178.73,178.78,1,1,0,0,0,0,0,0,0,,
+70,2.335,0,0,down,unknown,167.38,173.17,168.77,,4.65,1.1,178.42,179.72,1,1,0,0,0,0,0,0,0,,
+71,2.369,0,0,down,unknown,166.58,171.39,168.53,,3.97,0.28,179.13,179.58,1,1,0,0,0,0,0,0,0,,
+72,2.402,0,0,down,unknown,163.64,170.92,168.04,,4.64,0.74,178.97,179.72,1,1,0,0,0,0,0,0,0,,
+73,2.436,0,0,down,unknown,157.44,169.04,167.07,,5.8,0.6,179.4,179.86,1,1,0,0,0,0,0,0,0,,
+74,2.469,0,0,down,unknown,156.98,170.52,166.23,,4.31,2.12,179.55,179.59,1,1,0,0,0,0,0,0,0,,
+75,2.502,0,0,transition,unknown,152.64,161.07,165.04,,5.73,1.47,178.57,178.54,1,1,0,0,0,0,0,0,0,,
+76,2.536,0,0,transition,unknown,149.55,163.16,163.45,,6.05,1.72,177.04,178.51,1,1,0,0,0,0,0,0,0,,
+77,2.569,0,0,transition,unknown,146.83,157.23,161.67,,6.49,0.18,175.28,179.59,1,1,0,0,0,0,0,0,0,,
+78,2.602,0,0,transition,unknown,143.22,153.64,159.57,,7.65,1.89,174.36,179.43,1,1,0,0,0,0,0,0,0,,
+79,2.636,0,0,transition,unknown,139.67,140.21,156.96,,7.03,2.24,174.99,179.41,1,1,0,0,0,0,0,0,0,,
+80,2.669,0,0,transition,unknown,135.46,137.49,154.12,,4.68,1.35,175.76,178.65,1,1,0,0,0,0,0,0,0,,
+81,2.702,0,0,transition,unknown,128.9,130.22,150.69,,5.49,1.93,175.19,178.78,1,1,0,0,0,0,0,0,0,,
+82,2.736,0,0,transition,unknown,123.03,122.28,146.99,,5.24,0.26,175.2,178.26,1,1,0,0,0,0,0,0,0,,
+83,2.769,0,0,transition,unknown,115.33,110.52,142.72,,5.06,0.36,175.6,177.62,1,1,0,0,0,0,0,0,0,,
+84,2.803,0,0,transition,unknown,109.39,107.69,138.2,,3.6,0.47,176.19,177.51,1,1,0,0,0,0,0,0,0,,
+85,2.836,0,0,transition,unknown,105.29,101.9,133.86,,4.61,1.69,174.95,178.33,1,1,0,0,0,0,0,0,0,,
+86,2.869,0,0,transition,unknown,100.43,98.49,129.14,,2.22,2.55,175.81,177.16,1,1,0,0,0,0,0,0,0,,
+87,2.903,0,0,transition,unknown,95.6,95.63,124.39,,0.93,3.93,175.57,177.46,1,1,0,0,0,0,0,0,0,,
+88,2.936,0,0,transition,unknown,91.03,92.64,119.51,,0.8,5.42,175.21,176.74,1,1,0,0,0,0,0,0,0,,
+89,2.969,0,0,transition,unknown,86.54,99.72,114.49,,0.34,8.09,174.99,177.05,1,1,0,0,0,0,0,0,0,,
+90,3.003,0,0,transition,unknown,80.63,95.95,114.49,,0.81,7.24,174.68,177.27,1,1,0,0,0,0,0,0,0,,
+91,3.036,0,0,transition,unknown,75.65,90.76,108.86,,0.78,9.43,174.76,176.48,1,1,0,0,0,0,0,0,0,,
+92,3.069,0,0,transition,unknown,71.49,88.19,103.18,,2.45,10.16,175.21,175.18,1,1,0,0,0,0,0,0,0,,
+93,3.103,0,0,transition,unknown,67.07,72.06,97.48,,3.69,9.37,174.98,175.26,1,1,0,0,0,0,0,0,0,,
+94,3.136,0,0,transition,unknown,62.83,75.23,91.97,,4.51,15.05,175.12,175.21,1,1,0,0,0,0,0,0,0,,
+95,3.169,0,0,transition,unknown,58.6,69.23,86.6,,4.28,10.4,175.08,175.53,1,1,0,0,0,0,0,0,0,,
+96,3.203,0,0,transition,unknown,56.01,67.13,81.66,,5.27,8.38,175.5,177.01,1,1,0,0,0,0,0,0,0,,
+97,3.236,0,0,transition,unknown,54.28,77.44,77.07,,6.29,16.18,175.9,177.53,1,1,0,0,0,0,0,0,0,,
+98,3.27,0,0,transition,unknown,51.75,73.33,72.61,,4.74,14.63,175.36,177.23,1,1,0,0,0,0,0,0,0,,
+99,3.303,0,0,transition,unknown,49.48,79.23,68.36,,4.25,17.54,174.94,177.82,1,1,0,0,0,0,0,0,0,,
+100,3.336,0,0,up,unknown,46.23,74.57,64.25,,4.26,16.45,175.59,177.27,1,1,0,0,0,0,0,0,0,,
+101,3.37,0,0,up,unknown,44.34,83.11,60.36,,4.7,21.23,175.16,177.4,1,0,0,0,0,0,0,0,0,,
+102,3.403,0,0,up,unknown,44.24,79.46,56.83,,5.76,19.47,175.28,177.79,1,1,0,0,0,0,0,0,0,,
+103,3.436,0,0,up,unknown,44.45,80.16,54.23,,6.15,19.69,175.83,178.08,1,1,0,0,0,0,0,0,0,,
+104,3.47,0,0,up,unknown,45.04,82.32,52.03,,5.94,19.16,175.7,178.2,1,1,0,0,0,0,0,0,0,,
+105,3.503,0,0,up,unknown,48.46,72.68,50.47,,7.07,16.97,175.8,178.06,1,1,0,0,0,0,0,0,0,,
+106,3.536,0,0,up,unknown,52.06,82.5,49.58,,7.48,21.59,175.57,177.35,1,0,0,0,0,0,0,0,0,,
+107,3.57,0,0,up,unknown,53.36,84.83,49.14,,6.4,21.09,175.36,178.16,1,0,0,0,0,0,0,0,0,,
+108,3.603,0,0,transition,unknown,55.18,79.22,49.07,,7.3,15.56,176.18,178.07,1,1,0,0,0,0,0,0,0,,
+109,3.637,0,0,transition,unknown,59.99,67.45,49.55,,6.59,15.45,176.29,177.68,1,1,0,0,0,0,0,0,0,,
+110,3.67,0,0,transition,unknown,62.07,63.92,50.41,,5.85,9.87,176.39,177.82,1,1,0,0,0,0,0,0,0,,
+111,3.703,0,0,transition,unknown,66.04,73.07,51.79,,6.21,10.99,176.25,176.95,1,1,0,0,0,0,0,0,0,,
+112,3.737,0,0,transition,unknown,67.84,71.34,53.59,,4.99,10.41,176.28,176.45,1,1,0,0,0,0,0,0,0,,
+113,3.77,0,0,transition,unknown,73.17,78.06,55.99,,3.78,10.8,176.42,176.61,1,1,0,0,0,0,0,0,0,,
+114,3.803,0,0,transition,unknown,79.22,88.0,58.91,,4.04,12.61,176.55,177.15,1,1,0,0,0,0,0,0,0,,
+115,3.837,0,0,transition,unknown,83.8,87.36,62.19,,3.08,10.4,177.02,177.45,1,1,0,0,0,0,0,0,0,,
+116,3.87,0,0,transition,unknown,86.98,82.39,65.68,,3.38,8.15,177.45,178.0,1,1,0,0,0,0,0,0,0,,
+117,3.903,0,0,transition,unknown,92.21,85.03,69.33,,3.9,5.91,177.58,178.26,1,1,0,0,0,0,0,0,0,,
+118,3.937,0,0,transition,unknown,94.99,93.31,72.91,,3.32,7.0,177.07,179.07,1,1,0,0,0,0,0,0,0,,
+119,3.97,0,0,transition,unknown,100.49,87.23,76.83,,2.19,3.11,177.06,178.25,1,1,0,0,0,0,0,0,0,,
+120,4.004,0,0,transition,unknown,101.68,89.26,80.71,,0.38,3.47,177.33,178.02,1,1,0,0,0,0,0,0,0,,
+121,4.037,0,0,transition,unknown,105.94,93.6,84.54,,0.09,3.69,177.08,178.12,1,1,0,0,0,0,0,0,0,,
+122,4.07,0,0,transition,unknown,109.5,104.52,88.49,,0.2,4.34,178.11,178.8,1,1,0,0,0,0,0,0,0,,
+123,4.104,0,0,transition,unknown,113.7,110.86,92.46,,1.81,5.61,177.98,178.91,1,1,0,0,0,0,0,0,0,,
+124,4.137,0,0,transition,unknown,114.93,122.99,96.39,,2.44,6.72,178.2,179.59,1,1,0,0,0,0,0,0,0,,
+125,4.17,0,0,transition,unknown,120.2,124.68,100.3,,3.51,5.41,176.91,178.49,1,1,0,0,0,0,0,0,0,,
+126,4.204,0,0,transition,unknown,125.33,128.15,104.15,,3.77,5.04,177.73,179.17,1,1,0,0,0,0,0,0,0,,
+127,4.237,0,0,transition,unknown,129.74,130.99,107.97,,3.34,4.36,177.5,179.86,1,1,0,0,0,0,0,0,0,,
+128,4.27,0,0,transition,unknown,132.58,139.99,111.77,,2.73,3.93,178.54,178.94,1,1,0,0,0,0,0,0,0,,
+129,4.304,0,0,transition,unknown,135.63,138.93,115.39,,3.79,6.22,178.8,179.47,1,1,0,0,0,0,0,0,0,,
+130,4.337,0,0,transition,unknown,137.82,139.95,118.96,,4.76,4.87,178.24,179.73,1,1,0,0,0,0,0,0,0,,
+131,4.371,0,0,transition,unknown,141.67,155.18,122.39,,5.05,5.39,178.42,179.34,1,1,0,0,0,0,0,0,0,,
+132,4.404,0,0,transition,unknown,145.46,159.21,126.04,,5.34,4.75,178.27,179.48,1,1,0,0,0,0,0,0,0,,
+133,4.437,0,0,transition,unknown,148.28,160.93,129.57,,6.0,5.49,178.52,179.87,1,1,0,0,0,0,0,0,0,,
+134,4.471,0,0,transition,unknown,149.95,162.4,132.94,,5.02,2.64,179.33,179.11,1,1,0,0,0,0,0,0,0,,
+135,4.504,0,0,transition,unknown,152.38,167.95,136.16,,4.54,3.01,179.06,179.62,1,1,0,0,0,0,0,0,0,,
+136,4.537,0,0,transition,unknown,154.97,166.04,139.5,,4.18,0.6,178.49,178.96,1,1,0,0,0,0,0,0,0,,
+137,4.571,0,0,transition,unknown,157.58,173.96,142.62,,5.35,3.88,179.43,178.56,1,1,0,0,0,0,0,0,0,,
+138,4.604,0,0,transition,unknown,158.95,173.16,145.42,,6.61,2.24,179.72,178.18,1,1,0,0,0,0,0,0,0,,
+139,4.637,0,0,transition,unknown,163.67,175.7,148.25,,3.53,3.85,177.72,177.42,1,1,0,0,0,0,0,0,0,,
+140,4.671,1,0,down,unknown,162.94,173.02,,,5.5,2.52,178.55,176.87,1,1,1,0,1,0,0,0,1,,
+141,4.704,1,0,down,unknown,164.24,170.55,164.24,,6.39,0.11,178.68,177.61,1,1,1,0,1,0,0,0,1,,

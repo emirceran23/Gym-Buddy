@@ -1,324 +1,529 @@
-frame,time_s,left_cycle_index,right_cycle_index,left_state,right_state,left_angle_raw_deg,right_angle_raw_deg,left_angle_smoothed_deg,right_angle_smoothed_deg,left_torso_arm_angle_deg,right_torso_arm_angle_deg,left_aligned,right_aligned,left_reps,right_reps,left_correct_reps,right_correct_reps,left_incorrect_reps,right_incorrect_reps,total_reps,left_last_rep_reasons,right_last_rep_reasons
-1,0.033,0,0,unknown,unknown,175.72,176.38,,,19.37,15.11,1,1,0,0,0,0,0,0,0,,
-2,0.067,0,0,unknown,unknown,175.65,173.18,,,18.31,12.75,1,1,0,0,0,0,0,0,0,,
-3,0.1,0,0,unknown,unknown,175.65,173.4,,,18.7,13.18,1,1,0,0,0,0,0,0,0,,
-4,0.133,0,0,unknown,unknown,178.89,175.27,178.89,,19.98,13.1,1,1,0,0,0,0,0,0,0,,
-5,0.167,0,0,unknown,unknown,179.89,174.63,178.89,,20.15,13.1,1,1,0,0,0,0,0,0,0,,
-6,0.2,0,0,unknown,unknown,178.73,173.2,178.89,,20.2,13.62,1,1,0,0,0,0,0,0,0,,
-7,0.234,0,0,unknown,unknown,179.94,173.59,178.89,,21.07,13.21,1,1,0,0,0,0,0,0,0,,
-8,0.267,0,0,unknown,unknown,177.66,174.95,178.89,,22.25,13.67,1,1,0,0,0,0,0,0,0,,
-9,0.3,0,0,unknown,unknown,177.68,176.56,178.89,,22.26,13.61,1,1,0,0,0,0,0,0,0,,
-10,0.334,0,0,unknown,unknown,177.8,176.42,178.89,,22.86,13.94,1,1,0,0,0,0,0,0,0,,
-11,0.367,0,0,unknown,unknown,178.9,177.23,178.89,,23.31,14.48,1,1,0,0,0,0,0,0,0,,
-12,0.4,0,0,unknown,unknown,179.82,177.51,178.89,,23.37,14.37,1,1,0,0,0,0,0,0,0,,
-13,0.434,0,0,unknown,unknown,178.78,178.42,178.89,,23.15,14.52,1,1,0,0,0,0,0,0,0,,
-14,0.467,0,0,unknown,unknown,179.56,176.68,178.89,,23.82,14.01,1,1,0,0,0,0,0,0,0,,
-15,0.501,0,0,unknown,unknown,177.2,177.44,178.89,,23.84,13.67,1,1,0,0,0,0,0,0,0,,
-16,0.534,0,0,unknown,unknown,178.58,178.01,178.89,,23.0,14.48,1,1,0,0,0,0,0,0,0,,
-17,0.567,0,0,unknown,unknown,170.07,178.01,178.89,,22.91,14.84,1,1,0,0,0,0,0,0,0,,
-18,0.601,0,0,unknown,unknown,173.48,177.77,178.89,,22.77,14.77,1,1,0,0,0,0,0,0,0,,
-19,0.634,0,0,unknown,unknown,174.4,176.55,178.89,,22.29,14.31,1,1,0,0,0,0,0,0,0,,
-20,0.667,0,0,unknown,unknown,162.18,176.7,178.89,,17.32,14.62,1,1,0,0,0,0,0,0,0,,
-21,0.701,0,0,unknown,unknown,152.05,177.87,178.89,,20.32,15.24,1,1,0,0,0,0,0,0,0,,
-22,0.734,0,0,unknown,unknown,119.98,178.77,149.44,,26.01,15.86,1,1,0,0,0,0,0,0,0,,
-23,0.767,0,0,unknown,unknown,152.22,179.06,149.44,,60.9,16.97,0,1,0,0,0,0,0,0,0,,
-24,0.801,0,0,transition,unknown,95.77,179.06,131.55,,53.77,16.87,0,1,0,0,0,0,0,0,0,,
-25,0.834,0,0,transition,unknown,145.65,179.39,135.07,,43.64,15.77,0,1,0,0,0,0,0,0,0,,
-26,0.868,0,0,transition,unknown,30.34,179.99,114.13,,77.83,15.9,0,1,0,0,0,0,0,0,0,,
-27,0.901,0,0,transition,unknown,32.08,178.9,114.13,,82.11,16.17,0,1,0,0,0,0,0,0,0,,
-28,0.934,0,0,transition,unknown,126.8,179.87,116.24,,30.39,16.46,0,1,0,0,0,0,0,0,0,,
-29,0.968,0,0,transition,unknown,10.77,178.79,101.17,,50.15,17.32,0,1,0,0,0,0,0,0,0,,
-30,1.001,0,0,up,unknown,17.58,179.68,90.72,,39.55,16.4,0,1,0,0,0,0,0,0,0,,
-31,1.034,0,0,up,unknown,17.25,179.96,82.56,,69.36,16.85,0,1,0,0,0,0,0,0,0,,
-32,1.068,0,0,up,unknown,28.87,178.85,77.19,,58.09,16.74,0,1,0,0,0,0,0,0,0,,
-33,1.101,0,0,up,unknown,30.22,178.06,72.92,,49.38,16.95,0,1,0,0,0,0,0,0,0,,
-34,1.134,0,0,up,unknown,30.47,176.6,69.38,,39.26,16.38,0,1,0,0,0,0,0,0,0,,
-35,1.168,0,0,up,unknown,33.49,176.39,57.27,,37.19,16.3,0,1,0,0,0,0,0,0,0,,
-36,1.201,0,0,up,unknown,29.2,177.11,49.7,,38.1,16.71,0,1,0,0,0,0,0,0,0,,
-37,1.235,0,0,up,unknown,23.8,176.63,43.7,,34.59,16.93,0,1,0,0,0,0,0,0,0,,
-38,1.268,0,0,up,unknown,31.98,177.23,34.23,,44.11,17.2,0,1,0,0,0,0,0,0,0,,
-39,1.301,0,0,up,unknown,23.25,175.91,33.64,,48.54,16.18,0,1,0,0,0,0,0,0,0,,
-40,1.335,0,0,up,unknown,31.33,176.51,25.68,,39.22,16.45,0,1,0,0,0,0,0,0,0,,
-41,1.368,0,0,up,unknown,26.65,178.1,27.01,,50.72,16.84,0,1,0,0,0,0,0,0,0,,
-42,1.401,0,0,up,unknown,18.67,178.23,27.1,,68.98,16.38,0,1,0,0,0,0,0,0,0,,
-43,1.435,0,0,up,unknown,31.34,179.58,28.27,,48.02,17.28,0,1,0,0,0,0,0,0,0,,
-44,1.468,0,0,up,unknown,27.65,178.27,28.17,,46.57,16.84,0,1,0,0,0,0,0,0,0,,
-45,1.502,0,0,up,unknown,80.51,178.47,28.17,,58.84,16.38,0,1,0,0,0,0,0,0,0,,
-46,1.535,0,0,up,unknown,127.94,178.75,28.17,,50.82,16.57,0,1,0,0,0,0,0,0,0,,
-47,1.568,0,0,up,unknown,15.71,178.88,26.96,,66.31,16.38,0,1,0,0,0,0,0,0,0,,
-48,1.602,0,0,up,unknown,51.79,178.96,28.74,,67.28,15.92,0,1,0,0,0,0,0,0,0,,
-49,1.635,0,0,up,unknown,66.34,178.13,31.48,,27.04,15.58,1,1,0,0,0,0,0,0,0,,
-50,1.668,0,0,transition,unknown,103.97,178.13,37.71,,54.97,16.19,0,1,0,0,0,0,0,0,0,,
-51,1.702,0,0,transition,unknown,120.24,177.17,45.74,,30.91,16.41,0,1,0,0,0,0,0,0,0,,
-52,1.735,0,0,transition,unknown,146.99,177.14,45.74,,22.35,15.72,1,1,0,0,0,0,0,0,0,,
-53,1.768,0,0,transition,unknown,135.47,177.79,45.74,,19.36,15.57,1,1,0,0,0,0,0,0,0,,
-54,1.802,0,0,transition,unknown,158.79,178.93,45.74,,21.15,15.83,1,1,0,0,0,0,0,0,0,,
-55,1.835,0,0,transition,unknown,176.77,178.29,45.74,,23.57,15.37,1,1,0,0,0,0,0,0,0,,
-56,1.869,0,0,transition,unknown,167.02,178.27,45.74,,22.28,15.31,1,1,0,0,0,0,0,0,0,,
-57,1.902,0,0,transition,unknown,167.34,177.17,45.74,,22.31,15.65,1,1,0,0,0,0,0,0,0,,
-58,1.935,0,0,transition,unknown,168.33,177.06,45.74,,22.58,15.48,1,1,0,0,0,0,0,0,0,,
-59,1.969,0,0,transition,unknown,176.22,176.82,45.74,,23.12,15.31,1,1,0,0,0,0,0,0,0,,
-60,2.002,0,0,transition,unknown,178.25,178.23,45.74,,24.42,15.26,1,1,0,0,0,0,0,0,0,,
-61,2.035,0,0,transition,unknown,178.08,178.37,45.74,,24.35,15.29,1,1,0,0,0,0,0,0,0,,
-62,2.069,0,0,transition,unknown,175.63,177.19,45.74,,22.94,16.05,1,1,0,0,0,0,0,0,0,,
-63,2.102,0,0,transition,unknown,177.28,176.38,45.74,,23.38,16.33,1,1,0,0,0,0,0,0,0,,
-64,2.135,0,0,transition,unknown,177.03,175.77,45.74,,23.19,16.05,1,1,0,0,0,0,0,0,0,,
-65,2.169,0,0,transition,unknown,178.19,176.66,57.93,,22.88,16.81,1,1,0,0,0,0,0,0,0,,
-66,2.202,0,0,transition,unknown,177.06,177.64,70.74,,21.91,16.93,1,1,0,0,0,0,0,0,0,,
-67,2.236,0,0,down,unknown,176.42,177.31,,,21.42,16.9,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-68,2.269,0,0,down,unknown,177.49,179.18,177.49,,21.91,17.33,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-69,2.302,0,0,down,unknown,179.71,179.19,178.6,,22.49,17.54,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-70,2.336,0,0,down,unknown,176.9,179.96,178.03,,21.61,17.7,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-71,2.369,0,0,down,unknown,173.94,178.91,177.01,,19.91,18.11,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-72,2.402,0,0,down,unknown,175.45,177.92,176.7,,19.83,19.14,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-73,2.436,0,0,down,unknown,173.45,175.56,176.16,,18.16,20.04,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-74,2.469,0,0,down,unknown,172.67,175.82,175.66,,18.27,21.89,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-75,2.502,0,0,down,unknown,174.21,175.2,175.48,,18.38,22.57,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-76,2.536,0,0,down,unknown,173.29,171.67,175.23,,17.38,22.57,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-77,2.569,0,0,down,unknown,171.64,171.57,174.87,,16.93,22.49,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-78,2.603,0,0,down,unknown,170.82,177.68,174.51,,17.25,23.24,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-79,2.636,0,0,down,unknown,170.24,154.37,174.15,,17.43,23.62,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-80,2.669,0,0,down,unknown,170.39,160.35,173.56,,17.69,18.57,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-81,2.703,0,0,down,unknown,171.92,141.6,172.91,,18.72,15.8,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-82,2.736,0,0,down,unknown,171.7,147.01,172.48,,18.72,15.86,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-83,2.769,0,0,down,unknown,172.07,126.63,172.32,,19.37,10.91,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-84,2.803,0,0,down,unknown,171.4,104.75,171.98,,19.42,11.37,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-85,2.836,0,0,down,unknown,172.24,109.17,171.88,,20.31,12.05,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-86,2.87,0,0,down,unknown,172.15,118.19,171.88,,20.27,33.17,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-87,2.903,0,0,down,unknown,170.91,39.65,171.73,,19.44,21.29,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-88,2.936,0,0,down,unknown,170.97,32.09,171.47,,19.52,21.07,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-89,2.97,0,0,down,unknown,170.74,36.47,171.25,,18.67,6.92,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-90,3.003,0,0,down,unknown,169.82,60.88,171.25,,17.76,25.83,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-91,3.036,0,0,down,unknown,171.4,38.89,171.25,,17.57,9.12,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-92,3.07,0,0,down,unknown,170.75,46.94,171.18,,17.78,22.91,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-93,3.103,0,0,down,unknown,170.48,18.35,171.15,18.35,17.32,31.2,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-94,3.136,0,0,down,up,170.4,13.52,171.16,15.93,17.37,30.03,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-95,3.17,0,0,down,up,171.77,10.07,171.28,13.98,17.9,31.14,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-96,3.203,0,0,down,up,171.57,8.97,171.25,12.73,18.22,31.07,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-97,3.237,0,0,down,up,171.77,8.49,171.25,11.88,18.54,31.31,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-98,3.27,0,0,down,up,171.36,2.04,171.2,11.88,19.5,28.27,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-99,3.303,0,0,down,up,172.08,9.36,171.25,11.46,18.41,31.11,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-100,3.337,0,0,down,up,172.18,10.3,171.25,11.46,18.58,32.21,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-101,3.37,0,0,down,up,172.08,18.31,171.34,12.44,18.46,35.19,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-102,3.403,0,0,down,up,173.61,25.29,171.56,14.04,18.94,36.81,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-103,3.437,0,0,down,up,173.41,28.04,171.79,14.04,19.25,53.15,1,0,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-104,3.47,0,0,down,up,173.11,26.49,171.98,14.04,19.09,23.82,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-105,3.504,0,0,down,up,173.31,44.89,172.22,14.04,19.34,8.15,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-106,3.537,0,0,down,up,173.66,109.47,172.49,14.04,18.85,38.03,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-107,3.57,0,0,down,up,173.25,64.29,172.62,14.04,18.6,31.91,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-108,3.604,0,0,down,up,173.69,77.82,172.79,14.04,18.64,9.34,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-109,3.637,0,0,down,up,173.14,80.75,172.91,14.04,18.02,5.52,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-110,3.67,0,0,down,up,171.51,136.7,172.92,14.04,17.43,11.95,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-111,3.704,0,0,down,up,172.3,179.49,172.94,14.04,17.07,20.05,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-112,3.737,0,0,down,up,171.54,176.56,172.88,32.1,16.93,21.25,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-113,3.77,0,0,down,up,172.3,179.71,172.9,32.1,16.74,20.07,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-114,3.804,0,0,down,up,171.6,175.04,172.73,32.1,16.61,22.5,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-115,3.837,0,0,down,up,172.09,174.65,172.73,32.1,16.92,22.97,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-116,3.871,0,0,down,up,173.51,172.97,172.74,32.1,17.45,22.98,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-117,3.904,0,0,down,up,173.12,173.92,172.74,32.1,17.1,24.1,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-118,3.937,0,0,down,up,173.24,173.81,172.74,32.1,17.77,23.61,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-119,3.971,0,0,down,up,172.85,177.62,172.67,32.1,17.15,22.89,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-120,4.004,0,0,down,up,171.82,176.67,172.55,32.1,16.57,23.18,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-121,4.037,0,0,down,up,171.5,179.73,172.37,32.1,16.75,20.91,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-122,4.071,0,0,down,up,171.24,176.67,172.21,32.1,16.72,20.22,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-123,4.104,0,0,down,up,170.63,177.48,172.14,32.1,16.4,20.34,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-124,4.137,0,0,down,up,171.89,177.04,172.1,32.1,16.52,19.99,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-125,4.171,0,0,down,up,171.64,177.98,172.11,32.1,16.13,20.16,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-126,4.204,0,0,down,up,172.71,176.55,172.15,32.1,17.22,19.72,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-127,4.238,0,0,down,up,173.28,177.54,172.29,32.1,17.84,19.72,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-128,4.271,0,0,down,up,173.81,176.14,172.31,32.1,17.76,18.68,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-129,4.304,0,0,down,up,176.33,176.32,172.58,32.1,18.41,18.43,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-130,4.338,0,0,down,up,175.61,176.14,172.77,32.1,18.96,17.81,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-131,4.371,0,0,down,up,176.85,176.01,173.11,32.1,19.83,17.69,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-132,4.404,0,0,down,up,179.35,176.95,173.11,32.1,21.2,18.1,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-133,4.438,0,0,down,up,178.83,175.7,173.11,32.1,22.29,17.91,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-134,4.471,0,0,down,up,177.31,176.57,173.11,32.1,23.26,18.28,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-135,4.505,0,0,down,up,179.27,175.97,173.11,32.1,23.45,17.32,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-136,4.538,0,0,down,up,179.88,176.95,173.11,32.1,23.89,17.02,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-137,4.571,0,0,down,up,166.25,179.1,173.11,32.1,24.47,17.76,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-138,4.605,0,0,down,up,153.12,178.63,173.11,32.1,24.01,18.01,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-139,4.638,0,0,down,up,165.23,178.31,173.11,32.1,24.9,17.81,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-140,4.671,0,0,down,up,165.42,179.42,173.11,32.1,23.67,17.51,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-141,4.705,0,0,down,up,176.36,178.99,173.11,32.1,21.0,18.01,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-142,4.738,0,0,down,up,178.68,179.38,173.11,32.1,19.7,17.95,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-143,4.771,0,0,down,up,150.26,178.27,171.31,32.1,22.46,18.31,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-144,4.805,0,0,down,up,160.12,179.93,170.36,32.1,25.36,18.88,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-145,4.838,0,0,down,up,164.5,178.88,169.8,32.1,24.25,19.51,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-146,4.872,0,0,down,up,140.99,178.1,167.33,32.1,18.17,19.84,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-147,4.905,0,0,transition,up,129.4,179.57,163.79,32.1,20.54,19.0,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-148,4.938,0,0,transition,up,154.14,178.57,162.33,32.1,22.49,19.43,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-149,4.972,0,0,transition,up,121.6,179.17,158.07,32.1,23.87,18.79,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-150,5.005,0,0,transition,up,93.18,179.67,151.4,32.1,24.26,18.21,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-151,5.038,0,0,transition,up,72.41,178.7,142.95,32.1,30.42,18.43,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-152,5.072,0,0,transition,up,25.74,178.27,130.4,32.1,32.77,18.68,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-153,5.105,0,0,up,up,24.72,177.99,117.83,32.1,36.82,18.17,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-154,5.138,0,0,up,up,21.76,178.7,104.9,32.1,35.33,17.56,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-155,5.172,0,0,up,up,29.4,178.55,94.83,32.1,37.82,17.9,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-156,5.205,0,0,up,up,32.01,179.69,84.15,32.1,40.99,17.49,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-157,5.239,0,0,up,up,30.96,179.7,73.03,32.1,40.32,17.07,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-158,5.272,0,0,up,up,30.17,179.7,63.79,32.1,35.65,17.07,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-159,5.305,0,0,up,up,31.34,179.44,55.62,32.1,39.42,17.07,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-160,5.339,0,0,up,up,31.78,179.73,45.42,32.1,34.59,17.2,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-161,5.372,0,0,up,up,37.85,178.98,38.44,32.1,41.13,16.63,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-162,5.405,0,0,up,up,38.49,177.93,33.89,32.1,40.73,15.9,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-163,5.439,0,0,up,up,35.22,178.81,30.79,32.1,35.71,16.95,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-164,5.472,0,0,up,up,25.89,179.89,30.8,32.1,33.42,16.81,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-165,5.506,0,0,up,up,145.17,179.59,40.84,32.1,29.78,17.03,0,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-166,5.539,0,0,up,up,53.77,179.18,43.51,32.1,25.87,16.86,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-167,5.572,0,0,transition,up,88.52,178.02,48.43,32.1,24.08,16.39,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-168,5.606,0,0,transition,up,56.04,178.45,50.43,32.1,19.41,17.01,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-169,5.639,0,0,transition,up,59.36,179.03,52.8,32.1,20.51,17.65,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-170,5.672,0,0,transition,up,77.22,179.2,56.72,32.1,18.74,17.32,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-171,5.706,0,0,transition,up,74.74,179.69,60.34,32.1,20.88,17.58,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-172,5.739,0,0,transition,up,161.71,179.86,71.17,32.1,21.14,17.48,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-173,5.772,0,0,transition,up,147.29,179.73,80.29,32.1,19.64,17.35,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-174,5.806,0,0,transition,up,139.23,179.01,80.29,32.1,20.21,16.64,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-175,5.839,0,0,transition,up,176.71,179.16,80.29,32.1,19.14,16.39,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-176,5.873,0,0,transition,up,169.42,179.4,80.29,32.1,21.76,16.07,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-177,5.906,0,0,transition,up,166.44,179.13,80.29,32.1,22.86,15.53,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-178,5.939,0,0,transition,up,159.84,177.14,80.29,32.1,23.54,16.39,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-179,5.973,0,0,transition,up,163.54,177.84,80.29,32.1,22.82,16.55,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-180,6.006,0,0,transition,up,178.82,177.28,80.29,32.1,22.65,17.21,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-181,6.039,0,0,transition,up,171.48,179.09,80.29,32.1,22.03,16.46,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-182,6.073,0,0,transition,up,178.13,179.87,80.29,32.1,23.15,16.75,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-183,6.106,0,0,transition,up,178.43,179.29,80.29,32.1,24.27,15.9,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-184,6.139,0,0,transition,up,175.89,178.5,80.29,32.1,23.78,15.77,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-185,6.173,0,0,transition,up,178.1,178.87,80.29,32.1,23.77,16.52,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-186,6.206,0,0,transition,up,178.39,178.53,91.94,32.1,23.9,16.95,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-187,6.24,0,0,transition,up,178.5,179.63,103.88,32.1,23.2,17.32,1,1,0,0,0,0,0,0,0,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-188,6.273,1,0,down,up,177.43,179.0,,32.1,23.06,16.69,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-189,6.306,1,0,down,up,176.27,179.75,176.27,32.1,22.31,17.29,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-190,6.34,1,0,down,up,176.48,179.79,176.37,32.1,21.89,18.02,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-191,6.373,1,0,down,up,176.16,178.06,176.3,32.1,21.86,18.31,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-192,6.406,1,0,down,up,173.7,177.91,175.65,32.1,19.65,19.17,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-193,6.44,1,0,down,up,172.87,175.39,175.1,32.1,18.61,21.1,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-194,6.473,1,0,down,up,174.46,178.76,174.99,32.1,18.79,22.18,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-195,6.506,1,0,down,up,173.51,178.61,174.78,32.1,18.79,23.07,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-196,6.54,1,0,down,up,172.18,175.36,174.45,32.1,17.87,22.87,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-197,6.573,1,0,down,up,173.59,177.0,174.36,32.1,17.13,23.36,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-198,6.607,1,0,down,up,173.27,179.87,174.25,32.1,17.71,22.9,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-199,6.64,1,0,down,up,173.18,174.65,174.15,32.1,17.25,22.26,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-200,6.673,1,0,down,up,173.84,167.13,174.13,32.1,18.11,21.45,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-201,6.707,1,0,down,up,173.25,162.71,173.87,32.1,17.26,18.93,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-202,6.74,1,0,down,up,172.33,161.85,173.53,32.1,17.01,17.2,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-203,6.773,1,0,down,up,170.97,164.61,173.1,32.1,17.13,17.48,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-204,6.807,1,0,down,up,171.16,147.33,172.88,32.1,17.24,17.49,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-205,6.84,1,0,down,up,170.84,123.69,172.71,32.1,17.45,20.27,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-206,6.874,1,0,down,up,171.51,39.69,172.47,32.1,17.18,26.47,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-207,6.907,1,0,down,up,171.01,118.35,172.47,32.1,17.55,40.41,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-208,6.94,1,0,down,up,171.64,50.04,172.31,32.1,17.96,9.56,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-209,6.974,1,0,down,up,171.82,39.13,172.28,32.1,17.68,9.39,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-210,7.007,1,0,down,up,171.45,45.59,172.28,32.1,17.25,9.16,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-211,7.04,1,0,down,up,171.48,38.32,172.28,32.1,16.61,9.31,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-212,7.074,1,0,down,up,170.58,37.65,172.28,32.1,16.28,5.4,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-213,7.107,1,0,down,up,170.01,14.93,171.98,32.1,16.27,25.83,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-214,7.14,1,0,down,up,171.37,29.93,171.98,32.1,16.51,21.89,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-215,7.174,1,0,down,up,172.63,11.74,171.93,30.07,15.79,30.12,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-216,7.207,1,0,down,up,172.41,11.89,171.87,28.41,15.5,31.38,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-217,7.241,1,0,down,up,171.59,13.07,171.68,27.14,15.26,30.48,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-218,7.274,1,0,down,up,172.76,10.78,171.64,26.5,15.5,32.69,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-219,7.307,1,0,down,up,173.02,11.38,171.7,26.5,16.23,29.28,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-220,7.341,1,0,down,up,173.47,13.23,171.9,26.48,16.28,31.22,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-221,7.374,1,0,down,up,174.19,13.94,172.16,26.8,16.36,32.3,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-222,7.407,1,0,down,up,174.76,28.32,172.16,28.42,16.98,27.56,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-223,7.441,1,0,down,up,173.79,27.1,172.16,28.42,16.33,31.49,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-224,7.474,1,0,down,up,174.42,32.75,172.16,28.42,16.66,8.2,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-225,7.508,1,0,down,up,173.2,46.11,172.35,31.55,15.7,11.62,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-226,7.541,1,0,down,up,173.12,145.49,172.35,31.55,15.53,34.46,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-227,7.574,1,0,down,up,172.46,61.47,172.43,31.55,15.58,40.98,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-228,7.608,1,0,down,up,171.64,143.64,172.43,31.55,15.58,26.7,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-229,7.641,1,0,down,up,171.39,71.25,172.4,31.55,15.56,9.62,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-230,7.674,1,0,down,up,169.56,168.55,172.36,44.82,15.21,21.59,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-231,7.708,1,0,down,up,170.83,158.63,172.21,56.51,14.78,23.55,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-232,7.741,1,0,down,up,170.11,157.0,172.02,67.49,14.67,27.38,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-233,7.774,1,0,down,up,171.09,169.64,171.98,66.91,14.85,24.75,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-234,7.808,1,0,down,up,171.81,162.15,171.9,66.91,14.69,27.3,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-235,7.841,1,0,down,up,172.46,170.51,171.85,66.91,14.61,27.75,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-236,7.875,1,0,down,up,171.72,163.64,171.7,66.91,14.27,27.68,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-237,7.908,1,0,down,up,170.36,166.81,171.7,66.91,14.08,27.79,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-238,7.941,1,0,down,up,170.75,169.72,171.7,66.91,14.39,26.42,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-239,7.975,1,0,down,up,171.11,171.91,171.7,66.91,14.45,26.19,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-240,8.008,1,0,down,up,169.9,173.88,171.35,66.91,13.88,26.46,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-241,8.041,1,0,down,up,171.73,173.87,171.22,66.91,14.76,25.89,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-242,8.075,1,0,down,up,171.32,177.22,171.22,66.91,14.13,23.15,1,0,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-243,8.108,1,0,down,up,170.11,179.88,171.03,66.91,14.19,21.91,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-244,8.141,1,0,down,up,170.52,178.67,171.03,66.91,14.81,21.27,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-245,8.175,1,0,down,up,171.27,177.4,171.03,66.91,15.08,19.68,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-246,8.208,1,0,down,up,171.52,179.17,171.02,66.91,15.03,20.17,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-247,8.242,1,0,down,up,171.57,177.65,171.03,66.91,15.13,19.13,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-248,8.275,1,0,down,up,172.14,177.44,171.03,66.91,16.02,18.18,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-249,8.308,1,0,down,up,174.11,175.52,171.03,66.91,17.59,17.08,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-250,8.342,1,0,down,up,174.61,177.59,171.03,66.91,19.18,16.99,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-251,8.375,1,0,down,up,173.94,177.01,171.4,66.91,19.5,16.89,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-252,8.408,1,0,down,up,175.13,177.81,171.4,66.91,19.88,16.91,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-253,8.442,1,0,down,up,176.8,177.53,171.4,66.91,20.67,16.17,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-254,8.475,1,0,down,up,175.91,176.51,171.4,66.91,20.57,15.6,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-255,8.508,1,0,down,up,174.96,176.84,171.4,66.91,20.72,15.17,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-256,8.542,1,0,down,up,177.19,176.94,171.4,66.91,21.58,14.51,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-257,8.575,1,0,down,up,173.36,176.64,171.4,66.91,21.96,14.07,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-258,8.609,1,0,down,up,175.27,177.88,171.4,66.91,21.87,14.03,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-259,8.642,1,0,down,up,173.62,177.37,171.4,66.91,20.77,14.37,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-260,8.675,1,0,down,up,174.55,176.89,171.4,66.91,22.36,13.86,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-261,8.709,1,0,down,up,169.27,176.79,171.4,66.91,21.45,13.76,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-262,8.742,1,0,down,up,167.38,175.26,171.11,66.91,18.52,14.09,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-263,8.775,1,0,down,up,135.87,174.05,168.26,66.91,16.5,14.11,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-264,8.809,1,0,down,up,112.58,174.85,163.38,66.91,19.34,13.88,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-265,8.842,1,0,transition,up,156.29,175.65,162.09,66.91,17.94,14.68,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-266,8.876,1,0,transition,up,156.89,176.43,160.79,66.91,28.51,14.79,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-267,8.909,1,0,transition,up,112.45,174.95,155.85,66.91,20.89,14.64,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-268,8.942,1,0,transition,up,86.58,175.62,148.91,66.91,19.32,14.62,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-269,8.976,1,0,transition,up,124.32,175.2,148.91,66.91,17.11,13.99,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-270,9.009,1,0,transition,up,144.54,175.29,148.91,66.91,29.78,13.76,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-271,9.042,1,0,transition,up,105.74,174.36,148.91,66.91,20.28,13.34,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-272,9.076,1,0,transition,up,178.27,175.93,148.91,66.91,34.91,13.25,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-273,9.109,1,0,transition,up,167.21,175.52,148.91,66.91,27.66,12.85,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-274,9.142,1,0,transition,up,25.29,175.61,148.91,66.91,41.83,12.94,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-275,9.176,1,0,transition,up,32.81,176.05,137.33,66.91,25.47,12.52,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-276,9.209,1,0,transition,up,170.44,175.14,137.33,66.91,26.25,12.29,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-277,9.243,1,0,transition,up,25.8,176.43,137.33,66.91,26.63,12.85,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-278,9.276,1,0,transition,up,45.86,174.44,137.33,66.91,25.68,12.27,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-279,9.309,1,0,transition,up,39.74,175.82,137.33,66.91,22.74,12.94,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-280,9.343,1,0,transition,up,37.63,175.26,137.33,66.91,22.24,13.06,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-281,9.376,1,0,transition,up,171.3,176.11,137.33,66.91,20.81,13.76,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-282,9.409,1,0,transition,up,102.18,175.69,137.33,66.91,22.02,13.18,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-283,9.443,1,0,transition,up,41.61,176.94,137.33,66.91,22.93,13.76,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-284,9.476,1,0,transition,up,75.26,175.23,137.33,66.91,21.5,13.58,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-285,9.51,1,0,up,up,37.67,175.16,126.3,66.91,28.27,13.37,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-286,9.543,1,0,up,up,97.76,175.16,126.3,66.91,21.31,13.74,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-287,9.576,1,0,up,up,163.04,175.66,126.3,66.91,21.59,14.1,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-288,9.61,1,0,up,up,151.98,175.84,126.3,66.91,19.12,13.41,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-289,9.643,1,0,up,up,83.04,176.48,118.92,66.91,46.44,13.53,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-290,9.676,1,0,up,up,67.31,177.0,110.23,66.91,19.3,13.91,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-291,9.71,1,0,transition,up,76.11,178.54,102.08,66.91,21.49,14.58,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-292,9.743,1,0,transition,up,142.7,179.94,102.08,66.91,20.84,15.49,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-293,9.776,1,0,transition,up,140.96,179.12,99.88,66.91,19.53,15.44,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-294,9.81,1,0,transition,up,130.94,178.62,99.88,66.91,19.35,15.38,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-295,9.843,1,0,transition,up,175.64,177.34,99.88,66.91,19.74,14.63,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-296,9.877,1,0,transition,up,178.34,177.73,99.88,66.91,24.53,14.52,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-297,9.91,1,0,transition,up,155.64,177.16,99.88,66.91,26.78,14.37,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-298,9.943,1,0,transition,up,152.02,176.98,99.88,66.91,25.85,13.8,0,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-299,9.977,1,0,transition,up,168.74,175.66,99.88,66.91,24.89,12.97,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-300,10.01,1,0,transition,up,178.04,176.89,99.88,66.91,25.02,13.73,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-301,10.043,1,0,transition,up,179.15,176.99,99.88,66.91,25.36,13.5,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-302,10.077,1,0,transition,up,179.77,177.08,99.88,66.91,24.93,13.23,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-303,10.11,1,0,transition,up,176.96,176.79,103.3,66.91,24.09,12.94,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-304,10.143,1,0,transition,up,173.73,177.22,108.4,66.91,22.58,12.85,1,1,1,0,0,0,1,0,1,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-305,10.177,2,0,down,up,174.57,176.67,,66.91,22.33,13.28,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-306,10.21,2,0,down,up,176.06,174.44,176.06,66.91,21.98,12.7,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-307,10.244,2,0,down,up,176.37,175.36,176.21,66.91,21.84,13.08,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-308,10.277,2,0,down,up,176.32,176.91,176.25,66.91,21.95,13.72,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-309,10.31,2,0,down,up,176.05,176.32,176.2,66.91,21.0,13.08,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-310,10.344,2,0,down,up,175.54,175.7,176.07,66.91,20.35,12.64,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-311,10.377,2,0,down,up,177.43,174.99,176.29,66.91,20.5,13.01,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-312,10.41,2,0,down,up,177.95,173.76,176.53,66.91,19.78,12.59,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-313,10.444,2,0,down,up,176.7,174.24,176.55,66.91,19.01,12.86,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-314,10.477,2,0,down,up,177.95,172.78,176.71,66.91,19.65,12.38,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-315,10.511,2,0,down,up,177.05,174.99,176.74,66.91,19.07,12.72,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-316,10.544,2,0,down,up,175.23,174.96,176.6,66.91,18.28,13.31,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-317,10.577,2,0,down,up,176.45,174.94,176.59,66.91,18.97,13.87,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-318,10.611,2,0,down,up,176.45,175.78,176.62,66.91,18.97,13.88,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-319,10.644,2,0,down,up,176.45,174.4,176.63,66.91,19.11,13.91,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-320,10.677,2,0,down,up,176.42,172.13,176.64,66.91,19.41,13.83,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-321,10.711,2,0,down,up,175.83,172.42,176.62,66.91,19.6,14.31,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-322,10.744,2,0,down,up,174.01,172.8,176.49,66.91,19.39,14.84,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
-323,10.777,2,0,down,up,174.01,173.53,176.21,66.91,19.29,15.28,1,1,2,0,0,0,2,0,2,Torso angle exceeded 30° (3-frame avg) during rep cycle,
+frame,time_s,left_cycle_index,right_cycle_index,left_state,right_state,left_angle_raw_deg,right_angle_raw_deg,left_angle_smoothed_deg,right_angle_smoothed_deg,left_elbow_alignment_angle_deg,right_elbow_alignment_angle_deg,left_true_torso_angle_deg,right_true_torso_angle_deg,left_aligned,right_aligned,left_reps,right_reps,left_correct_reps,right_correct_reps,left_incorrect_reps,right_incorrect_reps,total_reps,left_last_rep_reasons,right_last_rep_reasons
+1,0.04,0,0,unknown,unknown,,,,,,,,,1,1,0,0,0,0,0,0,0,,
+2,0.08,0,0,unknown,unknown,,,,,,,,,1,1,0,0,0,0,0,0,0,,
+3,0.12,0,0,unknown,unknown,167.1,112.52,,,4.71,18.43,101.61,90.0,0,1,0,0,0,0,0,0,0,,
+4,0.16,0,0,unknown,unknown,171.29,139.44,,,4.2,21.81,97.8,102.44,0,0,0,0,0,0,0,0,0,,
+5,0.2,0,0,unknown,unknown,168.28,128.59,,,2.14,30.17,102.9,101.03,0,0,0,0,0,0,0,0,0,,
+6,0.24,0,0,unknown,unknown,177.49,144.51,,,2.95,16.06,105.31,99.91,0,0,0,0,0,0,0,0,0,,
+7,0.28,0,0,unknown,unknown,162.21,171.16,,,5.01,31.34,102.42,100.93,0,0,0,0,0,0,0,0,0,,
+8,0.32,0,0,unknown,unknown,164.44,156.16,,,5.28,36.03,102.71,102.19,0,0,0,0,0,0,0,0,0,,
+9,0.36,0,0,unknown,unknown,153.06,168.62,,,4.92,33.33,105.85,101.03,0,0,0,0,0,0,0,0,0,,
+10,0.4,0,0,unknown,unknown,32.78,172.87,,,12.46,38.25,106.64,101.69,0,0,0,0,0,0,0,0,0,,
+11,0.44,0,0,unknown,unknown,51.09,136.85,,,5.02,58.77,105.86,105.62,0,0,0,0,0,0,0,0,0,,
+12,0.48,0,0,unknown,unknown,120.8,174.62,,,10.85,17.93,109.41,103.84,0,0,0,0,0,0,0,0,0,,
+13,0.52,0,0,unknown,unknown,162.8,111.16,,,1.12,62.98,108.92,105.26,0,0,0,0,0,0,0,0,0,,
+14,0.56,0,0,unknown,unknown,151.79,113.36,,,4.71,32.47,107.1,105.23,0,0,0,0,0,0,0,0,0,,
+15,0.6,0,0,unknown,unknown,161.98,131.11,,,1.28,16.92,107.85,105.52,0,0,0,0,0,0,0,0,0,,
+16,0.64,0,0,unknown,unknown,175.1,126.77,,,4.32,7.08,106.84,109.89,0,0,0,0,0,0,0,0,0,,
+17,0.68,0,0,unknown,unknown,11.29,56.31,,,1.99,66.35,108.15,104.22,0,0,0,0,0,0,0,0,0,,
+18,0.72,0,0,unknown,unknown,41.25,131.55,,,2.2,78.97,108.43,103.42,0,0,0,0,0,0,0,0,0,,
+19,0.76,0,0,unknown,unknown,13.07,179.88,,,6.08,68.19,107.82,101.21,0,0,0,0,0,0,0,0,0,,
+20,0.8,0,0,unknown,unknown,2.65,124.7,,,2.7,56.73,106.3,101.73,0,0,0,0,0,0,0,0,0,,
+21,0.84,0,0,unknown,unknown,8.62,92.34,,,5.97,65.49,106.64,101.51,0,0,0,0,0,0,0,0,0,,
+22,0.88,0,0,unknown,unknown,62.1,27.65,,,26.98,73.28,108.02,100.93,0,0,0,0,0,0,0,0,0,,
+23,0.92,0,0,unknown,unknown,31.37,169.56,,,12.61,139.63,108.76,99.2,0,0,0,0,0,0,0,0,0,,
+24,0.96,0,0,unknown,unknown,34.6,40.6,,,22.59,55.98,107.72,100.98,0,0,0,0,0,0,0,0,0,,
+25,1.0,0,0,unknown,unknown,93.08,121.27,,,20.03,90.66,107.74,99.19,0,1,0,0,0,0,0,0,0,,
+26,1.04,0,0,unknown,unknown,93.09,156.0,,,68.4,142.3,106.56,99.5,1,0,0,0,0,0,0,0,0,,
+27,1.08,0,0,unknown,unknown,51.34,102.11,,,34.53,81.94,106.81,98.13,0,0,0,0,0,0,0,0,0,,
+28,1.12,0,0,unknown,unknown,75.83,157.76,,,64.5,128.2,106.41,98.13,0,0,0,0,0,0,0,0,0,,
+29,1.16,0,0,unknown,unknown,68.03,159.12,,,66.05,156.23,105.47,97.19,1,0,0,0,0,0,0,0,0,,
+30,1.2,0,0,unknown,unknown,68.03,159.12,,,,,,,1,1,0,0,0,0,0,0,0,,
+31,1.24,0,0,unknown,unknown,66.97,97.4,,,68.6,27.33,55.53,55.28,0,0,0,0,0,0,0,0,0,,
+32,1.28,0,0,unknown,unknown,116.23,122.53,,,103.23,31.65,61.34,41.53,0,0,0,0,0,0,0,0,0,,
+33,1.32,0,0,unknown,unknown,114.74,130.46,,,98.44,26.81,59.57,39.53,0,0,0,0,0,0,0,0,0,,
+34,1.36,0,0,unknown,unknown,25.84,130.12,,,56.9,37.5,65.5,30.82,0,0,0,0,0,0,0,0,0,,
+35,1.4,0,0,unknown,unknown,147.7,168.21,,,25.73,0.16,43.71,66.53,0,0,0,0,0,0,0,0,0,,
+36,1.44,0,0,unknown,unknown,116.85,160.61,,,3.12,0.34,51.15,58.7,0,0,0,0,0,0,0,0,0,,
+37,1.48,0,0,unknown,unknown,37.33,106.18,,,22.21,29.12,65.88,46.3,0,0,0,0,0,0,0,0,0,,
+38,1.52,0,0,unknown,unknown,165.63,152.3,,,3.62,19.32,58.66,52.75,0,0,0,0,0,0,0,0,0,,
+39,1.56,0,0,unknown,unknown,166.17,134.04,,,1.76,31.94,58.98,49.68,0,0,0,0,0,0,0,0,0,,
+40,1.6,0,0,unknown,unknown,155.84,125.98,,,11.35,44.26,58.67,50.07,0,0,0,0,0,0,0,0,0,,
+41,1.64,0,0,unknown,unknown,35.55,42.75,,,39.03,64.06,61.65,43.34,0,0,0,0,0,0,0,0,0,,
+42,1.68,0,0,unknown,unknown,19.05,3.24,,,54.7,48.2,60.71,41.8,1,0,0,0,0,0,0,0,0,,
+43,1.72,0,0,unknown,unknown,171.03,38.66,,,172.96,82.5,58.74,41.19,0,0,0,0,0,0,0,0,0,,
+44,1.76,0,0,unknown,unknown,127.23,39.53,,,148.35,69.01,60.64,37.78,0,0,0,0,0,0,0,0,0,,
+45,1.8,0,0,unknown,unknown,165.65,46.01,,,174.28,128.73,57.9,36.57,0,1,0,0,0,0,0,0,0,,
+46,1.84,0,0,unknown,unknown,169.69,158.51,,,164.62,152.75,59.35,39.36,0,0,0,0,0,0,0,0,0,,
+47,1.88,0,0,unknown,unknown,173.79,165.2,,,170.66,152.56,61.7,41.1,0,0,0,0,0,0,0,0,0,,
+48,1.92,0,0,unknown,unknown,173.79,165.2,,,,,,,1,1,0,0,0,0,0,0,0,,
+49,1.96,0,0,unknown,unknown,173.79,165.2,,,,,,,1,1,0,0,0,0,0,0,0,,
+50,2.0,0,0,unknown,unknown,108.54,128.35,,,44.78,4.62,133.96,101.5,0,0,0,0,0,0,0,0,0,,
+51,2.04,0,0,unknown,unknown,0.08,46.88,,,28.38,125.2,117.05,99.8,0,0,0,0,0,0,0,0,0,,
+52,2.08,0,0,unknown,unknown,3.42,51.8,,,18.32,118.01,115.75,98.86,0,0,0,0,0,0,0,0,0,,
+53,2.12,0,0,unknown,unknown,8.14,19.91,,,3.12,115.61,115.56,105.0,0,0,0,0,0,0,0,0,0,,
+54,2.16,0,0,unknown,unknown,14.2,78.31,,,5.48,1.91,117.65,103.6,0,0,0,0,0,0,0,0,0,,
+55,2.2,0,0,unknown,unknown,10.97,68.7,,,0.34,11.92,116.91,104.78,0,0,0,0,0,0,0,0,0,,
+56,2.24,0,0,unknown,unknown,5.46,84.0,,,2.73,1.36,119.3,105.9,0,0,0,0,0,0,0,0,0,,
+57,2.28,0,0,unknown,unknown,0.87,75.96,,,14.22,0.7,118.79,107.4,0,0,0,0,0,0,0,0,0,,
+58,2.32,0,0,unknown,unknown,5.71,87.87,,,11.16,0.56,118.18,106.14,0,0,0,0,0,0,0,0,0,,
+59,2.36,0,0,unknown,unknown,9.85,115.23,,,11.83,20.91,117.18,107.22,0,0,0,0,0,0,0,0,0,,
+60,2.4,0,0,unknown,unknown,9.11,92.75,,,5.98,2.69,116.41,107.22,0,0,0,0,0,0,0,0,0,,
+61,2.44,0,0,unknown,unknown,5.37,103.32,,,22.57,17.87,119.84,107.87,0,0,0,0,0,0,0,0,0,,
+62,2.48,0,0,unknown,unknown,20.32,101.36,,,9.54,16.03,117.51,109.61,0,0,0,0,0,0,0,0,0,,
+63,2.52,0,0,unknown,unknown,97.44,101.42,,,13.65,0.75,117.26,112.21,0,0,0,0,0,0,0,0,0,,
+64,2.56,0,0,unknown,unknown,127.4,133.26,,,17.88,0.11,117.22,116.3,0,0,0,0,0,0,0,0,0,,
+65,2.6,0,0,unknown,unknown,87.42,150.95,,,17.39,11.03,117.57,116.98,0,0,0,0,0,0,0,0,0,,
+66,2.64,0,0,unknown,unknown,111.33,142.81,,,19.72,6.64,120.74,114.54,0,0,0,0,0,0,0,0,0,,
+67,2.68,0,0,unknown,unknown,157.57,136.05,,,9.03,7.1,119.91,115.55,0,0,0,0,0,0,0,0,0,,
+68,2.72,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+69,2.76,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+70,2.8,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+71,2.84,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+72,2.88,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+73,2.92,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+74,2.96,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+75,3.0,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+76,3.04,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+77,3.08,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+78,3.12,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+79,3.16,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+80,3.2,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+81,3.24,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+82,3.28,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+83,3.32,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+84,3.36,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+85,3.4,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+86,3.44,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+87,3.48,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+88,3.52,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+89,3.56,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+90,3.6,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+91,3.64,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+92,3.68,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+93,3.72,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+94,3.76,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+95,3.8,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+96,3.84,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+97,3.88,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+98,3.92,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+99,3.96,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+100,4.0,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+101,4.04,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+102,4.08,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+103,4.12,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+104,4.16,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+105,4.2,0,0,unknown,unknown,157.57,136.05,,,,,,,1,1,0,0,0,0,0,0,0,,
+106,4.24,0,0,unknown,unknown,91.23,46.54,,,179.15,158.64,143.84,144.1,0,1,0,0,0,0,0,0,0,,
+107,4.28,0,0,unknown,unknown,8.01,13.39,,,115.77,138.66,148.67,145.96,1,1,0,0,0,0,0,0,0,,
+108,4.32,0,0,unknown,unknown,8.01,13.39,,,,,,,1,1,0,0,0,0,0,0,0,,
+109,4.36,0,0,unknown,unknown,8.01,13.39,,,,,,,1,1,0,0,0,0,0,0,0,,
+110,4.4,0,0,unknown,unknown,8.01,13.39,,,,,,,1,1,0,0,0,0,0,0,0,,
+111,4.44,0,0,unknown,unknown,161.08,88.49,,,126.42,172.95,134.61,125.12,0,0,0,0,0,0,0,0,0,,
+112,4.48,0,0,unknown,unknown,45.0,72.6,,,51.09,12.79,141.09,124.59,0,1,0,0,0,0,0,0,0,,
+113,4.52,0,0,unknown,unknown,90.63,19.96,,,1.22,73.45,140.91,126.2,1,1,0,0,0,0,0,0,0,,
+114,4.56,0,0,unknown,unknown,90.63,19.96,,,,,,,1,1,0,0,0,0,0,0,0,,
+115,4.6,0,0,unknown,unknown,173.62,155.69,173.62,155.69,75.15,93.73,119.2,100.62,0,0,0,0,0,0,0,0,0,,
+116,4.64,0,0,unknown,unknown,167.44,158.94,173.62,157.32,38.78,85.07,123.69,99.69,0,0,0,0,0,0,0,0,0,,
+117,4.68,0,0,unknown,unknown,157.05,24.72,173.62,157.32,41.64,34.09,124.62,109.89,0,0,0,0,0,0,0,0,0,,
+118,4.72,0,0,unknown,unknown,159.93,165.06,173.62,159.9,23.39,76.41,138.18,105.35,0,1,0,0,0,0,0,0,0,,
+119,4.76,0,0,unknown,down,156.23,172.03,173.62,162.93,15.8,100.09,128.66,88.49,0,0,0,0,0,0,0,0,0,,
+120,4.8,0,0,unknown,down,116.02,12.69,173.62,162.93,69.98,73.35,122.55,100.3,1,0,0,0,0,0,0,0,0,,
+121,4.84,0,0,unknown,down,118.54,70.56,173.62,144.46,59.23,96.02,125.17,91.1,1,0,0,0,0,0,0,0,0,,
+122,4.88,0,0,unknown,transition,102.53,71.74,173.62,132.34,48.59,95.7,124.29,88.88,1,0,0,0,0,0,0,0,0,,
+123,4.92,0,0,unknown,transition,155.34,60.11,173.62,132.34,61.33,99.14,120.58,93.24,1,0,0,0,0,0,0,0,0,,
+124,4.96,0,0,unknown,transition,155.34,60.11,173.62,132.34,,,,,1,1,0,0,0,0,0,0,0,,
+125,5.0,0,0,unknown,transition,155.34,60.11,173.62,132.34,,,,,1,1,0,0,0,0,0,0,0,,
+126,5.04,0,0,unknown,transition,50.26,48.32,173.62,132.34,0.67,106.79,145.11,137.76,0,1,0,0,0,0,0,0,0,,
+127,5.08,0,0,unknown,transition,50.26,48.32,173.62,132.34,,,,,1,1,0,0,0,0,0,0,0,,
+128,5.12,0,0,unknown,transition,50.26,48.32,173.62,132.34,,,,,1,1,0,0,0,0,0,0,0,,
+129,5.16,0,0,unknown,transition,50.26,48.32,173.62,132.34,,,,,1,1,0,0,0,0,0,0,0,,
+130,5.2,0,0,unknown,transition,50.26,48.32,173.62,132.34,,,,,1,1,0,0,0,0,0,0,0,,
+131,5.24,0,0,unknown,transition,50.26,48.32,173.62,132.34,,,,,1,1,0,0,0,0,0,0,0,,
+132,5.28,0,0,unknown,transition,50.26,48.32,173.62,132.34,,,,,1,1,0,0,0,0,0,0,0,,
+133,5.32,0,0,unknown,transition,64.82,179.67,173.62,132.34,12.13,6.72,144.54,132.42,0,0,0,0,0,0,0,0,0,,
+134,5.36,0,0,unknown,transition,56.02,151.26,173.62,132.34,32.08,19.37,136.42,133.48,0,0,0,0,0,0,0,0,0,,
+135,5.4,0,0,unknown,transition,45.14,135.83,173.62,132.34,29.88,5.72,135.84,128.45,0,0,0,0,0,0,0,0,0,,
+136,5.44,0,0,unknown,transition,47.74,122.64,173.62,132.34,20.24,5.72,137.73,125.25,0,0,0,0,0,0,0,0,0,,
+137,5.48,0,0,unknown,transition,39.21,150.15,173.62,132.34,6.51,13.99,138.27,113.28,0,0,0,0,0,0,0,0,0,,
+138,5.52,0,0,unknown,transition,51.32,27.19,173.62,132.34,5.67,9.94,139.34,123.22,0,0,0,0,0,0,0,0,0,,
+139,5.56,0,0,unknown,transition,31.82,88.27,173.62,132.34,2.61,2.8,138.26,122.62,0,0,0,0,0,0,0,0,0,,
+140,5.6,0,0,unknown,transition,47.02,50.12,173.62,132.34,5.32,6.54,135.82,121.49,0,0,0,0,0,0,0,0,0,,
+141,5.64,0,0,unknown,transition,20.56,37.67,173.62,118.81,14.99,4.86,135.45,121.43,0,0,0,0,0,0,0,0,0,,
+142,5.68,0,0,unknown,transition,31.49,1.94,173.62,118.81,7.66,3.87,132.51,120.43,0,0,0,0,0,0,0,0,0,,
+143,5.72,0,0,unknown,transition,45.21,72.72,173.62,118.81,23.5,10.15,136.33,117.43,0,0,0,0,0,0,0,0,0,,
+144,5.76,0,0,unknown,transition,45.95,14.39,173.62,118.81,29.13,35.22,136.15,119.05,0,0,0,0,0,0,0,0,0,,
+145,5.8,0,0,unknown,transition,25.76,78.71,173.62,118.81,18.94,12.12,135.97,117.65,0,0,0,0,0,0,0,0,0,,
+146,5.84,0,0,unknown,transition,24.56,96.67,173.62,118.81,17.58,1.12,133.73,117.69,0,0,0,0,0,0,0,0,0,,
+147,5.88,0,0,unknown,transition,10.02,105.93,173.62,118.81,25.5,38.31,136.06,117.43,0,0,0,0,0,0,0,0,0,,
+148,5.92,0,0,unknown,transition,10.1,109.09,173.62,118.81,24.09,32.81,130.2,116.1,0,0,0,0,0,0,0,0,0,,
+149,5.96,0,0,unknown,transition,6.05,84.39,173.62,118.81,29.29,21.56,130.6,114.92,0,0,0,0,0,0,0,0,0,,
+150,6.0,0,0,unknown,transition,0.94,95.76,173.62,118.81,24.48,50.91,129.81,115.35,0,0,0,0,0,0,0,0,0,,
+151,6.04,0,0,unknown,transition,5.97,96.55,173.62,118.81,26.82,35.27,130.67,113.96,0,0,0,0,0,0,0,0,0,,
+152,6.08,0,0,unknown,transition,9.31,133.45,173.62,118.81,21.93,79.11,122.95,114.1,0,0,0,0,0,0,0,0,0,,
+153,6.12,0,0,unknown,transition,9.79,127.36,173.62,119.88,17.89,77.53,126.11,113.78,0,0,0,0,0,0,0,0,0,,
+154,6.16,0,0,unknown,transition,5.84,75.43,173.62,119.88,23.53,37.61,127.22,113.57,0,0,0,0,0,0,0,0,0,,
+155,6.2,0,0,unknown,transition,8.03,83.23,173.62,119.88,22.6,44.21,124.86,114.41,0,0,0,0,0,0,0,0,0,,
+156,6.24,0,0,unknown,transition,15.1,44.18,173.62,119.88,16.42,7.04,126.78,113.92,0,0,0,0,0,0,0,0,0,,
+157,6.28,0,0,unknown,transition,16.28,51.78,173.62,119.88,15.93,8.39,125.13,110.85,0,0,0,0,0,0,0,0,0,,
+158,6.32,0,0,unknown,transition,8.5,93.51,173.62,119.88,29.8,82.87,119.8,111.37,0,0,0,0,0,0,0,0,0,,
+159,6.36,0,0,unknown,transition,11.62,65.77,173.62,119.88,22.3,16.9,119.05,106.9,0,0,0,0,0,0,0,0,0,,
+160,6.4,0,0,unknown,transition,8.85,111.53,173.62,119.88,31.39,68.66,119.38,105.89,0,0,0,0,0,0,0,0,0,,
+161,6.44,0,0,unknown,transition,0.69,131.87,173.62,119.88,21.44,91.59,116.76,103.57,0,0,0,0,0,0,0,0,0,,
+162,6.48,0,0,unknown,transition,0.49,89.36,173.62,119.88,25.65,40.55,114.59,99.59,0,0,0,0,0,0,0,0,0,,
+163,6.52,0,0,unknown,transition,20.68,21.49,173.62,119.88,9.03,4.89,112.83,97.84,0,0,0,0,0,0,0,0,0,,
+164,6.56,0,0,unknown,transition,2.21,62.89,173.62,119.88,34.7,17.17,113.82,97.71,0,0,0,0,0,0,0,0,0,,
+165,6.6,0,0,unknown,transition,13.0,34.19,173.62,119.88,21.19,2.45,115.95,97.5,0,0,0,0,0,0,0,0,0,,
+166,6.64,0,0,unknown,transition,0.14,69.66,173.62,119.88,37.82,33.79,114.25,97.22,0,0,0,0,0,0,0,0,0,,
+167,6.68,0,0,unknown,transition,0.14,70.7,173.62,119.88,33.31,29.49,110.87,95.53,0,0,0,0,0,0,0,0,0,,
+168,6.72,0,0,unknown,transition,11.08,47.51,173.62,119.88,29.14,14.66,111.54,95.19,0,0,0,0,0,0,0,0,0,,
+169,6.76,0,0,unknown,transition,15.89,53.91,173.62,119.88,29.11,24.82,109.16,94.59,0,0,0,0,0,0,0,0,0,,
+170,6.8,0,0,unknown,transition,19.95,22.17,173.62,119.88,19.52,10.57,111.72,94.34,0,0,0,0,0,0,0,0,0,,
+171,6.84,0,0,unknown,transition,36.22,49.59,173.62,119.88,2.94,27.9,109.33,94.88,0,0,0,0,0,0,0,0,0,,
+172,6.88,0,0,unknown,transition,16.13,33.69,173.62,119.88,23.91,4.56,110.85,94.56,0,0,0,0,0,0,0,0,0,,
+173,6.92,0,0,unknown,transition,19.55,48.44,173.62,119.88,23.5,16.08,109.63,93.55,0,0,0,0,0,0,0,0,0,,
+174,6.96,0,0,unknown,transition,11.55,33.79,173.62,119.88,29.93,12.4,108.17,92.71,0,0,0,0,0,0,0,0,0,,
+175,7.0,0,0,unknown,transition,24.94,60.53,173.62,119.88,12.59,38.04,108.71,94.86,0,0,0,0,0,0,0,0,0,,
+176,7.04,0,0,unknown,transition,45.42,31.26,173.62,119.88,5.92,32.72,110.65,96.9,0,0,0,0,0,0,0,0,0,,
+177,7.08,0,0,unknown,transition,39.08,67.37,173.62,119.88,4.04,53.61,108.95,96.12,0,0,0,0,0,0,0,0,0,,
+178,7.12,0,0,unknown,transition,61.2,108.07,173.62,119.88,25.29,69.12,110.98,98.18,0,0,0,0,0,0,0,0,0,,
+179,7.16,0,0,unknown,transition,107.5,130.31,173.62,119.88,78.05,98.78,112.83,98.78,1,1,0,0,0,0,0,0,0,,
+180,7.2,0,0,unknown,transition,101.99,47.09,173.62,119.88,66.36,43.25,115.33,98.43,1,0,0,0,0,0,0,0,0,,
+181,7.24,0,0,unknown,transition,101.99,47.09,173.62,119.88,,,,,1,1,0,0,0,0,0,0,0,,
+182,7.28,0,0,unknown,transition,101.99,47.09,173.62,119.88,,,,,1,1,0,0,0,0,0,0,0,,
+183,7.32,0,0,unknown,transition,42.33,30.16,173.62,119.88,23.43,69.98,85.87,64.22,0,0,0,0,0,0,0,0,0,,
+184,7.36,0,0,unknown,transition,40.41,47.66,173.62,119.88,13.86,38.41,77.97,65.63,0,0,0,0,0,0,0,0,0,,
+185,7.4,0,0,unknown,transition,161.8,156.19,173.62,119.88,2.71,15.15,69.09,74.85,0,0,0,0,0,0,0,0,0,,
+186,7.44,0,0,unknown,transition,58.28,162.14,173.62,119.88,35.4,16.58,65.91,77.37,0,0,0,0,0,0,0,0,0,,
+187,7.48,0,0,unknown,transition,58.28,162.14,173.62,119.88,,,,,1,1,0,0,0,0,0,0,0,,
+188,7.52,0,0,unknown,transition,58.28,162.14,173.62,119.88,,,,,1,1,0,0,0,0,0,0,0,,
+189,7.56,0,0,unknown,transition,137.68,150.6,173.62,119.88,67.23,42.89,169.11,76.5,0,0,0,0,0,0,0,0,0,,
+190,7.6,0,0,unknown,transition,29.11,66.34,173.62,119.88,31.19,19.26,133.92,108.43,0,0,0,0,0,0,0,0,0,,
+191,7.64,0,0,unknown,transition,26.69,50.45,173.62,119.88,24.73,9.27,131.52,109.98,0,0,0,0,0,0,0,0,0,,
+192,7.68,0,0,unknown,transition,37.95,37.61,173.62,119.88,13.37,16.24,132.23,110.63,0,0,0,0,0,0,0,0,0,,
+193,7.72,0,0,unknown,transition,19.15,52.43,173.62,119.88,26.49,15.53,133.67,112.04,0,0,0,0,0,0,0,0,0,,
+194,7.76,0,0,unknown,transition,17.68,40.78,173.62,119.88,30.3,28.64,133.06,111.56,0,0,0,0,0,0,0,0,0,,
+195,7.8,0,0,unknown,transition,10.63,38.35,173.62,119.88,39.37,114.38,132.03,110.62,0,1,0,0,0,0,0,0,0,,
+196,7.84,0,0,unknown,transition,20.31,70.9,173.62,114.44,29.09,9.66,136.33,112.35,0,0,0,0,0,0,0,0,0,,
+197,7.88,0,0,unknown,transition,19.39,47.1,173.62,114.44,18.61,115.12,133.29,112.89,0,0,0,0,0,0,0,0,0,,
+198,7.92,0,0,unknown,transition,30.44,54.92,173.62,114.44,21.26,25.22,135.36,116.12,0,0,0,0,0,0,0,0,0,,
+199,7.96,0,0,unknown,transition,12.97,94.43,173.62,114.44,21.73,14.49,130.55,116.38,0,0,0,0,0,0,0,0,0,,
+200,8.0,0,0,unknown,transition,17.09,102.36,173.62,114.44,38.61,8.5,135.92,117.68,0,0,0,0,0,0,0,0,0,,
+201,8.04,0,0,unknown,transition,13.92,70.94,173.62,114.44,25.32,14.89,133.75,120.11,0,0,0,0,0,0,0,0,0,,
+202,8.08,0,0,unknown,transition,4.32,130.8,173.62,114.44,42.75,60.23,132.75,117.76,0,0,0,0,0,0,0,0,0,,
+203,8.12,0,0,unknown,transition,9.39,126.94,173.62,114.44,31.73,40.47,132.51,119.59,0,0,0,0,0,0,0,0,0,,
+204,8.16,0,0,unknown,transition,14.69,160.57,173.62,114.44,36.85,52.27,131.09,121.71,0,0,0,0,0,0,0,0,0,,
+205,8.2,0,0,unknown,transition,20.95,108.01,173.62,114.44,43.21,20.59,130.2,119.56,0,0,0,0,0,0,0,0,0,,
+206,8.24,0,0,unknown,transition,51.94,58.03,173.62,114.44,1.0,12.53,130.64,119.74,0,1,0,0,0,0,0,0,0,,
+207,8.28,0,0,unknown,transition,151.47,66.23,173.62,114.44,7.83,31.53,129.76,121.12,0,0,0,0,0,0,0,0,0,,
+208,8.32,0,0,unknown,transition,125.82,132.03,173.62,114.44,19.28,26.29,130.57,122.63,0,0,0,0,0,0,0,0,0,,
+209,8.36,0,0,unknown,transition,56.0,176.61,173.62,114.44,37.34,97.63,132.63,121.59,0,1,0,0,0,0,0,0,0,,
+210,8.4,0,0,unknown,transition,83.39,134.07,173.62,114.44,20.68,8.84,131.96,123.52,0,0,0,0,0,0,0,0,0,,
+211,8.44,0,0,unknown,transition,42.36,89.13,173.62,114.44,7.35,2.71,129.77,122.19,0,0,0,0,0,0,0,0,0,,
+212,8.48,0,0,unknown,transition,116.59,145.39,173.62,114.44,16.73,2.62,129.23,123.86,0,0,0,0,0,0,0,0,0,,
+213,8.52,0,0,unknown,transition,139.08,172.4,173.62,114.44,8.71,5.33,128.29,122.72,0,0,0,0,0,0,0,0,0,,
+214,8.56,0,0,unknown,transition,139.08,172.4,173.62,114.44,,,,,1,1,0,0,0,0,0,0,0,,
+215,8.6,0,0,unknown,transition,167.46,168.49,173.62,119.84,82.44,87.04,175.79,169.54,0,0,0,0,0,0,0,0,0,,
+216,8.64,0,0,unknown,transition,130.59,164.89,152.1,119.84,119.27,84.75,160.85,171.74,0,0,0,0,0,0,0,0,0,,
+217,8.68,0,0,unknown,transition,91.88,158.67,152.1,119.84,131.76,88.36,170.77,175.97,0,0,0,0,0,0,0,0,0,,
+218,8.72,0,0,transition,down,104.41,166.14,136.21,,111.69,42.44,174.87,159.54,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+219,8.76,0,0,transition,down,87.18,177.85,136.21,,117.57,57.44,176.05,158.75,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+220,8.8,0,0,transition,down,79.48,167.95,136.21,,121.89,65.07,175.87,159.65,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+221,8.84,0,0,transition,down,69.58,161.3,119.55,,161.38,84.6,163.23,171.42,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+222,8.88,0,0,transition,down,144.48,158.9,119.55,,95.33,93.94,167.24,178.73,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+223,8.92,0,0,transition,down,116.05,134.68,119.55,,148.41,87.06,169.08,173.88,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+224,8.96,0,0,transition,down,163.63,135.84,119.55,,104.57,92.12,174.52,175.91,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+225,9.0,0,0,transition,down,162.31,160.49,119.55,,77.64,74.39,175.66,175.43,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+226,9.04,0,0,transition,down,155.65,174.72,119.55,,92.77,64.13,174.29,174.99,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+227,9.08,0,0,transition,down,144.55,168.45,119.55,,27.0,44.08,174.16,176.59,1,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+228,9.12,0,0,transition,down,129.36,165.65,119.55,,54.02,44.3,166.58,176.71,1,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+229,9.16,0,0,transition,down,100.37,152.93,119.55,,62.21,43.19,173.8,178.19,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+230,9.2,0,0,transition,down,49.72,112.64,119.55,,26.55,19.08,177.01,175.45,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+231,9.24,0,0,transition,down,98.27,96.1,119.55,,10.98,35.06,172.52,178.28,1,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+232,9.28,0,0,transition,down,121.68,105.55,119.55,105.55,66.82,24.13,171.42,173.22,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+233,9.32,0,0,transition,down,121.88,121.14,119.55,105.55,13.44,9.95,171.87,179.51,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+234,9.36,0,0,transition,down,121.88,121.14,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+235,9.4,0,0,transition,down,121.88,121.14,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+236,9.44,0,0,transition,down,121.88,121.14,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+237,9.48,0,0,transition,down,121.88,121.14,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+238,9.52,0,0,transition,down,121.88,121.14,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+239,9.56,0,0,transition,down,121.88,121.14,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+240,9.6,0,0,transition,down,121.88,121.14,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+241,9.64,0,0,transition,down,121.88,121.14,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+242,9.68,0,0,transition,down,147.69,178.9,119.55,105.55,29.97,9.31,163.12,149.84,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+243,9.72,0,0,transition,down,13.9,157.94,119.55,105.55,3.76,20.1,143.3,153.79,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+244,9.76,0,0,transition,down,172.87,142.51,119.55,105.55,13.58,2.94,159.89,142.98,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+245,9.8,0,0,transition,down,122.7,143.69,119.55,105.55,9.4,10.95,156.33,141.93,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+246,9.84,0,0,transition,down,136.03,149.98,119.55,105.55,11.01,2.25,155.17,142.97,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+247,9.88,0,0,transition,down,164.37,170.75,119.55,105.55,1.99,0.0,154.09,142.85,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+248,9.92,0,0,transition,down,143.58,158.96,119.55,105.55,8.31,6.12,159.02,144.95,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+249,9.96,0,0,transition,down,156.72,159.34,119.55,105.55,4.27,0.63,146.92,136.64,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+250,10.0,0,0,transition,down,146.7,170.57,119.55,105.55,3.08,0.58,153.08,143.28,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+251,10.04,0,0,transition,down,135.77,147.99,119.55,105.55,14.53,0.82,155.49,142.99,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+252,10.08,0,0,transition,down,123.84,102.79,119.55,105.55,7.59,6.92,146.31,135.52,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+253,10.12,0,0,transition,down,126.87,128.94,119.55,105.55,3.69,16.15,149.74,134.37,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+254,10.16,0,0,transition,down,165.96,172.87,119.55,105.55,45.54,29.29,134.46,149.04,1,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+255,10.2,0,0,transition,down,97.66,36.41,119.55,105.55,76.75,36.07,141.74,135.94,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+256,10.24,0,0,transition,down,73.34,76.3,119.55,105.55,2.0,21.79,128.47,145.06,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+257,10.28,0,0,transition,down,20.56,11.31,119.55,105.55,37.53,96.69,127.53,141.69,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+258,10.32,0,0,transition,down,15.77,30.14,119.55,105.55,11.43,113.09,125.04,139.66,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+259,10.36,0,0,transition,down,39.07,8.85,119.55,105.55,1.54,7.68,128.01,134.63,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+260,10.4,0,0,transition,down,67.75,129.81,119.55,105.55,34.58,1.22,126.99,133.78,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+261,10.44,0,0,transition,down,138.33,141.94,119.55,105.55,28.76,17.95,131.95,131.59,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+262,10.48,0,0,transition,down,117.15,129.56,119.55,105.55,32.93,26.65,129.22,130.38,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+263,10.52,0,0,transition,down,120.13,131.15,119.55,105.55,27.37,29.55,131.42,129.36,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+264,10.56,0,0,transition,down,121.75,167.45,119.55,105.55,20.91,33.51,139.76,129.86,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+265,10.6,0,0,transition,down,116.0,144.53,119.55,105.55,15.03,32.39,138.72,132.12,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+266,10.64,0,0,transition,down,118.93,127.12,119.55,105.55,21.46,28.1,139.65,136.58,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+267,10.68,0,0,transition,down,107.29,147.44,119.55,105.55,18.98,26.75,139.65,137.79,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+268,10.72,0,0,transition,down,69.59,123.4,119.55,105.55,11.31,29.99,141.77,136.57,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+269,10.76,0,0,transition,down,121.37,164.21,119.55,105.55,13.44,24.9,142.75,139.3,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+270,10.8,0,0,transition,down,127.85,171.36,119.55,105.55,8.12,24.28,142.49,139.92,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+271,10.84,0,0,transition,down,100.43,163.98,119.55,105.55,4.98,27.85,143.7,139.11,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+272,10.88,0,0,transition,down,43.86,5.05,119.55,105.55,9.32,45.38,144.12,136.3,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+273,10.92,0,0,transition,down,100.19,148.43,119.55,105.55,1.96,32.52,144.35,134.35,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+274,10.96,0,0,transition,down,75.2,8.57,119.55,105.55,9.82,46.6,137.94,132.43,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+275,11.0,0,0,transition,down,51.49,32.78,119.55,105.55,16.97,56.31,136.47,133.99,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+276,11.04,0,0,transition,down,38.19,12.34,119.55,105.55,16.12,48.05,133.88,131.95,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+277,11.08,0,0,transition,down,38.19,12.34,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+278,11.12,0,0,transition,down,38.19,12.34,119.55,105.55,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+279,11.16,0,0,transition,down,148.66,23.2,119.55,105.55,37.63,28.3,76.33,61.7,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+280,11.2,0,0,transition,down,140.38,49.11,119.55,105.55,16.31,47.01,77.77,66.95,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+281,11.24,0,0,transition,down,160.21,175.1,119.55,105.55,40.91,29.98,73.81,79.88,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+282,11.28,0,0,transition,down,174.21,142.58,119.55,105.55,11.36,38.3,73.47,86.48,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+283,11.32,0,0,transition,down,164.7,124.79,119.55,105.55,28.09,51.46,75.38,93.09,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+284,11.36,0,0,transition,down,152.9,138.61,119.55,105.55,13.69,57.27,76.31,94.57,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+285,11.4,0,0,transition,transition,165.14,129.7,128.67,117.63,35.54,67.62,85.73,101.31,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+286,11.44,0,0,transition,transition,146.71,159.52,128.67,117.63,42.16,28.63,90.97,111.04,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+287,11.48,0,0,transition,transition,87.58,133.59,128.67,117.63,66.48,41.45,96.55,103.8,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+288,11.52,0,0,transition,transition,20.64,169.13,128.67,117.63,95.1,51.07,131.63,67.01,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+289,11.56,0,0,transition,transition,20.64,169.13,128.67,117.63,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+290,11.6,0,0,transition,transition,137.21,126.04,128.67,117.63,108.5,57.73,32.59,10.38,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+291,11.64,0,0,transition,transition,99.42,157.01,128.67,117.63,87.0,103.07,22.27,17.62,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+292,11.68,0,0,transition,transition,92.09,140.58,128.67,117.63,89.99,74.14,23.55,7.27,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+293,11.72,0,0,transition,transition,103.08,167.63,128.67,117.63,99.02,92.26,23.13,7.98,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+294,11.76,0,0,transition,transition,96.57,161.11,128.67,117.63,89.02,84.5,20.95,4.11,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+295,11.8,0,0,transition,transition,134.83,176.8,128.67,117.63,106.51,110.54,17.9,7.23,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+296,11.84,0,0,transition,transition,147.86,160.99,128.67,117.63,109.13,121.7,16.14,10.71,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+297,11.88,0,0,transition,transition,148.95,179.64,128.67,117.63,88.2,119.13,6.63,14.99,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+298,11.92,0,0,transition,transition,125.3,170.34,128.67,117.63,100.71,110.15,15.51,4.15,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+299,11.96,0,0,transition,transition,67.1,174.75,128.67,117.63,77.4,101.37,10.3,3.46,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+300,12.0,0,0,transition,transition,21.72,178.45,128.67,117.63,92.59,96.24,13.61,10.62,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+301,12.04,0,0,transition,transition,55.16,139.55,128.67,117.63,62.86,100.47,3.7,20.11,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+302,12.08,0,0,transition,transition,61.21,154.2,128.67,117.63,51.09,79.8,6.09,21.8,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+303,12.12,0,0,transition,transition,61.21,154.2,128.67,117.63,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+304,12.16,0,0,transition,transition,61.21,154.2,128.67,117.63,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+305,12.2,0,0,transition,transition,61.21,154.2,128.67,117.63,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+306,12.24,0,0,transition,transition,61.21,154.2,128.67,117.63,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+307,12.28,0,0,transition,transition,61.21,154.2,128.67,117.63,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+308,12.32,0,0,transition,transition,138.52,171.28,130.31,135.51,103.83,25.77,162.65,70.35,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+309,12.36,0,0,transition,transition,17.11,157.52,114.14,141.01,5.05,97.7,120.07,97.7,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+310,12.4,0,0,up,transition,24.66,94.74,102.95,131.76,42.83,15.47,136.01,98.49,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+311,12.44,0,0,up,transition,8.37,173.71,92.44,138.75,29.73,78.08,122.91,87.55,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+312,12.48,0,0,up,transition,2.78,132.51,83.48,137.86,32.15,128.66,125.73,94.97,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+313,12.52,0,0,up,transition,113.77,81.73,86.23,137.86,134.29,171.63,119.36,101.11,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+314,12.56,0,0,up,transition,40.24,125.6,86.23,137.86,99.47,170.53,122.67,110.27,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+315,12.6,0,0,up,transition,10.98,177.04,86.23,137.86,48.22,110.56,124.19,110.56,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+316,12.64,0,0,up,transition,8.8,113.33,86.23,137.86,47.73,158.36,123.69,111.64,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+317,12.68,0,0,up,transition,28.21,134.01,86.23,137.86,12.14,179.29,125.07,112.49,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+318,12.72,0,0,up,transition,29.03,1.62,86.23,137.86,13.55,62.06,127.91,112.23,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+319,12.76,0,0,up,transition,3.42,65.48,86.23,137.86,13.74,9.7,124.87,115.0,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+320,12.8,0,0,up,transition,21.24,78.56,86.23,137.86,8.26,7.43,126.21,116.72,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+321,12.84,0,0,up,transition,37.11,37.98,86.23,137.86,4.04,21.61,127.01,116.12,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+322,12.88,0,0,up,transition,7.06,68.98,86.23,137.86,16.19,5.36,125.69,117.54,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+323,12.92,0,0,up,transition,58.06,83.07,86.23,137.86,10.51,7.83,126.1,116.28,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+324,12.96,0,0,up,transition,22.75,46.52,86.23,137.86,8.23,9.24,124.79,118.09,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+325,13.0,0,0,up,transition,76.58,80.28,86.23,137.86,19.74,6.7,128.66,118.84,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+326,13.04,0,0,up,transition,30.85,73.76,86.23,137.86,24.75,4.99,129.29,116.89,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+327,13.08,0,0,up,transition,93.77,117.64,86.23,137.86,31.21,2.62,129.26,118.13,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+328,13.12,0,0,up,transition,116.29,120.66,86.23,137.86,32.54,13.71,130.39,116.89,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+329,13.16,0,0,up,transition,165.15,160.19,86.23,137.86,21.64,5.1,126.67,125.27,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+330,13.2,0,0,up,transition,168.14,167.65,86.23,137.86,17.86,3.83,127.55,125.08,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+331,13.24,0,0,up,transition,132.64,169.82,86.23,137.86,30.63,2.16,128.76,126.0,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+332,13.28,0,0,up,transition,154.52,178.05,86.23,137.86,25.35,2.91,122.03,127.5,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+333,13.32,0,0,up,transition,160.99,153.08,86.23,137.86,17.09,9.21,128.89,125.79,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+334,13.36,0,0,up,transition,142.88,153.07,86.23,137.86,26.97,7.45,128.03,124.73,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+335,13.4,0,0,up,transition,135.6,140.79,86.23,137.86,32.74,11.6,127.87,125.31,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+336,13.44,0,0,up,transition,177.66,146.5,86.23,137.86,15.32,13.55,126.61,126.21,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+337,13.48,0,0,up,transition,130.25,178.92,86.23,137.86,25.31,0.13,126.31,124.33,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+338,13.52,0,0,up,transition,119.39,171.94,86.23,137.86,30.72,8.26,129.34,125.63,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+339,13.56,0,0,up,transition,88.24,153.94,86.23,137.86,29.9,0.38,131.53,123.8,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+340,13.6,0,0,up,transition,134.12,173.31,86.23,137.86,27.98,2.78,129.75,130.29,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+341,13.64,0,0,up,transition,72.73,168.11,86.23,137.86,48.91,8.67,134.44,131.78,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+342,13.68,0,0,up,transition,64.04,90.0,86.23,137.86,89.24,40.85,131.14,127.83,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+343,13.72,0,0,up,transition,32.67,3.18,86.23,137.86,97.9,29.41,135.65,130.72,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+344,13.76,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+345,13.8,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+346,13.84,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+347,13.88,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+348,13.92,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+349,13.96,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+350,14.0,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+351,14.04,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+352,14.08,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+353,14.12,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+354,14.16,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+355,14.2,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+356,14.24,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+357,14.28,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+358,14.32,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+359,14.36,0,0,up,transition,32.67,3.18,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+360,14.4,0,0,up,transition,18.18,41.55,86.23,137.86,20.47,16.37,138.99,145.19,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+361,14.44,0,0,up,transition,29.46,6.84,86.23,137.86,3.94,29.51,133.26,133.03,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+362,14.48,0,0,up,transition,47.07,16.47,86.23,137.86,5.05,35.57,133.45,126.0,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+363,14.52,0,0,up,transition,34.58,48.28,86.23,137.86,16.97,50.62,122.68,125.94,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+364,14.56,0,0,up,transition,34.58,48.28,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+365,14.6,0,0,up,transition,34.58,48.28,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+366,14.64,0,0,up,transition,34.58,48.28,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+367,14.68,0,0,up,transition,69.41,82.44,86.23,137.86,20.58,31.69,111.32,116.37,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+368,14.72,0,0,up,transition,25.5,34.25,86.23,137.86,29.9,14.99,110.66,117.29,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+369,14.76,0,0,up,transition,76.73,69.2,86.23,137.86,29.85,49.09,120.11,118.64,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+370,14.8,0,0,up,transition,17.88,33.7,86.23,137.86,23.18,61.46,114.44,113.84,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+371,14.84,0,0,up,transition,19.64,38.37,86.23,137.86,23.7,54.88,113.83,114.41,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+372,14.88,0,0,up,transition,35.1,49.27,86.23,137.86,33.69,60.89,112.33,115.74,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+373,14.92,0,0,up,transition,14.6,40.83,86.23,137.86,15.66,61.06,115.13,114.09,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+374,14.96,0,0,up,transition,0.66,5.24,86.23,137.86,11.91,41.7,112.43,112.36,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+375,15.0,0,0,up,transition,1.57,20.77,86.23,137.86,3.68,65.94,118.15,112.38,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+376,15.04,0,0,up,transition,13.66,35.04,86.23,137.86,9.27,72.79,124.14,112.18,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+377,15.08,0,0,up,transition,17.85,66.06,86.23,137.86,29.82,76.42,116.84,117.62,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+378,15.12,0,0,up,transition,31.72,63.9,86.23,137.86,37.97,68.79,116.03,114.3,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+379,15.16,0,0,up,transition,21.97,24.66,86.23,137.86,23.3,35.36,117.55,113.13,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+380,15.2,0,0,up,transition,15.64,33.44,86.23,137.86,33.0,62.03,117.65,114.54,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+381,15.24,0,0,up,transition,38.15,90.35,86.23,137.86,19.72,80.25,120.12,114.13,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+382,15.28,0,0,up,transition,21.5,79.84,86.23,137.86,32.57,76.34,119.36,117.05,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+383,15.32,0,0,up,transition,74.6,86.41,86.23,137.86,33.3,67.49,119.33,115.88,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+384,15.36,0,0,up,transition,49.76,36.65,86.23,137.86,21.39,55.2,118.37,114.06,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+385,15.4,0,0,up,transition,56.86,27.26,86.23,137.86,16.03,43.16,116.79,112.77,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+386,15.44,0,0,up,transition,24.54,23.86,86.23,137.86,14.37,49.85,118.61,114.21,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+387,15.48,0,0,up,transition,34.65,66.45,86.23,137.86,5.79,18.38,122.23,115.94,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+388,15.52,0,0,up,transition,33.92,36.06,86.23,137.86,0.75,24.92,124.66,116.97,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+389,15.56,0,0,up,transition,51.09,3.88,86.23,137.86,3.17,30.31,125.07,119.28,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+390,15.6,0,0,up,transition,44.14,45.73,86.23,137.86,1.53,26.85,128.66,122.95,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+391,15.64,0,0,up,transition,75.59,67.89,86.23,137.86,8.34,26.45,127.18,121.21,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+392,15.68,0,0,up,transition,135.58,170.21,86.23,137.86,14.55,26.89,127.51,123.04,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+393,15.72,0,0,up,transition,153.33,151.36,86.23,137.86,20.4,15.43,123.27,123.0,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+394,15.76,0,0,up,transition,130.31,89.31,86.23,137.86,36.53,31.88,121.13,124.23,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+395,15.8,0,0,up,transition,142.29,155.68,86.23,137.86,21.99,26.33,123.95,122.11,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+396,15.84,0,0,up,transition,152.35,143.77,86.23,137.86,32.54,26.22,119.81,124.51,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+397,15.88,0,0,up,transition,152.35,143.77,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+398,15.92,0,0,up,transition,152.35,143.77,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+399,15.96,0,0,up,transition,1.85,156.92,86.23,137.86,114.16,146.98,18.99,21.25,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+400,16.0,0,0,up,transition,1.85,156.92,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+401,16.04,0,0,up,transition,170.81,103.94,86.23,137.86,152.59,68.1,44.16,52.16,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+402,16.08,0,0,up,transition,170.81,103.94,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+403,16.12,0,0,up,transition,154.57,166.93,86.23,137.86,120.8,167.27,18.54,42.44,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+404,16.16,0,0,up,transition,149.52,154.76,86.23,137.86,91.73,129.09,15.11,36.94,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+405,16.2,0,0,up,transition,149.88,163.32,86.23,137.86,94.36,132.9,15.73,45.0,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+406,16.24,0,0,up,transition,139.76,165.43,86.23,137.86,98.93,121.91,9.78,32.72,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+407,16.28,0,0,up,transition,55.49,171.63,86.23,137.86,81.49,127.11,8.35,34.45,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+408,16.32,0,0,up,transition,111.63,167.96,86.23,137.86,92.58,116.43,9.13,34.48,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+409,16.36,0,0,up,transition,91.15,165.4,86.23,137.86,85.93,123.17,8.02,35.13,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+410,16.4,0,0,up,transition,178.36,177.42,86.23,137.86,57.38,140.59,2.41,50.59,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+411,16.44,0,0,up,transition,116.78,177.96,86.23,137.86,57.98,136.25,5.86,48.79,1,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+412,16.48,0,0,up,transition,145.73,165.33,86.23,137.86,95.4,120.5,14.62,30.21,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+413,16.52,0,0,up,transition,152.07,177.61,86.23,137.86,106.38,124.62,21.75,29.85,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+414,16.56,0,0,up,transition,151.85,175.34,86.23,137.86,123.1,126.31,30.91,27.51,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+415,16.6,0,0,up,transition,156.48,169.66,86.23,137.86,113.56,120.58,23.29,27.95,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+416,16.64,0,0,up,transition,152.07,167.51,86.23,137.86,127.82,124.1,40.8,31.08,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+417,16.68,0,0,up,transition,127.63,162.13,86.23,137.86,108.24,125.96,20.84,32.42,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+418,16.72,0,0,up,transition,63.76,179.21,86.23,137.86,92.95,112.41,11.08,23.2,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+419,16.76,0,0,up,transition,156.25,164.33,86.23,137.86,73.15,116.35,14.04,15.81,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+420,16.8,0,0,up,transition,153.46,154.82,86.23,137.86,65.62,127.82,15.79,23.42,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+421,16.84,0,0,up,transition,115.41,90.0,86.23,137.86,126.71,133.86,57.26,24.68,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+422,16.88,0,0,up,transition,174.06,167.58,86.23,137.86,26.1,90.63,5.12,3.96,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+423,16.92,0,0,up,transition,158.05,168.65,86.23,137.86,100.84,71.08,48.01,6.24,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+424,16.96,0,0,up,transition,157.04,121.36,86.23,137.86,128.2,131.07,91.21,141.34,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+425,17.0,0,0,up,transition,124.15,104.77,86.23,137.86,172.99,93.46,127.75,146.31,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+426,17.04,0,0,up,transition,134.87,107.49,86.23,137.86,170.85,93.4,132.02,162.09,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+427,17.08,0,0,up,transition,95.6,90.71,86.23,137.86,141.16,73.13,137.93,168.4,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+428,17.12,0,0,up,transition,146.78,77.73,86.23,137.86,172.97,63.81,135.27,174.71,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+429,17.16,0,0,up,transition,139.94,97.36,86.23,137.86,171.26,81.9,132.6,175.1,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+430,17.2,0,0,up,transition,139.72,109.19,86.23,137.86,171.53,70.36,133.96,174.96,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+431,17.24,0,0,up,transition,148.22,95.84,86.23,137.86,163.86,57.71,139.9,178.98,1,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+432,17.28,0,0,up,transition,179.41,39.25,86.23,137.86,142.02,40.32,148.87,178.24,1,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+433,17.32,0,0,up,transition,125.24,19.3,86.23,137.86,39.9,33.12,141.11,177.4,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+434,17.36,0,0,up,transition,125.24,19.3,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+435,17.4,0,0,up,transition,125.24,19.3,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+436,17.44,0,0,up,transition,125.24,19.3,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+437,17.48,0,0,up,transition,69.69,103.25,86.23,137.86,45.97,83.18,100.98,99.13,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+438,17.52,0,0,up,transition,64.17,97.63,86.23,137.86,90.68,97.68,104.25,97.25,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+439,17.56,0,0,up,transition,142.71,104.23,86.23,137.86,158.82,138.76,104.47,91.01,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+440,17.6,0,0,up,transition,151.27,127.65,86.23,137.86,165.28,92.12,99.19,87.88,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+441,17.64,0,0,up,transition,98.75,177.18,86.23,137.86,179.77,154.76,98.97,96.77,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+442,17.68,0,0,up,transition,152.19,154.89,86.23,137.86,149.63,176.57,98.57,93.43,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+443,17.72,0,0,up,transition,150.95,132.44,86.23,137.86,154.9,141.63,96.67,87.88,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+444,17.76,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+445,17.8,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+446,17.84,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+447,17.88,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+448,17.92,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+449,17.96,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+450,18.0,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+451,18.04,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+452,18.08,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+453,18.12,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+454,18.16,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+455,18.2,0,0,up,transition,150.95,132.44,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+456,18.24,0,0,up,transition,9.13,101.69,86.23,137.86,52.72,26.16,141.84,124.7,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+457,18.28,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+458,18.32,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+459,18.36,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+460,18.4,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+461,18.44,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+462,18.48,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+463,18.52,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+464,18.56,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+465,18.6,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+466,18.64,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+467,18.68,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+468,18.72,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+469,18.76,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+470,18.8,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+471,18.84,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+472,18.88,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+473,18.92,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+474,18.96,0,0,up,transition,9.13,101.69,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+475,19.0,0,0,up,transition,18.71,46.3,86.23,137.86,4.28,4.56,131.02,134.07,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+476,19.04,0,0,up,transition,33.41,38.79,86.23,137.86,10.98,25.5,133.13,129.86,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+477,19.08,0,0,up,transition,19.67,58.24,86.23,137.86,13.69,64.11,127.17,122.01,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+478,19.12,0,0,up,transition,86.99,39.57,86.23,137.86,33.59,53.17,122.15,123.14,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+479,19.16,0,0,up,transition,86.99,39.57,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+480,19.2,0,0,up,transition,64.59,63.52,86.23,137.86,166.26,120.96,111.8,90.0,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+481,19.24,0,0,up,transition,40.6,2.27,86.23,137.86,61.93,173.26,147.53,140.19,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+482,19.28,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+483,19.32,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+484,19.36,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+485,19.4,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+486,19.44,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+487,19.48,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+488,19.52,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+489,19.56,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+490,19.6,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+491,19.64,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+492,19.68,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+493,19.72,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+494,19.76,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+495,19.8,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+496,19.84,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+497,19.88,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+498,19.92,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+499,19.96,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+500,20.0,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+501,20.04,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+502,20.08,0,0,up,transition,40.6,2.27,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+503,20.12,0,0,up,transition,40.94,164.71,86.23,137.86,43.86,11.89,63.79,72.47,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+504,20.16,0,0,up,transition,160.64,49.82,86.23,137.86,143.27,91.65,81.73,55.88,0,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+505,20.2,0,0,up,transition,30.98,133.79,86.23,137.86,4.94,23.98,75.14,61.7,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+506,20.24,0,0,up,transition,141.37,159.81,86.23,137.86,17.52,8.65,77.91,65.34,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+507,20.28,0,0,up,transition,101.52,123.29,86.23,137.86,28.08,28.06,80.21,51.13,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+508,20.32,0,0,up,transition,91.59,4.41,86.23,137.86,7.23,42.49,78.63,48.21,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+509,20.36,0,0,up,transition,126.44,83.84,86.23,137.86,6.34,22.23,72.61,53.37,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+510,20.4,0,0,up,transition,144.0,155.63,86.23,137.86,7.51,11.16,72.52,50.4,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+511,20.44,0,0,up,transition,152.67,140.46,86.23,137.86,4.74,9.01,72.5,52.33,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+512,20.48,0,0,up,transition,153.6,162.29,86.23,137.86,17.15,15.26,57.32,70.85,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+513,20.52,0,0,up,transition,136.39,146.88,86.23,137.86,28.35,18.59,44.5,81.31,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+514,20.56,0,0,up,transition,148.75,155.35,86.23,137.86,26.57,14.28,33.6,81.59,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+515,20.6,0,0,up,transition,134.92,152.43,86.23,137.86,38.54,19.06,43.41,76.78,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+516,20.64,0,0,up,transition,139.62,153.92,86.23,137.86,43.15,24.09,29.24,88.68,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+517,20.68,0,0,up,transition,126.4,159.38,86.23,137.86,48.5,15.68,35.94,86.35,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+518,20.72,0,0,up,transition,138.27,155.0,86.23,137.86,40.46,18.18,37.25,80.74,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+519,20.76,0,0,up,transition,130.68,157.5,86.23,137.86,44.01,17.13,35.89,83.27,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+520,20.8,0,0,up,transition,143.71,147.47,86.23,137.86,33.41,23.25,37.76,79.56,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+521,20.84,0,0,up,transition,142.83,147.58,86.23,137.86,36.68,26.84,36.37,79.77,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+522,20.88,0,0,up,transition,150.51,164.13,86.23,137.86,34.75,26.57,40.84,71.57,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+523,20.92,0,0,up,transition,144.7,143.89,86.23,137.86,35.63,39.35,33.58,81.75,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+524,20.96,0,0,up,transition,173.71,161.66,86.23,137.86,21.29,18.46,20.35,80.81,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+525,21.0,0,0,up,transition,160.67,153.15,86.23,137.86,33.29,21.78,20.35,83.56,0,0,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+526,21.04,0,0,up,transition,160.67,153.15,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+527,21.08,0,0,up,transition,160.67,153.15,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
+528,21.12,0,0,up,transition,160.67,153.15,86.23,137.86,,,,,1,1,0,0,0,0,0,0,0,,Did not reach UP position (arm angle must be < 50°); No transition detected; Torso angle exceeded 30° (3-frame avg) during rep cycle
