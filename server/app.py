@@ -261,16 +261,83 @@ def analyze_video():
                         progress_store[job_id]['current'] = current
                         progress_store[job_id]['total'] = total
             
-            # Create analyzer with visualization and progress callback
-            analyzer = BicepsCurlVideoAnalyzer(
-                video_path=temp_video_path,
-                visualize=True,  # Enable annotated video creation
-                output_dir=output_dir,
-                progress_callback=update_progress
-            )
+            # Function to run analysis in background
+            def run_analysis():
+                try:
+                    # Create analyzer with visualization and progress callback
+                    analyzer = BicepsCurlVideoAnalyzer(
+                        video_path=temp_video_path,
+                        visualize=True,
+                        output_dir=output_dir,
+                        progress_callback=update_progress
+                    )
+                    
+                    # Run analysis
+                    analyzer.analyze()
+                    
+                    # Get results as dictionary
+                    results = analyzer.get_results_dict()
+                    
+                    # Get annotated video filename
+                    temp_base = os.path.splitext(os.path.basename(temp_video_path))[0]
+                    annotated_filename = f"{temp_base}__annotated.mp4"
+                    annotated_video_path = os.path.join(output_dir, annotated_filename)
+                    timeline_csv_path = os.path.join(output_dir, f"{temp_base}__timeline.csv")
+                    
+                    # Verify the file was actually created
+                    if not os.path.exists(annotated_video_path):
+                        print(f"⚠️  Warning: Annotated video not found at {annotated_video_path}")
+                        results['annotatedVideoUrl'] = None
+                    else:
+                        results['annotatedVideoUrl'] = f"/static/videos/{annotated_filename}"
+                        print(f"✅ Annotated video saved: {annotated_filename}")
+                    
+                    # Save results to exerciseevaluation/results directory
+                    result_id = save_exercise_result(
+                        results=results,
+                        timeline_csv_path=timeline_csv_path,
+                        annotated_video_path=annotated_video_path,
+                        original_filename=filename
+                    )
+                    
+                    if result_id:
+                        results['savedResultId'] = result_id
+                    
+                    # Store results in progress store for retrieval
+                    with progress_store_lock:
+                        if job_id in progress_store:
+                            progress_store[job_id]['results'] = results
+                            progress_store[job_id]['status'] = 'complete'
+                    
+                    print(f"✅ Analysis complete: {results['totalReps']} total reps (job_id: {job_id})")
+                    
+                except Exception as e:
+                    print(f"❌ Error in background analysis: {str(e)}")
+                    import traceback
+                    traceback.print_exc()
+                    
+                    with progress_store_lock:
+                        if job_id in progress_store:
+                            progress_store[job_id]['status'] = 'error'
+                            progress_store[job_id]['error'] = str(e)
+                
+                finally:
+                    # Cleanup: remove temporary uploaded video file
+                    if os.path.exists(temp_video_path):
+                        os.remove(temp_video_path)
+                        print(f"🧹 Cleaned up temporary upload file")
             
-            # Run analysis
-            analyzer.analyze()
+            # Start analysis in background thread
+            analysis_thread = threading.Thread(target=run_analysis)
+            analysis_thread.start()
+            
+            # Return jobId immediately so client can connect to SSE
+            return jsonify({
+                'jobId': job_id,
+                'status': 'processing',
+                'message': 'Video analysis started. Connect to /api/progress/{jobId} for real-time updates.'
+            }), 202  # 202 Accepted
+            
             
             # Get results as dictionary
             results = analyzer.get_results_dict()
