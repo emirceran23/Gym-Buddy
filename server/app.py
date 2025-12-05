@@ -171,7 +171,7 @@ def get_progress(job_id):
             
             if not job_data:
                 # Job not found - send error and close
-                yield f"data: {{\"error\": \"Job not found\", \"job_id\": \"{job_id}\"}}}\n\n"
+                yield f"data: {{\"error\": \"Job not found\", \"job_id\": \"{job_id}\"}}\n\n"
                 break
             
             # Only send update if progress changed
