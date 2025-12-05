@@ -2,7 +2,7 @@ services:
   - type: web
     name: gym-buddy-api
     runtime: docker
-    repo: https://github.com/YOUR_USERNAME/Gym-Buddy  # Update this with your GitHub repo
+    repo: https://github.com/emirceran23/Gym-Buddy  # Update this with your GitHub repo
     branch: main  # or master, depending on your default branch
     dockerfilePath: ./Dockerfile
     dockerContext: .
