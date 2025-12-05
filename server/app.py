@@ -358,6 +358,24 @@ def analyze_video():
                     if os.path.exists(temp_video_path):
                         os.remove(temp_video_path)
                         print(f"🧹 Cleaned up temporary upload file")
+                    
+                    # Force garbage collection to free memory
+                    import gc
+                    gc.collect()
+                    print(f"🧹 Memory cleanup complete")
+                    
+                    # Schedule job removal from progress_store after 5 minutes
+                    def cleanup_job():
+                        import time
+                        time.sleep(300)  # Wait 5 minutes
+                        with progress_store_lock:
+                            if job_id in progress_store:
+                                del progress_store[job_id]
+                                print(f"🧹 Cleaned up job from progress store: {job_id}")
+                    
+                    cleanup_thread = threading.Thread(target=cleanup_job)
+                    cleanup_thread.daemon = True
+                    cleanup_thread.start()
             
             # Start analysis in background thread
             analysis_thread = threading.Thread(target=run_analysis)
