@@ -332,59 +332,19 @@ def analyze_video():
             analysis_thread.start()
             
             # Return jobId immediately so client can connect to SSE
+            # NOTE: Cleanup happens inside the background thread, not here
             return jsonify({
                 'jobId': job_id,
                 'status': 'processing',
                 'message': 'Video analysis started. Connect to /api/progress/{jobId} for real-time updates.'
             }), 202  # 202 Accepted
             
-            
-            # Get results as dictionary
-            results = analyzer.get_results_dict()
-            
-            # Get annotated video filename - use the temp filename base, not the original
-            # The analyzer saves with basename of video_path (which includes upload_PID prefix)
-            temp_base = os.path.splitext(os.path.basename(temp_video_path))[0]
-            annotated_filename = f"{temp_base}__annotated.mp4"
-            annotated_video_path = os.path.join(output_dir, annotated_filename)
-            timeline_csv_path = os.path.join(output_dir, f"{temp_base}__timeline.csv")
-            
-            # Verify the file was actually created
-            if not os.path.exists(annotated_video_path):
-                print(f"⚠️  Warning: Annotated video not found at {annotated_video_path}")
-                results['annotatedVideoUrl'] = None
-            else:
-                results['annotatedVideoUrl'] = f"/static/videos/{annotated_filename}"
-                print(f"✅ Annotated video saved: {annotated_filename}")
-            
-            # Save results to exerciseevaluation/results directory
-            result_id = save_exercise_result(
-                results=results,
-                timeline_csv_path=timeline_csv_path,
-                annotated_video_path=annotated_video_path,
-                original_filename=filename
-            )
-            
-            if result_id:
-                results['savedResultId'] = result_id
-            
-            # Add job_id to results for client tracking
-            results['jobId'] = job_id
-            
-            # Mark progress as complete
-            with progress_store_lock:
-                if job_id in progress_store:
-                    progress_store[job_id]['status'] = 'complete'
-            
-            print(f"✅ Analysis complete: {results['totalReps']} total reps (job_id: {job_id})")
-            
-            return jsonify(results), 200
-            
-        finally:
-            # Cleanup: remove temporary uploaded video file
+        except Exception as e:
+            # Cleanup temp file on error
             if os.path.exists(temp_video_path):
                 os.remove(temp_video_path)
-                print(f"🧹 Cleaned up temporary upload file")
+                print(f"🧹 Cleaned up temporary upload file after error")
+            raise e
     
     except Exception as e:
         # Mark progress as error
