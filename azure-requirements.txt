@@ -1,0 +1,25 @@
+# Flask server dependencies
+flask==3.0.0
+flask-cors==4.0.0
+werkzeug==3.0.1
+
+# ML and CV dependencies
+mediapipe>=0.10.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+
+# HTTP requests
+requests>=2.31.0
+
+# Production WSGI server
+gunicorn==21.2.0
+
+# Azure SDK for cloud storage and secrets
+azure-storage-blob==12.19.0
+azure-identity==1.15.0
+azure-keyvault-secrets==4.7.0
+
+# Optional: Python environment compatibility
+python-dotenv==1.0.0

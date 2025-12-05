@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific - exclude large output files
+output/
+video_output/
+*.mp4
+*.avi
+*.mov
+*.webm
+video1/
+Doğru1/
+Suggestion/
+
+# Exclude temporary files
+*.csv
+*.zip
+threshold.csv
+video1.csv
+
+# Node modules (if any)
+node_modules/
+
+# Exclude local development files
+.env
+.env.local

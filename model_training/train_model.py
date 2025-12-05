@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import joblib
+import matplotlib.pyplot as plt
 from feature_extractor import extract_features
 
 
@@ -112,9 +113,30 @@ def train_model(X, y, feature_names):
     }).sort_values('importance', ascending=False)
     
     print("\n" + "="*60)
-    print("TOP 10 MOST IMPORTANT FEATURES:")
+    print("ALL FEATURES SORTED BY IMPORTANCE:")
     print("="*60)
-    print(feature_importance.head(10).to_string(index=False))
+    print(feature_importance.to_string(index=False))
+    
+    # Save feature importance to CSV
+    importance_csv_path = 'feature_importance.csv'
+    feature_importance.to_csv(importance_csv_path, index=False)
+    print(f"\n✓ Feature importance saved to: {importance_csv_path}")
+    
+    # Create visualization
+    plt.figure(figsize=(10, 8))
+    plt.barh(range(len(feature_importance)), feature_importance['importance'].values)
+    plt.yticks(range(len(feature_importance)), feature_importance['feature'].values)
+    plt.xlabel('Importance Score', fontsize=12)
+    plt.ylabel('Feature', fontsize=12)
+    plt.title('Feature Importance for Biceps Curl Form Classification', fontsize=14, fontweight='bold')
+    plt.gca().invert_yaxis()  # Highest importance at top
+    plt.tight_layout()
+    
+    # Save plot
+    plot_path = 'feature_importance_plot.png'
+    plt.savefig(plot_path, dpi=300, bbox_inches='tight')
+    print(f"✓ Feature importance plot saved to: {plot_path}")
+    plt.close()
     
     return model, scaler, X_train_scaled, X_test_scaled, y_train, y_test
 

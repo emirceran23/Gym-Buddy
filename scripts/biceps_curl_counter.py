@@ -15,7 +15,7 @@ class BicepsCurlCounter:
     def __init__(self, 
                  angle_threshold_down=160,  # Arm extended (down position) - >160°
                  angle_threshold_up=50,     # Arm curled (up position) - <50°
-                 torso_angle_threshold=30,  # Max torso angle deviation during transition - 20-25°
+                 torso_angle_threshold=45,  # Max torso angle deviation during transition - 20-25°
                  min_hold_time=0.2,         # Minimum time to hold position
                  min_landmark_confidence=0.5,  # Minimum landmark confidence for measurement
                  depth_threshold=0.1,       # Minimum z-difference to filter background arm
@@ -784,11 +784,12 @@ class BicepsCurlTracker:
         self._end_session()
         self.cleanup()
     
-    def _get_torso_angle(self, image_shape, side):
+    def _get_elbow_alignment_angle(self, image_shape, side):
         """
-        Torso angle: angle at shoulder between elbow-shoulder-hip.
+        Elbow alignment angle: angle at shoulder between elbow-shoulder-hip.
+        Measures how far the elbow is from the torso.
         Should be < 30° for correct form (elbow stays close to body).
-        side: 'left' veya 'right'
+        side: 'left' or 'right'
         """
         if side == 'left':
             elbow = self.pose_detector.get_landmark_position(13, image_shape)    # LEFT_ELBOW
@@ -804,6 +805,34 @@ class BicepsCurlTracker:
 
         # Calculate angle at shoulder: elbow-shoulder-hip
         angle = self.pose_detector.calculate_angle(elbow, shoulder, hip)
+        return float(angle) if angle is not None else 999.0
+    
+    def _get_true_torso_angle(self, image_shape, side):
+        """
+        True torso stability angle: angle between hip-shoulder line and vertical.
+        Measures how upright the body is (important for exercise classification).
+        Should be < 20° for standing exercises like biceps curls.
+        For pushups/planks, this would be 60-90° (body horizontal).
+        side: 'left' or 'right'
+        """
+        if side == 'left':
+            shoulder = self.pose_detector.get_landmark_position(11, image_shape)  # LEFT_SHOULDER
+            hip = self.pose_detector.get_landmark_position(23, image_shape)       # LEFT_HIP
+        else:
+            shoulder = self.pose_detector.get_landmark_position(12, image_shape)  # RIGHT_SHOULDER
+            hip = self.pose_detector.get_landmark_position(24, image_shape)        # RIGHT_HIP
+        
+        if None in [shoulder, hip]:
+            return 999.0  # Invalid - return high value
+        
+        # Create a vertical reference point (same x as shoulder, but y above)
+        # The vertical is straight up from the shoulder
+        vertical_point = (shoulder[0], shoulder[1] - 100)  # 100 pixels up
+        
+        # Calculate angle at shoulder: vertical-shoulder-hip
+        # This gives us the deviation from vertical
+        angle = self.pose_detector.calculate_angle(vertical_point, shoulder, hip)
+        
         return float(angle) if angle is not None else 999.0
 
     def _process_biceps_curl(self, frame):
@@ -859,16 +888,20 @@ class BicepsCurlTracker:
         left_alignment = self._check_arm_alignment(frame.shape, 'left')
         right_alignment = self._check_arm_alignment(frame.shape, 'right')
 
-        # Torso açıları (dikeyden sapma)
-        left_torso_angle = self._get_torso_angle(frame.shape, 'left')
-        right_torso_angle = self._get_torso_angle(frame.shape, 'right')
+        # Calculate elbow alignment angles (elbow-shoulder-hip, measures arm position relative to torso)
+        left_elbow_alignment_angle = self._get_elbow_alignment_angle(frame.shape, 'left')
+        right_elbow_alignment_angle = self._get_elbow_alignment_angle(frame.shape, 'right')
+        
+        # Calculate true torso angles (hip-shoulder-vertical, measures actual body stability)
+        left_true_torso_angle = self._get_true_torso_angle(frame.shape, 'left')
+        right_true_torso_angle = self._get_true_torso_angle(frame.shape, 'right')
 
-        # Rep counter (artık visibility bilgisi de geçiyor)
+        # Rep counter (using elbow alignment angle for form checks)
         status = self.rep_counter.update(
             left_arm_angle, right_arm_angle,
             left_alignment, right_alignment,
-            left_torso_angle=left_torso_angle,
-            right_torso_angle=right_torso_angle,
+            left_torso_angle=left_elbow_alignment_angle,
+            right_torso_angle=right_elbow_alignment_angle,
             left_arm_visible=left_arm_visible,
             right_arm_visible=right_arm_visible,
             left_confidence=left_confidence,

@@ -4,24 +4,54 @@ import os
 import sys
 import tempfile
 import json
+import shutil
+from datetime import datetime
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
 
-# Add the scripts directory to Python path
+# Load environment variables from .env file (for local development)
+load_dotenv()
+
+# Add the scripts and server directories to Python path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
+sys.path.insert(0, os.path.dirname(__file__))  # Add server directory for meal_planner_module
 
 from biceps_curl_video_analyzer import BicepsCurlVideoAnalyzer
 import meal_planner_module as mpm
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for mobile app
+
+# Configure CORS for mobile app
+allowed_origins = os.getenv('ALLOWED_ORIGINS', '*')
+CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
 
 # Configuration
 UPLOAD_FOLDER = tempfile.gettempdir()
 ALLOWED_EXTENSIONS = {'mp4', 'mov', 'avi', 'webm'}
 MAX_FILE_SIZE = 100 * 1024 * 1024  # 100MB
+RESULTS_DIR = os.path.join(os.path.dirname(__file__), '..', 'exerciseevaluation', 'results')
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
+
+# Ensure results directory exists
+os.makedirs(RESULTS_DIR, exist_ok=True)
+
+# Azure Blob Storage configuration (optional)
+AZURE_STORAGE_ENABLED = os.getenv('AZURE_STORAGE_CONNECTION_STRING') is not None
+if AZURE_STORAGE_ENABLED:
+    try:
+        from azure.storage.blob import BlobServiceClient
+        blob_service_client = BlobServiceClient.from_connection_string(
+            os.getenv('AZURE_STORAGE_CONNECTION_STRING')
+        )
+        BLOB_CONTAINER_NAME = 'videos'
+        print("✅ Azure Blob Storage configured")
+    except Exception as e:
+        print(f"⚠️  Azure Blob Storage connection failed: {e}")
+        AZURE_STORAGE_ENABLED = False
+else:
+    print("ℹ️  Running without Azure Blob Storage (local mode)")
 
 
 def allowed_file(filename):
@@ -29,12 +59,66 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def save_exercise_result(results, timeline_csv_path, annotated_video_path, original_filename):
+    """
+    Save exercise analysis results to the results directory.
+    
+    Args:
+        results: Dictionary containing analysis results
+        timeline_csv_path: Path to the timeline CSV file
+        annotated_video_path: Path to the annotated video file
+        original_filename: Original uploaded video filename
+    
+    Returns:
+        result_id: Unique identifier for the saved result
+    """
+    try:
+        # Generate unique result ID using timestamp
+        result_id = datetime.now().strftime('%Y%m%d_%H%M%S')
+        result_dir = os.path.join(RESULTS_DIR, result_id)
+        os.makedirs(result_dir, exist_ok=True)
+        
+        # Prepare metadata
+        metadata = {
+            'id': result_id,
+            'timestamp': datetime.now().isoformat(),
+            'originalFilename': original_filename,
+            'results': results,
+        }
+        
+        # Save metadata as JSON
+        metadata_path = os.path.join(result_dir, 'metadata.json')
+        with open(metadata_path, 'w') as f:
+            json.dump(metadata, f, indent=2)
+        
+        # Copy timeline CSV if it exists
+        if timeline_csv_path and os.path.exists(timeline_csv_path):
+            dest_csv = os.path.join(result_dir, 'timeline.csv')
+            shutil.copy2(timeline_csv_path, dest_csv)
+        
+        # Copy annotated video if it exists
+        if annotated_video_path and os.path.exists(annotated_video_path):
+            dest_video = os.path.join(result_dir, 'annotated_video.mp4')
+            shutil.copy2(annotated_video_path, dest_video)
+        
+        print(f"✅ Saved exercise result: {result_id}")
+        return result_id
+        
+    except Exception as e:
+        print(f"❌ Error saving exercise result: {e}")
+        return None
+
+
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
-    """Health check endpoint"""
+    """Health check endpoint with environment info"""
+    environment = 'azure' if os.getenv('WEBSITE_SITE_NAME') else 'local'
     return jsonify({
         'status': 'ok',
-        'message': 'GymBuddy Exercise Analysis Server'
+        'message': 'SentriFit Exercise Analysis Server',
+        'environment': environment,
+        'storage': 'azure_blob' if AZURE_STORAGE_ENABLED else 'local'
     })
 
 
@@ -92,6 +176,7 @@ def analyze_video():
             temp_base = os.path.splitext(os.path.basename(temp_video_path))[0]
             annotated_filename = f"{temp_base}__annotated.mp4"
             annotated_video_path = os.path.join(output_dir, annotated_filename)
+            timeline_csv_path = os.path.join(output_dir, f"{temp_base}__timeline.csv")
             
             # Verify the file was actually created
             if not os.path.exists(annotated_video_path):
@@ -100,6 +185,17 @@ def analyze_video():
             else:
                 results['annotatedVideoUrl'] = f"/static/videos/{annotated_filename}"
                 print(f"✅ Annotated video saved: {annotated_filename}")
+            
+            # Save results to exerciseevaluation/results directory
+            result_id = save_exercise_result(
+                results=results,
+                timeline_csv_path=timeline_csv_path,
+                annotated_video_path=annotated_video_path,
+                original_filename=filename
+            )
+            
+            if result_id:
+                results['savedResultId'] = result_id
             
             print(f"✅ Analysis complete: {results['totalReps']} total reps")
             
@@ -126,6 +222,148 @@ def serve_video(filename):
     """Serve annotated video files"""
     video_dir = os.path.join(os.path.dirname(__file__), 'static', 'videos')
     return send_from_directory(video_dir, filename)
+
+
+@app.route('/api/exercise-results', methods=['GET'])
+def list_exercise_results():
+    """
+    List all saved exercise results
+    
+    Returns:
+        JSON array of saved results with metadata
+    """
+    try:
+        results_list = []
+        
+        # Check if results directory exists
+        if not os.path.exists(RESULTS_DIR):
+            return jsonify([]), 200
+        
+        # Iterate through all result directories
+        for result_id in os.listdir(RESULTS_DIR):
+            result_dir = os.path.join(RESULTS_DIR, result_id)
+            
+            # Skip if not a directory
+            if not os.path.isdir(result_dir):
+                continue
+            
+            # Read metadata.json
+            metadata_path = os.path.join(result_dir, 'metadata.json')
+            if os.path.exists(metadata_path):
+                try:
+                    with open(metadata_path, 'r') as f:
+                        metadata = json.load(f)
+                    
+                    # Add preview info
+                    metadata['hasAnnotatedVideo'] = os.path.exists(os.path.join(result_dir, 'annotated_video.mp4'))
+                    metadata['hasTimeline'] = os.path.exists(os.path.join(result_dir, 'timeline.csv'))
+                    
+                    results_list.append(metadata)
+                except Exception as e:
+                    print(f"⚠️  Error reading metadata for {result_id}: {e}")
+                    continue
+        
+        # Sort by timestamp (newest first)
+        results_list.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+        
+        return jsonify(results_list), 200
+        
+    except Exception as e:
+        print(f"❌ Error listing exercise results: {e}")
+        return jsonify({'error': 'Failed to list results', 'details': str(e)}), 500
+
+
+@app.route('/api/exercise-results/<result_id>', methods=['GET'])
+def get_exercise_result(result_id):
+    """
+    Get a specific exercise result by ID
+    
+    Args:
+        result_id: Unique identifier for the result
+    
+    Returns:
+        JSON with result metadata and file URLs
+    """
+    try:
+        result_dir = os.path.join(RESULTS_DIR, result_id)
+        
+        # Check if result exists
+        if not os.path.exists(result_dir):
+            return jsonify({'error': 'Result not found'}), 404
+        
+        # Read metadata
+        metadata_path = os.path.join(result_dir, 'metadata.json')
+        if not os.path.exists(metadata_path):
+            return jsonify({'error': 'Result metadata not found'}), 404
+        
+        with open(metadata_path, 'r') as f:
+            metadata = json.load(f)
+        
+        # Add file URLs
+        if os.path.exists(os.path.join(result_dir, 'annotated_video.mp4')):
+            metadata['annotatedVideoUrl'] = f'/api/exercise-results/{result_id}/video'
+        
+        if os.path.exists(os.path.join(result_dir, 'timeline.csv')):
+            metadata['timelineCsvUrl'] = f'/api/exercise-results/{result_id}/timeline'
+        
+        return jsonify(metadata), 200
+        
+    except Exception as e:
+        print(f"❌ Error getting exercise result {result_id}: {e}")
+        return jsonify({'error': 'Failed to get result', 'details': str(e)}), 500
+
+
+@app.route('/api/exercise-results/<result_id>', methods=['DELETE'])
+def delete_exercise_result(result_id):
+    """
+    Delete a saved exercise result
+    
+    Args:
+        result_id: Unique identifier for the result
+    
+    Returns:
+        Success message
+    """
+    try:
+        result_dir = os.path.join(RESULTS_DIR, result_id)
+        
+        # Check if result exists
+        if not os.path.exists(result_dir):
+            return jsonify({'error': 'Result not found'}), 404
+        
+        # Delete the entire result directory
+        shutil.rmtree(result_dir)
+        
+        print(f"🗑️  Deleted exercise result: {result_id}")
+        return jsonify({'message': 'Result deleted successfully', 'id': result_id}), 200
+        
+    except Exception as e:
+        print(f"❌ Error deleting exercise result {result_id}: {e}")
+        return jsonify({'error': 'Failed to delete result', 'details': str(e)}), 500
+
+
+@app.route('/api/exercise-results/<result_id>/video')
+def serve_result_video(result_id):
+    """Serve annotated video for a specific result"""
+    result_dir = os.path.join(RESULTS_DIR, result_id)
+    video_path = os.path.join(result_dir, 'annotated_video.mp4')
+    
+    if not os.path.exists(video_path):
+        return jsonify({'error': 'Video not found'}), 404
+    
+    return send_from_directory(result_dir, 'annotated_video.mp4')
+
+
+@app.route('/api/exercise-results/<result_id>/timeline')
+def serve_result_timeline(result_id):
+    """Serve timeline CSV for a specific result"""
+    result_dir = os.path.join(RESULTS_DIR, result_id)
+    csv_path = os.path.join(result_dir, 'timeline.csv')
+    
+    if not os.path.exists(csv_path):
+        return jsonify({'error': 'Timeline not found'}), 404
+    
+    return send_from_directory(result_dir, 'timeline.csv')
 
 
 @app.route('/api/analyze-video-with-output', methods=['POST'])
@@ -213,8 +451,7 @@ def generate_meal_plan():
             target_weight_kg=float(data['targetWeight']),
             weekly_goal_kg=float(data['weeklyGoal']),
             goal_text=goal,
-            hf_api_key="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"  # Use the key from original code
-        )
+            hf_api_key=os.getenv('HF_API_KEY', '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')        )
         
         print("✅ Meal plan generated successfully")
         
@@ -238,11 +475,20 @@ def generate_meal_plan():
 
 
 if __name__ == '__main__':
-    print("🚀 Starting GymBuddy Exercise Analysis Server...")
-    print("📍 Server will be available at http://localhost:5000")
-    print("📍 For Android Emulator, use http://10.0.2.2:5000")
-    print("📍 For iOS Simulator, use http://localhost:5000")
-    print("📍 For Real Device, use http://<YOUR_LOCAL_IP>:5000")
+    # Get port from environment or default to 5000 for local dev
+    port = int(os.getenv('PORT', 5000))
+    is_azure = os.getenv('WEBSITE_SITE_NAME') is not None
+    
+    print("🚀 Starting SentriFit Exercise Analysis Server...")
+    if is_azure:
+        print(f"☁️  Running on Azure App Service")
+        print(f"📍 Port: {port}")
+    else:
+        print(f"📍 Server will be available at http://localhost:{port}")
+        print(f"📍 For Android Emulator, use http://10.0.2.2:{port}")
+        print(f"📍 For iOS Simulator, use http://localhost:{port}")
+        print(f"📍 For Real Device, use http://<YOUR_LOCAL_IP>:{port}")
+    
     print("\n🔍 Endpoints:")
     print("   GET  /api/health")
     print("   POST /api/analyze-video")
@@ -250,4 +496,6 @@ if __name__ == '__main__':
     print("\n")
     
     # Run server (0.0.0.0 = listen on all network interfaces)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # In production, Gunicorn will be used instead
+    debug_mode = not is_azure
+    app.run(host='0.0.0.0', port=port, debug=debug_mode)

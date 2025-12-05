@@ -1,0 +1,17 @@
+feature,importance
+true_torso_stability_right_std,0.10940441312222199
+symmetry,0.0905237444277403
+movement_smoothness,0.08299519512384372
+bilateral_true_torso_std,0.08101137371146748
+peak_extension,0.08050225655030407
+true_torso_stability_left_std,0.07675543821261116
+angle_cv,0.06722459816894844
+peak_flexion,0.06260694737055703
+true_torso_stability_right_mean,0.06147640597748761
+rom,0.05664482694209628
+true_torso_stability_left_mean,0.05617461161311683
+frame_count,0.05505260373151449
+bilateral_true_torso_mean,0.044092745248683105
+total_reps,0.035536005311705206
+tempo,0.03116698495100924
+correct_rep_ratio,0.008831849536693108
