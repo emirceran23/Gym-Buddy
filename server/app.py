@@ -110,6 +110,25 @@ def save_exercise_result(results, timeline_csv_path, annotated_video_path, origi
 
 
 
+@app.route('/', methods=['GET'])
+def root():
+    """Root endpoint - API documentation"""
+    return jsonify({
+        'name': 'SentriFit Exercise Analysis API',
+        'version': '1.0.0',
+        'status': 'running',
+        'endpoints': {
+            'health': '/api/health',
+            'analyze_video': '/api/analyze-video (POST)',
+            'generate_meal_plan': '/api/generate-meal-plan (POST)',
+            'list_results': '/api/exercise-results (GET)',
+            'get_result': '/api/exercise-results/{id} (GET)',
+            'delete_result': '/api/exercise-results/{id} (DELETE)'
+        },
+        'documentation': 'https://github.com/emirceran23/Gym-Buddy'
+    })
+
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """Health check endpoint with environment info"""
