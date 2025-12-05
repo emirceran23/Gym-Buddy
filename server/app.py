@@ -207,6 +207,38 @@ def get_progress(job_id):
                     })
 
 
+@app.route('/api/progress-json/<job_id>', methods=['GET'])
+def get_progress_json(job_id):
+    """
+    Simple JSON endpoint for polling progress (no SSE streaming)
+    Returns current progress state directly
+    """
+    with progress_store_lock:
+        job_data = progress_store.get(job_id)
+    
+    if not job_data:
+        return jsonify({
+            'error': 'Job not found',
+            'job_id': job_id
+        }), 404
+    
+    progress_data = {
+        'job_id': job_id,
+        'current': job_data.get('current', 0),
+        'total': job_data.get('total', 0),
+        'status': job_data.get('status', 'processing'),
+        'percentage': round((job_data.get('current', 0) / job_data.get('total', 1)) * 100, 1) if job_data.get('total', 0) > 0 else 0
+    }
+    
+    if job_data.get('status') == 'error':
+        progress_data['error'] = job_data.get('error', 'Unknown error')
+    
+    if job_data.get('status') == 'complete' and job_data.get('results'):
+        progress_data['results'] = job_data.get('results')
+    
+    return jsonify(progress_data), 200
+
+
 @app.route('/api/analyze-video', methods=['POST'])
 def analyze_video():
     """
