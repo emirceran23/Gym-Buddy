@@ -41,5 +41,5 @@ ENV FLASK_APP=server/app.py
 # Expose port (Azure will set PORT env variable)
 EXPOSE 8000
 
-# Run the application with Gunicorn (JSON array format to handle signals properly)
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 2 --timeout 300 --chdir /app server.app:app"]
+# Run the application with Gunicorn (single worker for in-memory state sharing)
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 1 --threads 4 --timeout 300 --chdir /app server.app:app"]
