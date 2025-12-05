@@ -1,10 +1,12 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, Response
 from flask_cors import CORS
 import os
 import sys
 import tempfile
 import json
 import shutil
+import uuid
+import threading
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
@@ -33,6 +35,11 @@ RESULTS_DIR = os.path.join(os.path.dirname(__file__), '..', 'exerciseevaluation'
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
+
+# In-memory progress tracking store
+# Format: {job_id: {'current': 0, 'total': 0, 'status': 'processing'|'complete'|'error', 'error': str}}
+progress_store = {}
+progress_store_lock = threading.Lock()
 
 # Ensure results directory exists
 os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -120,6 +127,7 @@ def root():
         'endpoints': {
             'health': '/api/health',
             'analyze_video': '/api/analyze-video (POST)',
+            'progress': '/api/progress/{job_id} (GET - SSE)',
             'generate_meal_plan': '/api/generate-meal-plan (POST)',
             'list_results': '/api/exercise-results (GET)',
             'get_result': '/api/exercise-results/{id} (GET)',
@@ -139,6 +147,64 @@ def health_check():
         'environment': environment,
         'storage': 'azure_blob' if AZURE_STORAGE_ENABLED else 'local'
     })
+
+
+@app.route('/api/progress/<job_id>', methods=['GET'])
+def get_progress(job_id):
+    """
+    Server-Sent Events (SSE) endpoint for real-time progress updates
+    
+    Client should connect using EventSource:
+        const eventSource = new EventSource(`/api/progress/${jobId}`);
+        eventSource.onmessage = (event) => {
+            const progress = JSON.parse(event.data);
+            console.log(`Processed ${progress.current}/${progress.total} frames`);
+        };
+    """
+    def generate():
+        """Generator function for SSE stream"""
+        last_current = -1
+        
+        while True:
+            with progress_store_lock:
+                job_data = progress_store.get(job_id)
+            
+            if not job_data:
+                # Job not found - send error and close
+                yield f"data: {{\"error\": \"Job not found\", \"job_id\": \"{job_id}\"}}}\n\n"
+                break
+            
+            # Only send update if progress changed
+            current = job_data.get('current', 0)
+            if current != last_current or job_data.get('status') in ['complete', 'error']:
+                progress_data = {
+                    'job_id': job_id,
+                    'current': job_data.get('current', 0),
+                    'total': job_data.get('total', 0),
+                    'status': job_data.get('status', 'processing'),
+                    'percentage': round((job_data.get('current', 0) / job_data.get('total', 1)) * 100, 1) if job_data.get('total', 0) > 0 else 0
+                }
+                
+                if job_data.get('status') == 'error':
+                    progress_data['error'] = job_data.get('error', 'Unknown error')
+                
+                yield f"data: {json.dumps(progress_data)}\n\n"
+                last_current = current
+            
+            # Close stream if job is done
+            if job_data.get('status') in ['complete', 'error']:
+                break
+            
+            # Small delay to avoid hammering
+            import time
+            time.sleep(0.1)
+    
+    return Response(generate(), mimetype='text/event-stream',
+                    headers={
+                        'Cache-Control': 'no-cache',
+                        'X-Accel-Buffering': 'no',  # Disable nginx buffering
+                        'Connection': 'keep-alive'
+                    })
 
 
 @app.route('/api/analyze-video', methods=['POST'])
@@ -170,18 +236,37 @@ def analyze_video():
         temp_video_path = os.path.join(app.config['UPLOAD_FOLDER'], f'upload_{os.getpid()}_{filename}')
         video_file.save(temp_video_path)
         
-        print(f"📹 Processing video: {filename}")
+        # Generate unique job ID for progress tracking
+        job_id = str(uuid.uuid4())
+        
+        print(f"📹 Processing video: {filename} (job_id: {job_id})")
+        
+        # Initialize progress tracking
+        with progress_store_lock:
+            progress_store[job_id] = {
+                'current': 0,
+                'total': 0,
+                'status': 'processing'
+            }
         
         # Create output directory for annotated videos
         output_dir = os.path.join(os.path.dirname(__file__), 'static', 'videos')
         os.makedirs(output_dir, exist_ok=True)
         
         try:
-            # Create analyzer with visualization enabled
+            # Progress callback to update progress store
+            def update_progress(current, total):
+                with progress_store_lock:
+                    if job_id in progress_store:
+                        progress_store[job_id]['current'] = current
+                        progress_store[job_id]['total'] = total
+            
+            # Create analyzer with visualization and progress callback
             analyzer = BicepsCurlVideoAnalyzer(
                 video_path=temp_video_path,
                 visualize=True,  # Enable annotated video creation
-                output_dir=output_dir
+                output_dir=output_dir,
+                progress_callback=update_progress
             )
             
             # Run analysis
@@ -216,7 +301,15 @@ def analyze_video():
             if result_id:
                 results['savedResultId'] = result_id
             
-            print(f"✅ Analysis complete: {results['totalReps']} total reps")
+            # Add job_id to results for client tracking
+            results['jobId'] = job_id
+            
+            # Mark progress as complete
+            with progress_store_lock:
+                if job_id in progress_store:
+                    progress_store[job_id]['status'] = 'complete'
+            
+            print(f"✅ Analysis complete: {results['totalReps']} total reps (job_id: {job_id})")
             
             return jsonify(results), 200
             
@@ -227,6 +320,16 @@ def analyze_video():
                 print(f"🧹 Cleaned up temporary upload file")
     
     except Exception as e:
+        # Mark progress as error
+        try:
+            if 'job_id' in locals():
+                with progress_store_lock:
+                    if job_id in progress_store:
+                        progress_store[job_id]['status'] = 'error'
+                        progress_store[job_id]['error'] = str(e)
+        except:
+            pass
+        
         print(f"❌ Error processing video: {str(e)}")
         import traceback
         traceback.print_exc()

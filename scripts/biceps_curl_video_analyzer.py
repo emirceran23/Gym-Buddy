@@ -14,7 +14,7 @@ class BicepsCurlVideoAnalyzer:
       - CSV timeline (frame-by-frame metrics)
       - printed summary + rep event table
     """
-    def __init__(self, video_path, visualize=True, output_dir=None, fourcc="mp4v"):
+    def __init__(self, video_path, visualize=True, output_dir=None, fourcc="mp4v", progress_callback=None):
         self.video_path = video_path
         self.pose_detector = PoseDetector()
         self.rep_counter = BicepsCurlCounter()
@@ -24,6 +24,7 @@ class BicepsCurlVideoAnalyzer:
         self.visualize = visualize
         self.output_dir = output_dir or os.path.dirname(os.path.abspath(video_path))
         self.fourcc = fourcc
+        self.progress_callback = progress_callback  # Callback for progress updates
 
         # runtime/bookkeeping
         self._timeline_rows = []     # per-frame row dicts for CSV
@@ -193,8 +194,12 @@ class BicepsCurlVideoAnalyzer:
                 "right_last_rep_reasons": '; '.join(status.get('right_last_rep_reasons', []))
             })
 
-            # Optional console progress (every ~1s)
-            if self.fps and frame_idx % int(self.fps) == 0:
+            # Progress reporting (every frame or every ~1s)
+            if self.progress_callback:
+                # Report progress on every frame for real-time updates
+                self.progress_callback(frame_idx, self.frame_count)
+            elif self.fps and frame_idx % int(self.fps) == 0:
+                # Fallback to console logging if no callback
                 print(f"Processed {frame_idx}/{self.frame_count} frames...")
 
         cap.release()
