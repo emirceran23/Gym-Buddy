@@ -3,6 +3,9 @@ import os
 import csv
 import math
 import numpy as np
+import joblib
+import pandas as pd
+from pathlib import Path
 from pose_detection import PoseDetector
 from biceps_curl_counter import BicepsCurlCounter
 
@@ -472,6 +475,14 @@ class BicepsCurlVideoAnalyzer:
         if status.get('right_last_rep_reasons'):
             form_feedback.extend([f"Right: {reason}" for reason in status['right_last_rep_reasons']])
         
+        # --- ML-based Form Score (using cached timeline data) ---
+        form_score = None
+        form_label = None
+        try:
+            form_score, form_label = self._compute_ml_form_score()
+        except Exception as e:
+            print(f"⚠️ ML form prediction failed: {e}")
+        
         return {
             'totalReps': status.get('total_reps', 0),
             'correctReps': total_correct,
@@ -483,9 +494,125 @@ class BicepsCurlVideoAnalyzer:
             'leftIncorrectReps': status.get('left_incorrect_reps', 0),
             'rightIncorrectReps': status.get('right_incorrect_reps', 0),
             'formFeedback': form_feedback,
+            'formScore': round(form_score, 1) if form_score is not None else None,
+            'formLabel': form_label,
             'timeline': self._timeline_rows,  # Full frame-by-frame data
             'duration': round(self.duration, 2),
             'fps': round(self.fps, 2),
             'frameCount': self.frame_count,
         }
-
+    
+    def _compute_ml_form_score(self):
+        """
+        Compute ML-based form score from cached timeline data.
+        Uses the augmented model (17 features) without re-processing the video.
+        
+        Returns:
+            tuple: (form_score, form_label) or (None, None) on error
+        """
+        if not self._timeline_rows:
+            print("⚠️ No timeline data available for ML scoring")
+            return None, None
+        
+        # Convert timeline rows to DataFrame for feature extraction
+        df = pd.DataFrame(self._timeline_rows)
+        
+        # Extract raw angle data from timeline
+        left_angles = pd.to_numeric(df['left_angle_smoothed_deg'], errors='coerce').dropna().tolist()
+        right_angles = pd.to_numeric(df['right_angle_smoothed_deg'], errors='coerce').dropna().tolist()
+        left_torso = pd.to_numeric(df['left_true_torso_angle_deg'], errors='coerce').dropna().tolist()
+        right_torso = pd.to_numeric(df['right_true_torso_angle_deg'], errors='coerce').dropna().tolist()
+        
+        # Need minimum frames for reliable feature extraction
+        min_frames = 10
+        if len(left_angles) < min_frames and len(right_angles) < min_frames:
+            print(f"⚠️ Insufficient angle data for ML scoring (left: {len(left_angles)}, right: {len(right_angles)})")
+            return None, None
+        
+        # --- Extract 17 features for the augmented model ---
+        features = {}
+        
+        # Elbow angle features (left)
+        if len(left_angles) >= min_frames:
+            features['elbow_left_min'] = np.min(left_angles)
+            features['elbow_left_max'] = np.max(left_angles)
+            features['elbow_left_range'] = features['elbow_left_max'] - features['elbow_left_min']
+            features['elbow_left_mean'] = np.mean(left_angles)
+            features['elbow_left_std'] = np.std(left_angles)
+        else:
+            # Use right arm data as fallback
+            features['elbow_left_min'] = np.min(right_angles) if right_angles else 0
+            features['elbow_left_max'] = np.max(right_angles) if right_angles else 0
+            features['elbow_left_range'] = features['elbow_left_max'] - features['elbow_left_min']
+            features['elbow_left_mean'] = np.mean(right_angles) if right_angles else 0
+            features['elbow_left_std'] = np.std(right_angles) if right_angles else 0
+        
+        # Elbow angle features (right)
+        if len(right_angles) >= min_frames:
+            features['elbow_right_min'] = np.min(right_angles)
+            features['elbow_right_max'] = np.max(right_angles)
+            features['elbow_right_range'] = features['elbow_right_max'] - features['elbow_right_min']
+            features['elbow_right_mean'] = np.mean(right_angles)
+            features['elbow_right_std'] = np.std(right_angles)
+        else:
+            # Use left arm data as fallback
+            features['elbow_right_min'] = np.min(left_angles) if left_angles else 0
+            features['elbow_right_max'] = np.max(left_angles) if left_angles else 0
+            features['elbow_right_range'] = features['elbow_right_max'] - features['elbow_right_min']
+            features['elbow_right_mean'] = np.mean(left_angles) if left_angles else 0
+            features['elbow_right_std'] = np.std(left_angles) if left_angles else 0
+        
+        # Shoulder Y stability (using aligned data from timeline)
+        left_aligned = df['left_aligned'].tolist()
+        right_aligned = df['right_aligned'].tolist()
+        
+        # Approximate shoulder stability from alignment variation
+        # Higher variation in alignment = less stable shoulders
+        features['shoulder_left_y_std'] = np.std(left_aligned) if left_aligned else 0
+        features['shoulder_right_y_std'] = np.std(right_aligned) if right_aligned else 0
+        
+        # Torso angle features
+        torso_angles = left_torso + right_torso if left_torso or right_torso else [0]
+        # Filter out invalid values (999.0 was used for invalid)
+        torso_angles = [a for a in torso_angles if a < 900]
+        if not torso_angles:
+            torso_angles = [0]
+        
+        features['torso_angle_min'] = np.min(torso_angles)
+        features['torso_angle_max'] = np.max(torso_angles)
+        features['torso_angle_range'] = features['torso_angle_max'] - features['torso_angle_min']
+        features['torso_angle_mean'] = np.mean(torso_angles)
+        features['torso_angle_std'] = np.std(torso_angles)
+        
+        # --- Load the augmented model and predict ---
+        script_dir = Path(__file__).parent
+        model_path = script_dir.parent / 'models' / 'biceps_curl_rf_augmented.joblib'
+        
+        if not model_path.exists():
+            print(f"⚠️ Model not found: {model_path}")
+            return None, None
+        
+        model = joblib.load(model_path)
+        
+        # Feature columns in order expected by augmented model
+        feature_columns = [
+            'elbow_left_min', 'elbow_left_max', 'elbow_left_range', 'elbow_left_mean', 'elbow_left_std',
+            'elbow_right_min', 'elbow_right_max', 'elbow_right_range', 'elbow_right_mean', 'elbow_right_std',
+            'shoulder_left_y_std', 'shoulder_right_y_std',
+            'torso_angle_min', 'torso_angle_max', 'torso_angle_range', 'torso_angle_mean', 'torso_angle_std'
+        ]
+        
+        # Build feature vector
+        X = pd.DataFrame([features])[feature_columns]
+        X = X.fillna(0)
+        
+        # Make prediction
+        prediction = model.predict(X)[0]
+        probabilities = model.predict_proba(X)[0]
+        
+        form_score = float(probabilities[1]) * 100  # Good form probability as percentage
+        form_label = 'Good Form ✅' if prediction == 1 else 'Bad Form ❌'
+        
+        print(f"✅ ML Form Score: {form_score:.1f}% ({form_label})")
+        
+        return form_score, form_label
