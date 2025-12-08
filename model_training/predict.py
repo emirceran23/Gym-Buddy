@@ -102,7 +102,7 @@ def get_feedback(score: float, features: dict) -> str:
     return "\n".join(feedback_lines)
 
 
-def predict_form_score(csv_path: str, model_path='biceps_model.pkl', scaler_path='scaler.pkl'):
+def predict_form_score(csv_path: str, model_path='rf_best_model.pkl', scaler_path='scaler.pkl'):
     """
     Predict form score for a biceps curl video CSV.
     
