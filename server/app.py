@@ -650,7 +650,7 @@ def generate_meal_plan():
             target_weight_kg=float(data['targetWeight']),
             weekly_goal_kg=float(data['weeklyGoal']),
             goal_text=goal,
-            hf_api_key=os.getenv('HF_API_KEY', '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')        )
+            hf_api_key=os.getenv('HF_API_KEY')        )
         
         print("✅ Meal plan generated successfully")
         

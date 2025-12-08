@@ -418,7 +418,7 @@ if __name__ == "__main__":
         target_weight_kg=75,
         weekly_goal_kg=0.2,  # gain 0.2 kg / week
         goal_text="gain muscle",
-        hf_api_key="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"  # <-- put your key here or use env var
+        hf_api_key=os.getenv("HF_API_KEY")  # <-- set HF_API_KEY env var
     )
 
     # 3) Save diet plan to file
