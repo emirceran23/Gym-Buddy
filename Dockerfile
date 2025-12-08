@@ -30,6 +30,7 @@ COPY model_training/biceps_model.pkl ./model_training/biceps_model.pkl
 COPY model_training/scaler.pkl ./model_training/scaler.pkl
 COPY model_training/feature_extractor.py ./model_training/feature_extractor.py
 COPY model_training/predict.py ./model_training/predict.py
+COPY model_training/biceps_curl_rf_augmented.joblib ./model_training/biceps_curl_rf_augmented.joblib
 
 # Create directory for static files (videos)
 RUN mkdir -p /app/server/static/videos
