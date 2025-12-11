@@ -1,4 +1,19 @@
 # Python 3.8-3.11 required (MediaPipe compatibility)
+
+# Core ML/CV dependencies
 mediapipe>=0.10.0
 opencv-python>=4.8.0
 numpy>=1.24.0
+pandas>=2.0.0
+joblib>=1.3.0
+
+# Flask web framework
+flask>=2.3.0
+flask-cors>=4.0.0
+python-dotenv>=1.0.0
+
+# Production web server
+gunicorn>=21.0.0
+
+# For HuggingFace API (meal planning)
+requests>=2.31.0
