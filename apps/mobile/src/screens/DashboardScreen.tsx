@@ -512,6 +512,23 @@ export default function DashboardScreen() {
           </View>
         </TouchableOpacity>
 
+        {/* Biceps Curl Tutorial */}
+        <TouchableOpacity
+          style={styles.tutorialCard}
+          onPress={() => (navigation as any).navigate('TutorialDetail', { tutorialId: 'biceps_curl' })}
+        >
+          <View style={styles.exerciseContent}>
+            <Ionicons name="school" size={40} color="#667eea" />
+            <View style={styles.exerciseText}>
+              <Text style={styles.tutorialTitle}>📚 Biceps Curl Tutorial</Text>
+              <Text style={styles.exerciseSubtitle}>
+                Learn proper form before your workout
+              </Text>
+            </View>
+            <Ionicons name="chevron-forward" size={24} color="#667eea" />
+          </View>
+        </TouchableOpacity>
+
         {/* Exercise Evaluation */}
         <TouchableOpacity
           style={styles.exerciseCard}
@@ -724,6 +741,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     color: "#2e7d32",
+  },
+  tutorialCard: {
+    width: "100%",
+    backgroundColor: "#ede7f6",
+    borderRadius: 18,
+    padding: 18,
+    marginTop: 20,
+  },
+  tutorialTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#5e35b1",
   },
   exerciseCard: {
     width: "100%",
