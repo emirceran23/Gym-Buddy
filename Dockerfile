@@ -18,19 +18,15 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file
-COPY azure-requirements.txt .
+COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r azure-requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application files
 COPY server/ ./server/
 COPY scripts/ ./scripts/
-COPY model_training/biceps_model.pkl ./model_training/biceps_model.pkl
-COPY model_training/scaler.pkl ./model_training/scaler.pkl
-COPY model_training/feature_extractor.py ./model_training/feature_extractor.py
-COPY model_training/predict.py ./model_training/predict.py
-COPY model_training/biceps_curl_rf_augmented.joblib ./model_training/biceps_curl_rf_augmented.joblib
+COPY models/biceps_curl_rf_augmented.joblib ./models/biceps_curl_rf_augmented.joblib
 
 # Create directory for static files (videos)
 RUN mkdir -p /app/server/static/videos
@@ -39,8 +35,9 @@ RUN mkdir -p /app/server/static/videos
 ENV PYTHONUNBUFFERED=1
 ENV FLASK_APP=server/app.py
 
-# Expose port (Azure will set PORT env variable)
+# Expose port (Render will set PORT env variable)
 EXPOSE 8000
 
 # Run the application with Gunicorn (single worker for in-memory state sharing)
 CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 1 --threads 4 --timeout 300 --chdir /app server.app:app"]
+

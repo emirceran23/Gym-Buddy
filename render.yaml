@@ -17,8 +17,6 @@ services:
         value: "*"  # Update with your mobile app domain in production
       - key: HF_API_KEY
         sync: false  # This will be set manually in Render dashboard (secret)
-      - key: AZURE_STORAGE_CONNECTION_STRING
-        sync: false  # Optional: only if using Azure Blob Storage
     
     # Health check configuration
     healthCheckPath: /api/health

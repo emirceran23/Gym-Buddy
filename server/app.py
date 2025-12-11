@@ -44,21 +44,8 @@ progress_store_lock = threading.Lock()
 # Ensure results directory exists
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
-# Azure Blob Storage configuration (optional)
-AZURE_STORAGE_ENABLED = os.getenv('AZURE_STORAGE_CONNECTION_STRING') is not None
-if AZURE_STORAGE_ENABLED:
-    try:
-        from azure.storage.blob import BlobServiceClient
-        blob_service_client = BlobServiceClient.from_connection_string(
-            os.getenv('AZURE_STORAGE_CONNECTION_STRING')
-        )
-        BLOB_CONTAINER_NAME = 'videos'
-        print("✅ Azure Blob Storage configured")
-    except Exception as e:
-        print(f"⚠️  Azure Blob Storage connection failed: {e}")
-        AZURE_STORAGE_ENABLED = False
-else:
-    print("ℹ️  Running without Azure Blob Storage (local mode)")
+# Storage is local (results saved to exerciseevaluation/results)
+print("ℹ️  Running with local storage mode")
 
 
 def allowed_file(filename):
@@ -139,13 +126,12 @@ def root():
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
-    """Health check endpoint with environment info"""
-    environment = 'azure' if os.getenv('WEBSITE_SITE_NAME') else 'local'
+    """Health check endpoint"""
     return jsonify({
         'status': 'ok',
-        'message': 'SentriFit Exercise Analysis Server',
-        'environment': environment,
-        'storage': 'azure_blob' if AZURE_STORAGE_ENABLED else 'local'
+        'message': 'GymBuddy Exercise Analysis Server',
+        'environment': 'render' if os.getenv('RENDER') else 'local',
+        'storage': 'local'
     })
 
 
@@ -676,16 +662,15 @@ def generate_meal_plan():
 if __name__ == '__main__':
     # Get port from environment or default to 5000 for local dev
     port = int(os.getenv('PORT', 5000))
-    is_azure = os.getenv('WEBSITE_SITE_NAME') is not None
+    is_render = os.getenv('RENDER') is not None
     
-    print("🚀 Starting SentriFit Exercise Analysis Server...")
-    if is_azure:
-        print(f"☁️  Running on Azure App Service")
+    print("🚀 Starting GymBuddy Exercise Analysis Server...")
+    if is_render:
+        print(f"☁️  Running on Render")
         print(f"📍 Port: {port}")
     else:
         print(f"📍 Server will be available at http://localhost:{port}")
         print(f"📍 For Android Emulator, use http://10.0.2.2:{port}")
-        print(f"📍 For iOS Simulator, use http://localhost:{port}")
         print(f"📍 For Real Device, use http://<YOUR_LOCAL_IP>:{port}")
     
     print("\n🔍 Endpoints:")
@@ -696,5 +681,5 @@ if __name__ == '__main__':
     
     # Run server (0.0.0.0 = listen on all network interfaces)
     # In production, Gunicorn will be used instead
-    debug_mode = not is_azure
+    debug_mode = not is_render
     app.run(host='0.0.0.0', port=port, debug=debug_mode)
