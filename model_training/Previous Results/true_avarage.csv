@@ -1,3 +1,0 @@
-arm,rep_start_time,rep_end_time,video_id,athlete_id,rom_deg_z,rom_deficit,torso_violation_pct_logit_z,align_off_pct_logit_z,tempo_asymmetry_logit_z,tempo_up_s_log1p_z,tempo_down_s_log1p_z,roughness_log1p_z,shoulder_drift_norm_log1p_z,lost_pose_any,tempo_total_log1p_z,speed_up_log1p_z,speed_down_log1p_z,fps_ok
-left,0.067,14.9,1,1,59.103466527478986,0.0,0.0,0.05531749123490459,0.0,0.0,0.0,0.0,0.0,0.0,14.833,0.0,0.0,1.0
-right,0.033,14.9,1,1,42.49573575211345,0.0,0.0,0.029037187977585366,0.0,0.0,0.0,0.0,0.0,0.0,14.867,0.0,0.0,1.0
