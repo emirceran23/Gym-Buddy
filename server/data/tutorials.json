@@ -1,0 +1,66 @@
+[
+    {
+        "id": "biceps_curl",
+        "title": "Dumbbell Biceps Curl",
+        "difficulty": "Beginner",
+        "duration_minutes": 3,
+        "video_hero_url": "/static/tutorials/biceps_curl_hero.mp4",
+        "thumbnail_url": "/static/tutorials/biceps_curl_thumb.jpg",
+        "description": "Master the fundamental biceps curl with proper form to maximize muscle activation and prevent injury.",
+        "phases": [
+            {
+                "step": 1,
+                "title": "Setup",
+                "description": "Stand tall with feet shoulder-width apart. Hold dumbbells at your sides with palms facing forward. Keep your elbows close to your torso."
+            },
+            {
+                "step": 2,
+                "title": "Curl",
+                "description": "Exhale and curl the weights up by contracting your biceps. Keep your upper arms stationary - only your forearms should move. Curl until the dumbbells reach shoulder level."
+            },
+            {
+                "step": 3,
+                "title": "Release",
+                "description": "Inhale and slowly lower the weights back to the starting position. Control the descent - don't let gravity do the work. Maintain tension throughout."
+            }
+        ],
+        "ai_mistakes": [
+            {
+                "id": "elbow_flaring",
+                "title": "Elbow Flaring",
+                "icon": "alert-triangle",
+                "severity": "high",
+                "description": "Your elbows are moving away from your body during the curl.",
+                "correction": "Keep your elbows pinned to your sides throughout the movement. Imagine holding a piece of paper between your elbow and ribs.",
+                "visual_cue_url": "/static/tutorials/mistakes/elbow_flaring.gif",
+                "detection_metric": "shoulder_elbow_alignment"
+            },
+            {
+                "id": "torso_swinging",
+                "title": "Torso Swinging",
+                "icon": "activity",
+                "severity": "high",
+                "description": "You're using momentum from your body to lift the weight.",
+                "correction": "Engage your core and keep your torso completely still. If you need to swing, the weight is too heavy.",
+                "visual_cue_url": "/static/tutorials/mistakes/torso_swing.gif",
+                "detection_metric": "torso_angle_stability"
+            },
+            {
+                "id": "incomplete_rom",
+                "title": "Incomplete Range of Motion",
+                "icon": "maximize-2",
+                "severity": "medium",
+                "description": "You're not fully extending or contracting during the curl.",
+                "correction": "Start with arms fully extended and curl all the way up until your forearms nearly touch your biceps.",
+                "visual_cue_url": "/static/tutorials/mistakes/incomplete_rom.gif",
+                "detection_metric": "elbow_angle_range"
+            }
+        ],
+        "tips": [
+            "Start with lighter weights to focus on form",
+            "Squeeze at the top of the movement for 1 second",
+            "Keep your wrists straight throughout the curl",
+            "Breathe: exhale on curl, inhale on release"
+        ]
+    }
+]

@@ -14,6 +14,7 @@ import AddMealScreen from "./src/screens/AddMealScreen";
 import ExerciseEvaluationScreen from "./src/screens/ExerciseEvaluationScreen";
 import MealPlanScreen from "./src/screens/MealPlanScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
+import TutorialDetailScreen from "./src/screens/TutorialDetailScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -115,6 +116,7 @@ export default function App() {
         {/* Other screens (opened from Dashboard) */}
         <Stack.Screen name="AddMeal" component={AddMealScreen} />
         <Stack.Screen name="MealPlan" component={MealPlanScreen} />
+        <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
         <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
       </Stack.Navigator>
     </NavigationContainer>

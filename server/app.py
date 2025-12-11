@@ -108,11 +108,13 @@ def save_exercise_result(results, timeline_csv_path, annotated_video_path, origi
 def root():
     """Root endpoint - API documentation"""
     return jsonify({
-        'name': 'SentriFit Exercise Analysis API',
+        'name': 'GymBuddy Exercise Analysis API',
         'version': '1.0.0',
         'status': 'running',
         'endpoints': {
             'health': '/api/health',
+            'tutorials': '/api/tutorials (GET)',
+            'tutorial_detail': '/api/tutorials/{id} (GET)',
             'analyze_video': '/api/analyze-video (POST)',
             'progress': '/api/progress/{job_id} (GET - SSE)',
             'generate_meal_plan': '/api/generate-meal-plan (POST)',
@@ -133,6 +135,69 @@ def health_check():
         'environment': 'render' if os.getenv('RENDER') else 'local',
         'storage': 'local'
     })
+
+
+# ============= TUTORIAL ENDPOINTS =============
+
+def load_tutorials():
+    """Load tutorials from JSON file"""
+    tutorials_path = os.path.join(os.path.dirname(__file__), 'data', 'tutorials.json')
+    try:
+        with open(tutorials_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"❌ Error loading tutorials: {e}")
+        return []
+
+
+@app.route('/api/tutorials', methods=['GET'])
+def get_tutorials():
+    """
+    Get all available tutorials
+    
+    Returns:
+        JSON array of tutorial objects with summary info
+    """
+    tutorials = load_tutorials()
+    
+    # Return a summary version (without full phase/mistake details for list view)
+    summary = []
+    for t in tutorials:
+        summary.append({
+            'id': t['id'],
+            'title': t['title'],
+            'difficulty': t['difficulty'],
+            'duration_minutes': t.get('duration_minutes', 0),
+            'thumbnail_url': t.get('thumbnail_url'),
+            'description': t.get('description', ''),
+            'phases_count': len(t.get('phases', [])),
+            'ai_mistakes_count': len(t.get('ai_mistakes', []))
+        })
+    
+    return jsonify(summary), 200
+
+
+@app.route('/api/tutorials/<tutorial_id>', methods=['GET'])
+def get_tutorial_detail(tutorial_id):
+    """
+    Get detailed information for a specific tutorial
+    
+    Args:
+        tutorial_id: Unique identifier for the tutorial (e.g., 'biceps_curl')
+    
+    Returns:
+        JSON object with full tutorial details including phases and AI mistakes
+    """
+    tutorials = load_tutorials()
+    
+    # Find the tutorial by ID
+    tutorial = next((t for t in tutorials if t['id'] == tutorial_id), None)
+    
+    if not tutorial:
+        return jsonify({'error': 'Tutorial not found', 'id': tutorial_id}), 404
+    
+    return jsonify(tutorial), 200
+
 
 
 @app.route('/api/progress/<job_id>', methods=['GET'])
