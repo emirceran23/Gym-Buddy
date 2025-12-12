@@ -1,0 +1,42 @@
+{
+  "biceps_curl_rf_model_initial.joblib": {
+    "name": "Initial Model",
+    "description": "First baseline model with video duration",
+    "features": 18,
+    "includes_duration": true,
+    "data_augmentation": false,
+    "symmetric_features": false
+  },
+  "biceps_curl_rf_model_no_duration_newest.joblib": {
+    "name": "No Duration",
+    "description": "Removed video_duration feature to reduce temporal bias",
+    "features": 17,
+    "includes_duration": false,
+    "data_augmentation": false,
+    "symmetric_features": false
+  },
+  "biceps_curl_rf_model_shorterTrueVideos.joblib": {
+    "name": "Shorter True Videos",
+    "description": "Trained with balanced dataset (shortened good form videos)",
+    "features": 18,
+    "includes_duration": true,
+    "data_augmentation": false,
+    "symmetric_features": false
+  },
+  "biceps_curl_rf_augmented.joblib": {
+    "name": "Augmented Dataset",
+    "description": "Trained with augmented data (flipped videos, different feature order)",
+    "features": 17,
+    "includes_duration": false,
+    "data_augmentation": true,
+    "symmetric_features": false
+  },
+  "biceps_curl_rf_symmetric_mean.joblib": {
+    "name": "Symmetric Mean",
+    "description": "Uses averaged left/right features for bilateral symmetry",
+    "features": 11,
+    "includes_duration": false,
+    "data_augmentation": true,
+    "symmetric_features": true
+  }
+}

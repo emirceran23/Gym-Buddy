@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+.venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Videos and outputs
+*.mp4
+*.avi
+*.mov
+!test_videos/*.mp4
+!test_videos/*.avi
+!test_videos/*.mov
+
+# CSV outputs
+*__timeline.csv
+*__annotated.mp4
+
+# Logs
+*.log
+
+# Flask
+instance/
+.webassets-cache
+
+# Environment variables
+.env
+.env.local
