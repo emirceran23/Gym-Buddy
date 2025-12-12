@@ -10,6 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 import OnboardingScreen from "./src/screens/OnboardingScreen";
 import GoalSetupScreen from "./src/screens/GoalSetupScreen";
 import DashboardScreen from "./src/screens/DashboardScreen";
+import TrainingScreen from "./src/screens/TrainingScreen";
 import AddMealScreen from "./src/screens/AddMealScreen";
 import ExerciseEvaluationScreen from "./src/screens/ExerciseEvaluationScreen";
 import MealPlanScreen from "./src/screens/MealPlanScreen";
@@ -37,6 +38,8 @@ function MainTabs() {
 
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
+          } else if (route.name === "Training") {
+            iconName = focused ? "fitness" : "fitness-outline";
           } else if (route.name === "Settings") {
             iconName = focused ? "settings" : "settings-outline";
           }
@@ -63,6 +66,11 @@ function MainTabs() {
         name="Home"
         component={DashboardScreen}
         options={{ tabBarLabel: "Dashboard" }}
+      />
+      <Tab.Screen
+        name="Training"
+        component={TrainingScreen}
+        options={{ tabBarLabel: "Training" }}
       />
       <Tab.Screen
         name="Settings"
@@ -126,7 +134,7 @@ export default function App() {
           {/* Main app with bottom tabs */}
           <Stack.Screen name="MainTabs" component={MainTabs} />
 
-          {/* Other screens (opened from Dashboard) */}
+          {/* Other screens (opened from Training or Dashboard) */}
           <Stack.Screen name="AddMeal" component={AddMealScreen} />
           <Stack.Screen name="MealPlan" component={MealPlanScreen} />
           <Stack.Screen name="MuscleGroup" component={MuscleGroupScreen} />

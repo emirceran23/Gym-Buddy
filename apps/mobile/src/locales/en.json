@@ -265,5 +265,19 @@
         "retry": "Retry",
         "phases": "phases",
         "comingSoon": "🚀 Coming Soon"
+    },
+    "training": {
+        "title": "Training & Nutrition",
+        "subtitle": "AI-powered tools to help you achieve your fitness goals",
+        "mealPlanner": "AI Meal Planner",
+        "mealPlannerDesc": "Get personalized meal plans based on your goals",
+        "exerciseTutorials": "Exercise Tutorials",
+        "exerciseTutorialsDesc": "Learn proper form with step-by-step guides",
+        "exerciseEvaluation": "Exercise Evaluation",
+        "exerciseEvaluationDesc": "Record and analyze your form with AI",
+        "quickTips": "💡 Quick Tips",
+        "tip1": "Record your exercises in good lighting for better AI analysis.",
+        "tip2": "Follow the meal plan consistently for best results.",
+        "tip3": "Watch tutorials before attempting new exercises."
     }
 }

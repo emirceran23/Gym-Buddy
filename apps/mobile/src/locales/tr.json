@@ -265,5 +265,19 @@
         "retry": "Tekrar Dene",
         "phases": "aşama",
         "comingSoon": "🚀 Yakında"
+    },
+    "training": {
+        "title": "Eğitim & Beslenme",
+        "subtitle": "Fitness hedeflerinize ulaşmanız için AI destekli araçlar",
+        "mealPlanner": "AI Yemek Planlayıcı",
+        "mealPlannerDesc": "Hedeflerinize göre kişiselleştirilmiş yemek planları alın",
+        "exerciseTutorials": "Egzersiz Eğitimleri",
+        "exerciseTutorialsDesc": "Adım adım rehberlerle doğru formu öğrenin",
+        "exerciseEvaluation": "Egzersiz Değerlendirme",
+        "exerciseEvaluationDesc": "Formunuzu kaydedin ve AI ile analiz edin",
+        "quickTips": "💡 Hızlı İpuçları",
+        "tip1": "Daha iyi AI analizi için egzersizlerinizi iyi aydınlatmada kaydedin.",
+        "tip2": "En iyi sonuçlar için yemek planını tutarlı bir şekilde takip edin.",
+        "tip3": "Yeni egzersizleri denemeden önce eğitimleri izleyin."
     }
 }

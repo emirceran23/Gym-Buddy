@@ -265,5 +265,19 @@
         "retry": "Erneut versuchen",
         "phases": "Phasen",
         "comingSoon": "🚀 Demnächst"
+    },
+    "training": {
+        "title": "Training & Ernährung",
+        "subtitle": "KI-gestützte Tools, um deine Fitnessziele zu erreichen",
+        "mealPlanner": "KI Mahlzeitenplaner",
+        "mealPlannerDesc": "Erhalte personalisierte Mahlzeitenpläne basierend auf deinen Zielen",
+        "exerciseTutorials": "Übungs-Tutorials",
+        "exerciseTutorialsDesc": "Lerne die richtige Form mit Schritt-für-Schritt-Anleitungen",
+        "exerciseEvaluation": "Übungsbewertung",
+        "exerciseEvaluationDesc": "Nimm auf und analysiere deine Form mit KI",
+        "quickTips": "💡 Schnelle Tipps",
+        "tip1": "Nimm deine Übungen bei guter Beleuchtung auf für bessere KI-Analyse.",
+        "tip2": "Folge dem Mahlzeitenplan konsequent für beste Ergebnisse.",
+        "tip3": "Schau dir die Tutorials an, bevor du neue Übungen ausprobierst."
     }
 }

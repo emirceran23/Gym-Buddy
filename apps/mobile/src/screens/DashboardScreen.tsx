@@ -570,58 +570,6 @@ export default function DashboardScreen() {
         </View>
 
 
-        {/* Meal Plan Generator */}
-        <TouchableOpacity
-          style={styles.mealPlanCard}
-          onPress={() => (navigation as any).navigate('MealPlan')}
-        >
-          <View style={styles.exerciseContent}>
-            <Ionicons name="restaurant" size={40} color="#4caf50" />
-            <View style={styles.exerciseText}>
-              <Text style={styles.mealPlanTitle}>{t('dashboard.aiMealPlanner')}</Text>
-              <Text style={styles.exerciseSubtitle}>
-                {t('dashboard.getPersonalizedPlan')}
-              </Text>
-            </View>
-            <Ionicons name="chevron-forward" size={24} color="#4caf50" />
-          </View>
-        </TouchableOpacity>
-
-        {/* Biceps Curl Tutorial */}
-        <TouchableOpacity
-          style={styles.tutorialCard}
-          onPress={() => (navigation as any).navigate('MuscleGroup')}
-        >
-          <View style={styles.exerciseContent}>
-            <Ionicons name="school" size={40} color="#667eea" />
-            <View style={styles.exerciseText}>
-              <Text style={styles.tutorialTitle}>{t('dashboard.exerciseTutorials')}</Text>
-              <Text style={styles.exerciseSubtitle}>
-                {t('dashboard.learnCorrectForm')}
-              </Text>
-            </View>
-            <Ionicons name="chevron-forward" size={24} color="#667eea" />
-          </View>
-        </TouchableOpacity>
-
-        {/* Exercise Evaluation */}
-        <TouchableOpacity
-          style={styles.exerciseCard}
-          onPress={() => (navigation as any).navigate('ExerciseEvaluation')}
-        >
-          <View style={styles.exerciseContent}>
-            <Ionicons name="fitness" size={40} color="#1976d2" />
-            <View style={styles.exerciseText}>
-              <Text style={styles.exerciseTitle}>{t('dashboard.exerciseEvaluation')}</Text>
-              <Text style={styles.exerciseSubtitle}>
-                {t('dashboard.analyzeForm')}
-              </Text>
-            </View>
-            <Ionicons name="chevron-forward" size={24} color="#1976d2" />
-          </View>
-        </TouchableOpacity>
-
-
         <View style={{ height: 70 }} />
       </ScrollView>
 

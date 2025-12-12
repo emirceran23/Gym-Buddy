@@ -265,5 +265,19 @@
         "retry": "Reintentar",
         "phases": "fases",
         "comingSoon": "🚀 Próximamente"
+    },
+    "training": {
+        "title": "Entrenamiento & Nutrición",
+        "subtitle": "Herramientas con IA para ayudarte a alcanzar tus metas fitness",
+        "mealPlanner": "Planificador de Comidas IA",
+        "mealPlannerDesc": "Obtén planes de comidas personalizados según tus objetivos",
+        "exerciseTutorials": "Tutoriales de Ejercicios",
+        "exerciseTutorialsDesc": "Aprende la forma correcta con guías paso a paso",
+        "exerciseEvaluation": "Evaluación de Ejercicios",
+        "exerciseEvaluationDesc": "Graba y analiza tu forma con IA",
+        "quickTips": "💡 Consejos Rápidos",
+        "tip1": "Graba tus ejercicios con buena iluminación para un mejor análisis de IA.",
+        "tip2": "Sigue el plan de comidas consistentemente para mejores resultados.",
+        "tip3": "Mira los tutoriales antes de intentar nuevos ejercicios."
     }
 }
