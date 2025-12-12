@@ -1,0 +1,6 @@
+model_name,Total Videos,Predicted Good,Predicted Bad,Avg Confidence (Good),Std Confidence,Features Used,% Good Form
+Augmented Dataset,10,10,0,0.696,0.12,17,100.0
+Initial Model,10,10,0,0.854,0.082,18,100.0
+No Duration,10,8,2,0.701,0.171,17,80.0
+Shorter True Videos,10,10,0,0.772,0.087,18,100.0
+Symmetric Mean,10,9,1,0.686,0.118,11,90.0

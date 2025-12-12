@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588985261688",
+    "project_id": "sentryfit",
+    "storage_bucket": "sentryfit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588985261688:android:a06ec4422ee67777d6178d",
+        "android_client_info": {
+          "package_name": "com.reverie.sentryfit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-KzqIMmQVX-0SLmtEBNrGnNK8HLF2KYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
