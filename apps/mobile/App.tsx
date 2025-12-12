@@ -17,6 +17,7 @@ import SettingsScreen from "./src/screens/SettingsScreen";
 import TutorialDetailScreen from "./src/screens/TutorialDetailScreen";
 import TutorialListScreen from "./src/screens/TutorialListScreen";
 import NotificationTestScreen from "./src/screens/NotificationTestScreen";
+import ActivityHistoryScreen from "./src/screens/ActivityHistoryScreen";
 import { registerForPushNotificationsAsync } from "./src/utils/notificationService";
 
 const Stack = createNativeStackNavigator();
@@ -128,6 +129,7 @@ export default function App() {
         <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
         <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
         <Stack.Screen name="NotificationTest" component={NotificationTestScreen} />
+        <Stack.Screen name="ActivityHistory" component={ActivityHistoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

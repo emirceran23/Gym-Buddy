@@ -15,8 +15,19 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.reverie.sentryfit",
       "infoPlist": {
+        "NSHealthShareUsageDescription": "GymBuddy needs access to your health data to track calories burned from your smartwatch and help you reach your fitness goals.",
+        "NSHealthUpdateUsageDescription": "GymBuddy may update your health data to track your progress.",
         "UIBackgroundModes": [
+          "remote-notification",
           "remote-notification"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "entitlements": {
+        "com.apple.developer.healthkit": true,
+        "com.apple.developer.healthkit.access": [
+          "health-records",
+          "health-records"
         ]
       }
     },
@@ -30,7 +41,9 @@
       "package": "com.reverie.sentryfit",
       "permissions": [
         "android.permission.POST_NOTIFICATIONS",
-        "android.permission.VIBRATE"
+        "android.permission.VIBRATE",
+        "android.permission.health.READ_ACTIVE_CALORIES_BURNED",
+        "android.permission.health.READ_TOTAL_CALORIES_BURNED"
       ],
       "googleServicesFile": "./google-services.json",
       "useNextNotificationsApi": true,
@@ -44,12 +57,30 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-notifications"
+      "expo-notifications",
+      [
+        "react-native-health-connect",
+        {
+          "permissions": [
+            "ActiveCaloriesBurned",
+            "TotalCaloriesBurned"
+          ]
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {
-        "projectId": "be8d417d-2927-4efd-9d06-5fcff40f8bff"
+        "projectId": "ce93b154-27b9-422f-8924-4bfdec3eda47"
       }
-    }
+    },
+    "owner": "1atalay1"
   }
 }
