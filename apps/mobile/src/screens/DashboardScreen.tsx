@@ -17,7 +17,14 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getDailyQuote, Quote } from "../utils/motivationalQuotes";
 import { getServerDateKey } from "../utils/serverTime";
 import { registerForPushNotificationsAsync, retryPendingTokenUpload } from "../utils/notificationService";
+<<<<<<< HEAD
 import { useTranslation } from "../contexts/LanguageContext";
+=======
+import CaloriesBurnedCard from "../components/CaloriesBurnedCard";
+import AddManualActivityModal from "../components/AddManualActivityModal";
+import { syncDailyCalories, getDailyCalorieSummary } from "../services/healthService";
+import type { DailyCalorieSummary } from "../types/health";
+>>>>>>> 0560ab7cd57fadebeb76119d800b867d95c94748
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
@@ -45,6 +52,11 @@ export default function DashboardScreen() {
   // Daily Motivational Quote
   const [dailyQuote, setDailyQuote] = useState<Quote>({ text: "", author: "" });
 
+  // Calories Burned Tracking (NEW!)
+  const [caloriesSummary, setCaloriesSummary] = useState<DailyCalorieSummary | null>(null);
+  const [isCaloriesLoading, setIsCaloriesLoading] = useState(false);
+  const [showManualActivityModal, setShowManualActivityModal] = useState(false);
+
   // ----------------------------
   // 🔹 DATA LOADING (MAIN MECHANISM)
   // ----------------------------
@@ -65,6 +77,9 @@ export default function DashboardScreen() {
           // Silently fail - notifications are not critical
           console.log('ℹ️ [Dashboard] Notifications unavailable');
         }
+
+        // Load calories summary
+        await loadCaloriesSummary();
       };
       loadData();
     }, [dayOffset])
@@ -226,6 +241,37 @@ export default function DashboardScreen() {
   };
 
   // ----------------------------
+  // 🔥 CALORIES BURNED TRACKING (NEW!)
+  // ----------------------------
+  const loadCaloriesSummary = async () => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const summary = await getDailyCalorieSummary(today);
+      setCaloriesSummary(summary);
+    } catch (error) {
+      console.error('Error loading calories summary:', error);
+    }
+  };
+
+  const handleCaloriesSync = async () => {
+    setIsCaloriesLoading(true);
+    try {
+      const summary = await syncDailyCalories();
+      setCaloriesSummary(summary);
+    } catch (error) {
+      console.error('Error syncing calories:', error);
+      Alert.alert('Hata', 'Kalori verisi senkronize edilemedi');
+    } finally {
+      setIsCaloriesLoading(false);
+    }
+  };
+
+  const handleManualActivityAdded = async () => {
+    setShowManualActivityModal(false);
+    await handleCaloriesSync();
+  };
+
+  // ----------------------------
   // 🔥 UPDATED: Delete Meal
   // ----------------------------
   const handleDeleteMeal = async (mealType: string, i: number) => {
@@ -338,6 +384,16 @@ export default function DashboardScreen() {
             </View>
           </View>
         )}
+
+        {/* Calories Burned Card (NEW!) */}
+        <CaloriesBurnedCard
+          summary={caloriesSummary}
+          isLoading={isCaloriesLoading}
+          onSync={handleCaloriesSync}
+          onAddManual={() => setShowManualActivityModal(true)}
+          onViewActivities={() => (navigation as any).navigate('ActivityHistory')}
+          calorieGoal={500}
+        />
 
         {/* Progress Card */}
         {userData && startDate && (
@@ -613,6 +669,13 @@ export default function DashboardScreen() {
           </View>
         </View>
       </Modal>
+
+      {/* Manual Activity Modal (NEW!) */}
+      <AddManualActivityModal
+        visible={showManualActivityModal}
+        onClose={() => setShowManualActivityModal(false)}
+        onActivityAdded={handleManualActivityAdded}
+      />
     </SafeAreaView>
   );
 }

@@ -22,7 +22,7 @@ export class PoseDetector {
       const detectorConfig = {
         modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
       };
-      
+
       this.detector = await poseDetection.createDetector(
         poseDetection.SupportedModels.MoveNet,
         detectorConfig
@@ -64,13 +64,13 @@ export class PoseDetector {
     const radians =
       Math.atan2(point3.y - point2.y, point3.x - point2.x) -
       Math.atan2(point1.y - point2.y, point1.x - point2.x);
-    
+
     let angle = Math.abs((radians * 180.0) / Math.PI);
-    
+
     if (angle > 180.0) {
       angle = 360.0 - angle;
     }
-    
+
     return angle;
   }
 
@@ -82,7 +82,7 @@ export class PoseDetector {
     side: 'left' | 'right'
   ): number | null {
     // MoveNet keypoint indices
-    const indices = side === 'left' 
+    const indices = side === 'left'
       ? { shoulder: 5, elbow: 7, wrist: 9 }   // Left side
       : { shoulder: 6, elbow: 8, wrist: 10 }; // Right side
 
@@ -93,9 +93,9 @@ export class PoseDetector {
     // Check confidence scores
     const minConfidence = 0.3;
     if (
-      shoulder?.score < minConfidence ||
-      elbow?.score < minConfidence ||
-      wrist?.score < minConfidence
+      (shoulder?.score ?? 0) < minConfidence ||
+      (elbow?.score ?? 0) < minConfidence ||
+      (wrist?.score ?? 0) < minConfidence
     ) {
       return null;
     }
@@ -120,9 +120,9 @@ export class PoseDetector {
 
     const minConfidence = 0.3;
     if (
-      elbow?.score < minConfidence ||
-      shoulder?.score < minConfidence ||
-      hip?.score < minConfidence
+      (elbow?.score ?? 0) < minConfidence ||
+      (shoulder?.score ?? 0) < minConfidence ||
+      (hip?.score ?? 0) < minConfidence
     ) {
       return null;
     }
@@ -147,9 +147,9 @@ export class PoseDetector {
 
     const minConfidence = 0.3;
     if (
-      shoulder?.score < minConfidence ||
-      elbow?.score < minConfidence ||
-      hip?.score < minConfidence
+      (shoulder?.score ?? 0) < minConfidence ||
+      (elbow?.score ?? 0) < minConfidence ||
+      (hip?.score ?? 0) < minConfidence
     ) {
       return true; // Assume aligned if we can't detect
     }
@@ -157,9 +157,9 @@ export class PoseDetector {
     // Check horizontal deviation
     const elbowXOffset = Math.abs(elbow.x - shoulder.x);
     const torsoHeight = Math.abs(hip.y - shoulder.y);
-    
+
     if (torsoHeight === 0) return true;
-    
+
     const maxDeviation = torsoHeight * 0.15;
     return elbowXOffset < maxDeviation;
   }
