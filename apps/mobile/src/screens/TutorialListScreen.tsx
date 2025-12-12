@@ -13,6 +13,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { API_ENDPOINTS } from '../config';
+import { useTranslation } from '../contexts/LanguageContext';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -36,6 +37,7 @@ const localImages: Record<string, any> = {
 
 export default function TutorialListScreen() {
     const navigation = useNavigation<any>();
+    const { t } = useTranslation();
     const [tutorials, setTutorials] = useState<TutorialSummary[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -51,14 +53,14 @@ export default function TutorialListScreen() {
             const response = await fetch(API_ENDPOINTS.TUTORIALS);
 
             if (!response.ok) {
-                throw new Error('Failed to load tutorials');
+                throw new Error(t('tutorialList.loadError'));
             }
 
             const data = await response.json();
             setTutorials(data);
         } catch (err: any) {
             console.error('Error fetching tutorials:', err);
-            setError(err.message || 'Failed to load tutorials');
+            setError(err.message || t('tutorialList.loadError'));
         } finally {
             setLoading(false);
         }
@@ -100,7 +102,7 @@ export default function TutorialListScreen() {
         return (
             <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color="#4F46E5" />
-                <Text style={styles.loadingText}>Egzersizler yükleniyor...</Text>
+                <Text style={styles.loadingText}>{t('tutorialList.loading')}</Text>
             </View>
         );
     }
@@ -111,7 +113,7 @@ export default function TutorialListScreen() {
                 <Ionicons name="alert-circle-outline" size={64} color="#EF4444" />
                 <Text style={styles.errorText}>{error}</Text>
                 <TouchableOpacity style={styles.retryButton} onPress={fetchTutorials}>
-                    <Text style={styles.retryButtonText}>Tekrar Dene</Text>
+                    <Text style={styles.retryButtonText}>{t('tutorialList.retry')}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -129,7 +131,7 @@ export default function TutorialListScreen() {
                 >
                     <Ionicons name="arrow-back" size={24} color="#1E293B" />
                 </TouchableOpacity>
-                <Text style={styles.headerTitle}>Egzersiz Seç</Text>
+                <Text style={styles.headerTitle}>{t('tutorialList.headerTitle')}</Text>
                 <View style={{ width: 40 }} />
             </View>
 
@@ -138,9 +140,9 @@ export default function TutorialListScreen() {
                 <View style={styles.introIcon}>
                     <Ionicons name="school" size={32} color="#4F46E5" />
                 </View>
-                <Text style={styles.introTitle}>Doğru Form Öğren</Text>
+                <Text style={styles.introTitle}>{t('tutorialList.introTitle')}</Text>
                 <Text style={styles.introSubtitle}>
-                    AI destekli analizden önce doğru formu öğrenmek için bir egzersiz seçin
+                    {t('tutorialList.introSubtitle')}
                 </Text>
             </View>
 
@@ -183,7 +185,7 @@ export default function TutorialListScreen() {
                                         </View>
                                     )}
 
-                                    {/* Overlay bottom-right: play icon + süre */}
+                                    {/* Overlay bottom-right: play icon + duration */}
                                     <View style={styles.cardImageOverlayBottom}>
                                         <View style={styles.overlayPill}>
                                             <Ionicons
@@ -192,7 +194,7 @@ export default function TutorialListScreen() {
                                                 color="#FFFFFF"
                                             />
                                             <Text style={styles.overlayPillText}>
-                                                {tutorial.duration_minutes} dk
+                                                {tutorial.duration_minutes} {t('tutorialDetail.min')}
                                             </Text>
                                         </View>
                                     </View>
@@ -214,7 +216,7 @@ export default function TutorialListScreen() {
                                                     backgroundColor:
                                                         getDifficultyColor(
                                                             tutorial.difficulty
-                                                        ) + '1A', // hafif transparan
+                                                        ) + '1A',
                                                 },
                                             ]}
                                         >
@@ -239,7 +241,7 @@ export default function TutorialListScreen() {
                                                 color="#64748B"
                                             />
                                             <Text style={styles.metaText}>
-                                                {tutorial.phases_count} aşama
+                                                {tutorial.phases_count} {t('tutorialList.phases')}
                                             </Text>
                                         </View>
                                     </View>
@@ -251,7 +253,7 @@ export default function TutorialListScreen() {
 
                 {/* Coming Soon Section */}
                 <View style={styles.comingSoonSection}>
-                    <Text style={styles.comingSoonTitle}>🚀 Yakında</Text>
+                    <Text style={styles.comingSoonTitle}>{t('tutorialList.comingSoon')}</Text>
                     <View style={styles.comingSoonList}>
                         {['Squat', 'Deadlift', 'Shoulder Press'].map((exercise, index) => (
                             <View key={index} style={styles.comingSoonItem}>

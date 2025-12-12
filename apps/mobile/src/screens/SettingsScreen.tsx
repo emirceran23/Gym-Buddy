@@ -12,22 +12,28 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function SettingsScreen() {
     const navigation = useNavigation<any>();
+    const { language, setLanguage, availableLanguages, t } = useLanguage();
     const [aboutModalVisible, setAboutModalVisible] = useState(false);
+    const [languageModalVisible, setLanguageModalVisible] = useState(false);
+
+    // Get current language info
+    const currentLanguage = availableLanguages.find(lang => lang.code === language);
 
     const handleResetData = () => {
         Alert.alert(
-            "Reset Personal Information",
-            "Are you sure you want to reset all your personal information? This will restart the app setup process.",
+            t('settings.resetConfirmTitle'),
+            t('settings.resetConfirmMessage'),
             [
                 {
-                    text: "Cancel",
+                    text: t('settings.cancel'),
                     style: "cancel",
                 },
                 {
-                    text: "Reset",
+                    text: t('settings.reset'),
                     style: "destructive",
                     onPress: async () => {
                         try {
@@ -40,8 +46,8 @@ export default function SettingsScreen() {
                             ]);
 
                             Alert.alert(
-                                "Success",
-                                "Your data has been reset. You will now be redirected to the onboarding screen.",
+                                t('settings.success'),
+                                t('settings.resetSuccess'),
                                 [
                                     {
                                         text: "OK",
@@ -57,7 +63,7 @@ export default function SettingsScreen() {
                             );
                         } catch (error) {
                             console.error("Error resetting data:", error);
-                            Alert.alert("Error", "Failed to reset data. Please try again.");
+                            Alert.alert(t('common.error'), t('settings.resetError'));
                         }
                     },
                 },
@@ -65,15 +71,41 @@ export default function SettingsScreen() {
         );
     };
 
+    const handleLanguageSelect = async (langCode: string) => {
+        await setLanguage(langCode as any);
+        setLanguageModalVisible(false);
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 {/* Header */}
-                <Text style={styles.title}>⚙️ Settings</Text>
+                <Text style={styles.title}>{t('settings.title')}</Text>
 
-                {/* Settings Options */}
+                {/* Language Section */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Account</Text>
+                    <Text style={styles.sectionTitle}>{t('settings.language')}</Text>
+
+                    <TouchableOpacity
+                        style={styles.settingItem}
+                        onPress={() => setLanguageModalVisible(true)}
+                    >
+                        <View style={styles.settingLeft}>
+                            <Ionicons name="language-outline" size={28} color="#4F46E5" />
+                            <View style={styles.settingTextContainer}>
+                                <Text style={styles.settingTitle}>{t('settings.appLanguage')}</Text>
+                                <Text style={styles.settingSubtitle}>
+                                    {currentLanguage?.flag} {currentLanguage?.nativeName}
+                                </Text>
+                            </View>
+                        </View>
+                        <Ionicons name="chevron-forward" size={24} color="#b0bec5" />
+                    </TouchableOpacity>
+                </View>
+
+                {/* Account Section */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>{t('settings.account')}</Text>
 
                     {/* Reset Personal Information */}
                     <TouchableOpacity
@@ -83,9 +115,9 @@ export default function SettingsScreen() {
                         <View style={styles.settingLeft}>
                             <Ionicons name="refresh-circle-outline" size={28} color="#ef5350" />
                             <View style={styles.settingTextContainer}>
-                                <Text style={styles.settingTitle}>Reset Personal Information</Text>
+                                <Text style={styles.settingTitle}>{t('settings.resetPersonalInfo')}</Text>
                                 <Text style={styles.settingSubtitle}>
-                                    Clear all data and start over
+                                    {t('settings.resetSubtitle')}
                                 </Text>
                             </View>
                         </View>
@@ -95,7 +127,7 @@ export default function SettingsScreen() {
 
                 {/* About Section */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Information</Text>
+                    <Text style={styles.sectionTitle}>{t('settings.information')}</Text>
 
                     <TouchableOpacity
                         style={styles.settingItem}
@@ -104,9 +136,9 @@ export default function SettingsScreen() {
                         <View style={styles.settingLeft}>
                             <Ionicons name="information-circle-outline" size={28} color="#42a5f5" />
                             <View style={styles.settingTextContainer}>
-                                <Text style={styles.settingTitle}>About</Text>
+                                <Text style={styles.settingTitle}>{t('settings.about')}</Text>
                                 <Text style={styles.settingSubtitle}>
-                                    Learn more about this app
+                                    {t('settings.aboutSubtitle')}
                                 </Text>
                             </View>
                         </View>
@@ -116,7 +148,7 @@ export default function SettingsScreen() {
 
                 {/* Developer Section */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Developer</Text>
+                    <Text style={styles.sectionTitle}>{t('settings.developer')}</Text>
 
                     <TouchableOpacity
                         style={styles.settingItem}
@@ -125,9 +157,9 @@ export default function SettingsScreen() {
                         <View style={styles.settingLeft}>
                             <Ionicons name="notifications-outline" size={28} color="#9c27b0" />
                             <View style={styles.settingTextContainer}>
-                                <Text style={styles.settingTitle}>Notification Test</Text>
+                                <Text style={styles.settingTitle}>{t('settings.notificationTest')}</Text>
                                 <Text style={styles.settingSubtitle}>
-                                    Test push notifications on this device
+                                    {t('settings.notificationSubtitle')}
                                 </Text>
                             </View>
                         </View>
@@ -137,9 +169,55 @@ export default function SettingsScreen() {
 
                 {/* App Version */}
                 <View style={styles.versionContainer}>
-                    <Text style={styles.versionText}>Version 1.0.0</Text>
+                    <Text style={styles.versionText}>{t('settings.version')} 1.0.0</Text>
                 </View>
             </ScrollView>
+
+            {/* Language Selection Modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={languageModalVisible}
+                onRequestClose={() => setLanguageModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.languageModalContent}>
+                        <View style={styles.modalHeader}>
+                            <Text style={styles.modalTitle}>{t('settings.selectLanguage')}</Text>
+                            <TouchableOpacity onPress={() => setLanguageModalVisible(false)}>
+                                <Ionicons name="close-circle" size={32} color="#455a64" />
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.languageList}>
+                            {availableLanguages.map((lang) => (
+                                <TouchableOpacity
+                                    key={lang.code}
+                                    style={[
+                                        styles.languageItem,
+                                        language === lang.code && styles.languageItemSelected,
+                                    ]}
+                                    onPress={() => handleLanguageSelect(lang.code)}
+                                >
+                                    <Text style={styles.languageFlag}>{lang.flag}</Text>
+                                    <View style={styles.languageTextContainer}>
+                                        <Text style={[
+                                            styles.languageNativeName,
+                                            language === lang.code && styles.languageTextSelected,
+                                        ]}>
+                                            {lang.nativeName}
+                                        </Text>
+                                        <Text style={styles.languageName}>{lang.name}</Text>
+                                    </View>
+                                    {language === lang.code && (
+                                        <Ionicons name="checkmark-circle" size={24} color="#4F46E5" />
+                                    )}
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </View>
+                </View>
+            </Modal>
 
             {/* About Modal */}
             <Modal
@@ -151,7 +229,7 @@ export default function SettingsScreen() {
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
                         <View style={styles.modalHeader}>
-                            <Text style={styles.modalTitle}>About Gym Buddy</Text>
+                            <Text style={styles.modalTitle}>{t('settings.aboutGymBuddy')}</Text>
                             <TouchableOpacity onPress={() => setAboutModalVisible(false)}>
                                 <Ionicons name="close-circle" size={32} color="#455a64" />
                             </TouchableOpacity>
@@ -159,50 +237,37 @@ export default function SettingsScreen() {
 
                         <ScrollView style={styles.modalBody}>
                             <View style={styles.aboutSection}>
-                                <Text style={styles.aboutTitle}>🎯 Our Mission</Text>
+                                <Text style={styles.aboutTitle}>{t('settings.ourMission')}</Text>
                                 <Text style={styles.aboutText}>
-                                    Gym Buddy is your personal fitness and nutrition companion,
-                                    designed to help you achieve your health goals through
-                                    intelligent meal planning and exercise tracking.
+                                    {t('settings.missionText')}
                                 </Text>
                             </View>
 
                             <View style={styles.aboutSection}>
-                                <Text style={styles.aboutTitle}>✨ Features</Text>
+                                <Text style={styles.aboutTitle}>{t('settings.features')}</Text>
                                 <Text style={styles.aboutText}>
-                                    • Personalized calorie and macro tracking{"\n"}
-                                    • AI-powered meal plan generation{"\n"}
-                                    • Exercise form analysis with AI{"\n"}
-                                    • Daily water intake tracking{"\n"}
-                                    • Progress monitoring and insights
+                                    {t('settings.featuresText')}
                                 </Text>
                             </View>
 
                             <View style={styles.aboutSection}>
-                                <Text style={styles.aboutTitle}>👥 Our Team</Text>
+                                <Text style={styles.aboutTitle}>{t('settings.ourTeam')}</Text>
                                 <Text style={styles.aboutText}>
-                                    Developed with passion by a team dedicated to making fitness
-                                    and nutrition accessible to everyone. We combine cutting-edge
-                                    AI technology with proven nutritional science to deliver a
-                                    comprehensive health platform.
+                                    {t('settings.teamText')}
                                 </Text>
                             </View>
 
                             <View style={styles.aboutSection}>
-                                <Text style={styles.aboutTitle}>📧 Contact Us</Text>
+                                <Text style={styles.aboutTitle}>{t('settings.contactUs')}</Text>
                                 <Text style={styles.aboutText}>
-                                    Have questions or feedback? We'd love to hear from you!{"\n\n"}
-                                    Email: support@gymbuddy.app{"\n"}
-                                    Website: www.gymbuddy.app
+                                    {t('settings.contactText')}
                                 </Text>
                             </View>
 
                             <View style={styles.aboutSection}>
-                                <Text style={styles.aboutTitle}>🙏 Acknowledgments</Text>
+                                <Text style={styles.aboutTitle}>{t('settings.acknowledgments')}</Text>
                                 <Text style={styles.aboutText}>
-                                    Thank you for choosing Gym Buddy as your fitness companion.
-                                    Your health journey is our priority, and we're committed to
-                                    supporting you every step of the way.
+                                    {t('settings.acknowledgmentsText')}
                                 </Text>
                             </View>
                         </ScrollView>
@@ -211,7 +276,7 @@ export default function SettingsScreen() {
                             style={styles.closeButton}
                             onPress={() => setAboutModalVisible(false)}
                         >
-                            <Text style={styles.closeButtonText}>Close</Text>
+                            <Text style={styles.closeButtonText}>{t('settings.close')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -304,6 +369,15 @@ const styles = StyleSheet.create({
         shadowRadius: 20,
         elevation: 10,
     },
+    languageModalContent: {
+        backgroundColor: "#fff",
+        borderRadius: 24,
+        width: "90%",
+        shadowColor: "#000",
+        shadowOpacity: 0.25,
+        shadowRadius: 20,
+        elevation: 10,
+    },
     modalHeader: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -345,5 +419,42 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 16,
         fontWeight: "600",
+    },
+    // Language Modal Styles
+    languageList: {
+        padding: 16,
+    },
+    languageItem: {
+        flexDirection: "row",
+        alignItems: "center",
+        padding: 16,
+        borderRadius: 16,
+        marginBottom: 8,
+        backgroundColor: "#f8fafc",
+    },
+    languageItemSelected: {
+        backgroundColor: "#EEF2FF",
+        borderWidth: 2,
+        borderColor: "#4F46E5",
+    },
+    languageFlag: {
+        fontSize: 32,
+        marginRight: 16,
+    },
+    languageTextContainer: {
+        flex: 1,
+    },
+    languageNativeName: {
+        fontSize: 18,
+        fontWeight: "600",
+        color: "#263238",
+        marginBottom: 2,
+    },
+    languageName: {
+        fontSize: 14,
+        color: "#78909c",
+    },
+    languageTextSelected: {
+        color: "#4F46E5",
     },
 });

@@ -16,6 +16,7 @@ import VideoResultsModal from '../components/VideoResultsModal';
 import SavedResultsSection from '../components/SavedResultsSection';
 import { API_URL } from '../config';
 import { SavedExerciseResult } from '../services/exerciseResultsService';
+import { useTranslation } from '../contexts/LanguageContext';
 
 interface ProcessingResult {
     totalReps: number;
@@ -43,6 +44,7 @@ interface ProcessingProgress {
 }
 
 export default function ExerciseEvaluationScreen() {
+    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState<'analyze' | 'saved'>('analyze');
     const [videoUri, setVideoUri] = useState<string | null>(null);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -54,7 +56,7 @@ export default function ExerciseEvaluationScreen() {
         try {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (status !== 'granted') {
-                Alert.alert('Permission Required', 'Please grant access to your media library');
+                Alert.alert(t('exerciseEval.permissionRequired'), t('exerciseEval.grantAccess'));
                 return;
             }
 
@@ -70,13 +72,13 @@ export default function ExerciseEvaluationScreen() {
             }
         } catch (error) {
             console.error('Error picking video:', error);
-            Alert.alert('Error', 'Failed to pick video');
+            Alert.alert(t('common.error'), t('exerciseEval.failedToPickVideo'));
         }
     };
 
     const processVideo = async () => {
         if (!videoUri) {
-            Alert.alert('No Video', 'Please select a video first');
+            Alert.alert(t('exerciseEval.noVideo'), t('exerciseEval.selectVideoFirst'));
             return;
         }
 
@@ -96,7 +98,7 @@ export default function ExerciseEvaluationScreen() {
             setShowResultsModal(true);
         } catch (error) {
             console.error('Error processing video:', error);
-            Alert.alert('Processing Error', 'Failed to analyze video. Is backend running?');
+            Alert.alert(t('exerciseEval.processingError'), t('exerciseEval.failedToAnalyze'));
             setIsProcessing(false);
         }
     };
@@ -136,7 +138,7 @@ export default function ExerciseEvaluationScreen() {
                             activeTab === 'analyze' && styles.activeTabText,
                         ]}
                     >
-                        Analyze
+                        {t('exerciseEval.analyze')}
                     </Text>
                 </TouchableOpacity>
 
@@ -155,7 +157,7 @@ export default function ExerciseEvaluationScreen() {
                             activeTab === 'saved' && styles.activeTabText,
                         ]}
                     >
-                        Saved Results
+                        {t('exerciseEval.savedResults')}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -165,22 +167,22 @@ export default function ExerciseEvaluationScreen() {
                 <ScrollView contentContainerStyle={styles.scrollContent}>
                     <View style={styles.header}>
                         <Ionicons name="fitness" size={40} color="#1976d2" />
-                        <Text style={styles.title}>Exercise Evaluation</Text>
-                        <Text style={styles.subtitle}>Biceps Curl Analysis</Text>
+                        <Text style={styles.title}>{t('exerciseEval.title')}</Text>
+                        <Text style={styles.subtitle}>{t('exerciseEval.subtitle')}</Text>
                     </View>
 
                     <View style={styles.infoCard}>
-                        <Text style={styles.infoTitle}>📹 How it works:</Text>
-                        <Text style={styles.infoText}>1. Upload a video of biceps curls</Text>
-                        <Text style={styles.infoText}>2. AI analyzes your form</Text>
-                        <Text style={styles.infoText}>3. Get feedback and rep count</Text>
+                        <Text style={styles.infoTitle}>{t('exerciseEval.howItWorks')}</Text>
+                        <Text style={styles.infoText}>{t('exerciseEval.step1')}</Text>
+                        <Text style={styles.infoText}>{t('exerciseEval.step2')}</Text>
+                        <Text style={styles.infoText}>{t('exerciseEval.step3')}</Text>
                     </View>
 
                     {!videoUri ? (
                         <TouchableOpacity style={styles.uploadButton} onPress={pickVideo}>
                             <Ionicons name="cloud-upload-outline" size={50} color="#1976d2" />
-                            <Text style={styles.uploadText}>Upload Video</Text>
-                            <Text style={styles.uploadSubtext}>Tap to select from gallery</Text>
+                            <Text style={styles.uploadText}>{t('exerciseEval.uploadVideo')}</Text>
+                            <Text style={styles.uploadSubtext}>{t('exerciseEval.tapToSelect')}</Text>
                         </TouchableOpacity>
                     ) : (
                         <View style={styles.videoSection}>
@@ -194,13 +196,13 @@ export default function ExerciseEvaluationScreen() {
                             <View style={styles.videoActions}>
                                 <TouchableOpacity style={styles.actionButton} onPress={resetVideo}>
                                     <Ionicons name="close-circle-outline" size={24} color="#d32f2f" />
-                                    <Text style={styles.actionText}>Change Video</Text>
+                                    <Text style={styles.actionText}>{t('exerciseEval.changeVideo')}</Text>
                                 </TouchableOpacity>
 
                                 {!isProcessing && !results && (
                                     <TouchableOpacity style={styles.processButton} onPress={processVideo}>
                                         <Ionicons name="play-circle-outline" size={24} color="#fff" />
-                                        <Text style={styles.processButtonText}>Analyze Video</Text>
+                                        <Text style={styles.processButtonText}>{t('exerciseEval.analyzeVideo')}</Text>
                                     </TouchableOpacity>
                                 )}
                             </View>
@@ -226,29 +228,29 @@ export default function ExerciseEvaluationScreen() {
 
                     {results && !isProcessing && (
                         <View style={styles.resultsCard}>
-                            <Text style={styles.resultsTitle}>✅ Analysis Complete!</Text>
+                            <Text style={styles.resultsTitle}>{t('exerciseEval.analysisComplete')}</Text>
                             <View style={styles.statRow}>
                                 <View style={styles.statBox}>
                                     <Text style={styles.statNumber}>{results.totalReps}</Text>
-                                    <Text style={styles.statLabel}>Total Reps</Text>
+                                    <Text style={styles.statLabel}>{t('exerciseEval.totalReps')}</Text>
                                 </View>
                                 <View style={styles.statBox}>
                                     <Text style={[styles.statNumber, { color: '#4caf50' }]}>{results.correctReps}</Text>
-                                    <Text style={styles.statLabel}>Correct</Text>
+                                    <Text style={styles.statLabel}>{t('exerciseEval.correct')}</Text>
                                 </View>
                                 <View style={styles.statBox}>
                                     <Text style={[styles.statNumber, { color: '#f44336' }]}>{results.incorrectReps}</Text>
-                                    <Text style={styles.statLabel}>Incorrect</Text>
+                                    <Text style={styles.statLabel}>{t('exerciseEval.incorrect')}</Text>
                                 </View>
                             </View>
                             <TouchableOpacity style={styles.detailsButton} onPress={() => setShowResultsModal(true)}>
-                                <Text style={styles.detailsButtonText}>View Detailed Report</Text>
+                                <Text style={styles.detailsButtonText}>{t('exerciseEval.viewDetailedReport')}</Text>
                                 <Ionicons name="chevron-forward" size={20} color="#fff" />
                             </TouchableOpacity>
 
                             {results.annotatedVideoUrl && (
                                 <View style={styles.videoContainer}>
-                                    <Text style={styles.annotatedVideoTitle}>🎥 Watch AI Analysis</Text>
+                                    <Text style={styles.annotatedVideoTitle}>{t('exerciseEval.watchAIAnalysis')}</Text>
                                     <Text style={styles.debugText}>
                                         Video URL: {API_URL + results.annotatedVideoUrl}
                                     </Text>
@@ -259,7 +261,7 @@ export default function ExerciseEvaluationScreen() {
                                         resizeMode={ResizeMode.CONTAIN}
                                         onError={(error) => {
                                             console.error('Video error:', error);
-                                            Alert.alert('Video Error', 'Failed to load annotated video');
+                                            Alert.alert(t('exerciseEval.videoError'), t('exerciseEval.failedToLoadVideo'));
                                         }}
                                         onLoad={() => console.log('Video loaded successfully')}
                                     />

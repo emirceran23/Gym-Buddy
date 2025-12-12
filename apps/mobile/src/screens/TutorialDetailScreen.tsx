@@ -14,6 +14,7 @@ import { Video, ResizeMode, AVPlaybackStatus } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { API_ENDPOINTS } from '../config';
+import { useTranslation } from '../contexts/LanguageContext';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -25,9 +26,9 @@ const localVideos: Record<string, any> = {
 // Phase images mapping (tutorialId -> step -> image)
 const phaseImages: Record<string, Record<number, any>> = {
     biceps_curl: {
-        1: require('../../assets/images/biceps_phase1.png'),
-        2: require('../../assets/images/biceps_phase2.png'),
-        3: require('../../assets/images/biceps_phase3.png'),
+        1: require('../../assets/images/biceps_phase1.webp'),
+        2: require('../../assets/images/biceps_phase2.webp'),
+        3: require('../../assets/images/biceps_phase3.webp'),
     },
 };
 
@@ -66,6 +67,7 @@ export default function TutorialDetailScreen() {
     const navigation = useNavigation<any>();
     const route = useRoute<any>();
     const videoRef = useRef<Video>(null);
+    const { t } = useTranslation();
 
     const tutorialId = route.params?.tutorialId || 'biceps_curl';
 
@@ -85,14 +87,14 @@ export default function TutorialDetailScreen() {
             const response = await fetch(API_ENDPOINTS.TUTORIAL_DETAIL(tutorialId));
 
             if (!response.ok) {
-                throw new Error('Tutorial not found');
+                throw new Error(t('tutorialDetail.notFound'));
             }
 
             const data = await response.json();
             setTutorial(data);
         } catch (err: any) {
             console.error('Error fetching tutorial:', err);
-            setError(err.message || 'Failed to load tutorial');
+            setError(err.message || t('tutorialDetail.notFound'));
         } finally {
             setLoading(false);
         }
@@ -133,7 +135,7 @@ export default function TutorialDetailScreen() {
         return (
             <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color="#667eea" />
-                <Text style={styles.loadingText}>Loading tutorial...</Text>
+                <Text style={styles.loadingText}>{t('tutorialDetail.loading')}</Text>
             </View>
         );
     }
@@ -142,9 +144,9 @@ export default function TutorialDetailScreen() {
         return (
             <View style={styles.errorContainer}>
                 <Ionicons name="alert-circle-outline" size={64} color="#ff4757" />
-                <Text style={styles.errorText}>{error || 'Tutorial not found'}</Text>
+                <Text style={styles.errorText}>{error || t('tutorialDetail.notFound')}</Text>
                 <TouchableOpacity style={styles.retryButton} onPress={fetchTutorial}>
-                    <Text style={styles.retryButtonText}>Retry</Text>
+                    <Text style={styles.retryButtonText}>{t('tutorialDetail.retry')}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -182,7 +184,7 @@ export default function TutorialDetailScreen() {
                         </View>
                         <Text style={styles.heroTitle}>{tutorial.title}</Text>
                         <Text style={styles.heroDuration}>
-                            <Ionicons name="time-outline" size={14} color="#fff" /> {tutorial.duration_minutes} min
+                            <Ionicons name="time-outline" size={14} color="#fff" /> {tutorial.duration_minutes} {t('tutorialDetail.min')}
                         </Text>
                     </View>
                 </View>
@@ -199,7 +201,7 @@ export default function TutorialDetailScreen() {
 
                 {/* Phase Timeline */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>📋 Exercise Phases</Text>
+                    <Text style={styles.sectionTitle}>{t('tutorialDetail.exercisePhases')}</Text>
                     {tutorial.phases.map((phase, index) => {
                         const phaseImage = phaseImages[tutorialId]?.[phase.step];
                         return (
@@ -228,7 +230,7 @@ export default function TutorialDetailScreen() {
 
                 {/* AI Watchlist */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>🤖 What GymBuddy Watches For</Text>
+                    <Text style={styles.sectionTitle}>{t('tutorialDetail.aiWatchlist')}</Text>
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}
@@ -257,7 +259,7 @@ export default function TutorialDetailScreen() {
                                     {mistake.description}
                                 </Text>
                                 <View style={styles.mistakeCorrectionBox}>
-                                    <Text style={styles.mistakeCorrectionLabel}>How to fix:</Text>
+                                    <Text style={styles.mistakeCorrectionLabel}>{t('tutorialDetail.howToFix')}</Text>
                                     <Text style={styles.mistakeCorrectionText}>
                                         {mistake.correction}
                                     </Text>
@@ -270,7 +272,7 @@ export default function TutorialDetailScreen() {
                 {/* Tips Section */}
                 {tutorial.tips && tutorial.tips.length > 0 && (
                     <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>💡 Pro Tips</Text>
+                        <Text style={styles.sectionTitle}>{t('tutorialDetail.proTips')}</Text>
                         {tutorial.tips.map((tip, index) => (
                             <View key={index} style={styles.tipItem}>
                                 <Ionicons name="checkmark-circle" size={20} color="#2ed573" />
@@ -291,7 +293,7 @@ export default function TutorialDetailScreen() {
                     onPress={handleAnalyzePress}
                 >
                     <Ionicons name="camera-outline" size={24} color="#fff" />
-                    <Text style={styles.analyzeButtonText}>Analyze My Form</Text>
+                    <Text style={styles.analyzeButtonText}>{t('tutorialDetail.analyzeMyForm')}</Text>
                 </TouchableOpacity>
             </View>
         </View>

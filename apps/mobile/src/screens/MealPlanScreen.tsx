@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { API_ENDPOINTS } from '../config';
+import { useTranslation } from '../contexts/LanguageContext';
 
 interface Meal {
     name: string;
@@ -27,6 +28,7 @@ const MEAL_PLAN_STORAGE_KEY = 'mealPlan';
 
 export default function MealPlanScreen() {
     const navigation = useNavigation();
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
     const [expandedDay, setExpandedDay] = useState<string | null>(null);
@@ -45,11 +47,11 @@ export default function MealPlanScreen() {
                 setMealPlan(parsedPlan);
             } else {
                 console.log('ℹ️ No stored meal plan found');
-                setError('No meal plan created yet. Click the "Generate New Plan" button.');
+                setError(t('mealPlan.noPlanYet'));
             }
         } catch (err: any) {
             console.error('❌ Error loading meal plan:', err);
-            setError('Error loading meal plan');
+            setError(t('mealPlan.errorLoading'));
         } finally {
             setLoading(false);
         }
@@ -62,7 +64,7 @@ export default function MealPlanScreen() {
 
             const userDataStr = await AsyncStorage.getItem('userData');
             if (!userDataStr) {
-                Alert.alert('Error', 'User data not found.');
+                Alert.alert(t('common.error'), t('mealPlan.userDataNotFound'));
                 navigation.navigate('GoalSetup' as never);
                 return;
             }
@@ -85,7 +87,7 @@ export default function MealPlanScreen() {
             });
 
             const data = await response.json();
-            if (!response.ok) throw new Error(data.error || 'Meal plan oluşturulamadı');
+            if (!response.ok) throw new Error(data.error || t('mealPlan.errorCreating'));
 
             console.log('✅ Meal plan received');
             setMealPlan(data);
@@ -95,8 +97,8 @@ export default function MealPlanScreen() {
             console.log('💾 Meal plan saved to storage');
         } catch (err: any) {
             console.error('❌ Error:', err);
-            setError(err.message || 'Bir hata oluştu');
-            Alert.alert('Hata', err.message || 'Meal plan oluşturulurken hata oluştu');
+            setError(err.message || t('mealPlan.errorCreating'));
+            Alert.alert(t('common.error'), err.message || t('mealPlan.errorCreating'));
         } finally {
             setLoading(false);
         }
@@ -110,12 +112,26 @@ export default function MealPlanScreen() {
     const getTotalCalories = (meals: Meal[]) => meals.reduce((sum, m) => sum + m.kcal, 0);
     const getTotalProtein = (meals: Meal[]) => meals.reduce((sum, m) => sum + m.protein_g, 0);
 
+    // Helper function for meal info with translations
+    const getMealInfo = (mealName: string) => {
+        switch (mealName) {
+            case 'breakfast':
+                return { emoji: '☀️', label: t('mealPlan.breakfast'), color: '#FFF3E0' };
+            case 'lunch':
+                return { emoji: '🌤️', label: t('mealPlan.lunch'), color: '#E3F2FD' };
+            case 'dinner':
+                return { emoji: '🌙', label: t('mealPlan.dinner'), color: '#F3E5F5' };
+            default:
+                return { emoji: '🍎', label: t('mealPlan.snack'), color: '#E8F5E9' };
+        }
+    };
+
     if (loading) {
         return (
             <View style={styles.centerContainer}>
                 <ActivityIndicator size="large" color="#1976d2" />
-                <Text style={styles.loadingText}>AI is creating your meal plan...</Text>
-                <Text style={styles.loadingSubtext}>This may take a few seconds</Text>
+                <Text style={styles.loadingText}>{t('mealPlan.loading')}</Text>
+                <Text style={styles.loadingSubtext}>{t('mealPlan.loadingSubtext')}</Text>
             </View>
         );
     }
@@ -126,7 +142,7 @@ export default function MealPlanScreen() {
                 <Ionicons name="alert-circle-outline" size={64} color="#d32f2f" />
                 <Text style={styles.errorText}>{error}</Text>
                 <TouchableOpacity style={styles.retryButton} onPress={generateMealPlan}>
-                    <Text style={styles.retryButtonText}>🔄 Retry</Text>
+                    <Text style={styles.retryButtonText}>{t('mealPlan.retry')}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -135,7 +151,7 @@ export default function MealPlanScreen() {
     if (!mealPlan) {
         return (
             <View style={styles.centerContainer}>
-                <Text style={styles.errorText}>Loading meal plan...</Text>
+                <Text style={styles.errorText}>{t('mealPlan.loadingPlan')}</Text>
             </View>
         );
     }
@@ -150,8 +166,8 @@ export default function MealPlanScreen() {
                             <Ionicons name="arrow-back" size={28} color="#fff" />
                         </TouchableOpacity>
                         <View style={styles.headerTextContainer}>
-                            <Text style={styles.title}>🍽️ Your Meal Plan</Text>
-                            <Text style={styles.subtitle}>7-Day Personal Program</Text>
+                            <Text style={styles.title}>{t('mealPlan.title')}</Text>
+                            <Text style={styles.subtitle}>{t('mealPlan.subtitle')}</Text>
                         </View>
                     </View>
                 </View>
@@ -166,11 +182,11 @@ export default function MealPlanScreen() {
 
                 {/* Weekly Overview Card */}
                 <View style={styles.weeklyOverviewCard}>
-                    <Text style={styles.weeklyOverviewTitle}>📊 Weekly Summary</Text>
+                    <Text style={styles.weeklyOverviewTitle}>{t('mealPlan.weeklySummary')}</Text>
                     <View style={styles.weeklyStatsRow}>
                         <View style={styles.statBox}>
                             <Text style={styles.statValue}>{mealPlan.diet_plan.length}</Text>
-                            <Text style={styles.statLabel}>Days</Text>
+                            <Text style={styles.statLabel}>{t('mealPlan.days')}</Text>
                         </View>
                         <View style={styles.statDivider} />
                         <View style={styles.statBox}>
@@ -178,7 +194,7 @@ export default function MealPlanScreen() {
                                 {Math.round(mealPlan.diet_plan.reduce((sum, day) =>
                                     sum + getTotalCalories(day.meals), 0) / mealPlan.diet_plan.length)}
                             </Text>
-                            <Text style={styles.statLabel}>Avg. Calories</Text>
+                            <Text style={styles.statLabel}>{t('mealPlan.avgCalories')}</Text>
                         </View>
                         <View style={styles.statDivider} />
                         <View style={styles.statBox}>
@@ -186,7 +202,7 @@ export default function MealPlanScreen() {
                                 {Math.round(mealPlan.diet_plan.reduce((sum, day) =>
                                     sum + getTotalProtein(day.meals), 0) / mealPlan.diet_plan.length)}g
                             </Text>
-                            <Text style={styles.statLabel}>Avg. Protein</Text>
+                            <Text style={styles.statLabel}>{t('mealPlan.avgProtein')}</Text>
                         </View>
                     </View>
                 </View>
@@ -214,7 +230,7 @@ export default function MealPlanScreen() {
                                         </View>
                                         <View style={styles.miniStatChip}>
                                             <Ionicons name="fitness" size={14} color="#4ECDC4" />
-                                            <Text style={styles.miniStatText}>{Math.round(totalProtein)}g protein</Text>
+                                            <Text style={styles.miniStatText}>{Math.round(totalProtein)}g {t('mealPlan.protein')}</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -251,7 +267,7 @@ export default function MealPlanScreen() {
                                                         <Ionicons name="fitness-outline" size={18} color="#4ECDC4" />
                                                         <View style={styles.nutritionTextContainer}>
                                                             <Text style={styles.nutritionValue}>{meal.protein_g}g</Text>
-                                                            <Text style={styles.nutritionLabel}>protein</Text>
+                                                            <Text style={styles.nutritionLabel}>{t('mealPlan.protein')}</Text>
                                                         </View>
                                                     </View>
                                                 </View>
@@ -274,7 +290,7 @@ export default function MealPlanScreen() {
                 {/* Regenerate Button */}
                 <TouchableOpacity style={styles.regenerateButton} onPress={generateMealPlan}>
                     <Ionicons name="refresh" size={22} color="#fff" />
-                    <Text style={styles.regenerateButtonText}>Generate New Plan</Text>
+                    <Text style={styles.regenerateButtonText}>{t('mealPlan.generateNewPlan')}</Text>
                 </TouchableOpacity>
 
                 <View style={{ height: 40 }} />
@@ -282,20 +298,6 @@ export default function MealPlanScreen() {
         </View>
     );
 }
-
-// Helper function for meal info
-const getMealInfo = (mealName: string) => {
-    switch (mealName) {
-        case 'breakfast':
-            return { emoji: '☀️', label: 'Breakfast', color: '#FFF3E0' };
-        case 'lunch':
-            return { emoji: '🌤️', label: 'Lunch', color: '#E3F2FD' };
-        case 'dinner':
-            return { emoji: '🌙', label: 'Dinner', color: '#F3E5F5' };
-        default:
-            return { emoji: '🍎', label: 'Snack', color: '#E8F5E9' };
-    }
-};
 
 const styles = StyleSheet.create({
     container: {

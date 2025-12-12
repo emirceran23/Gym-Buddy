@@ -2,23 +2,25 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "../contexts/LanguageContext";
 
 export default function OnboardingScreen() {
   const navigation = useNavigation<any>();
+  const { t } = useTranslation();
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome to GymBuddy 💪</Text>
+        <Text style={styles.title}>{t('onboarding.welcome')}</Text>
         <Text style={styles.subtitle}>
-          Set your goals, track your progress, and stay in shape.
+          {t('onboarding.subtitle')}
         </Text>
 
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("GoalSetup")}
         >
-          <Text style={styles.buttonText}>Let's Start →</Text>
+          <Text style={styles.buttonText}>{t('onboarding.letsStart')}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

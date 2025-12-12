@@ -12,8 +12,10 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import * as Progress from "react-native-progress";
+import { useTranslation } from '../contexts/LanguageContext';
 
 export default function AddMealScreen({ route, navigation }: any) {
+  const { t } = useTranslation();
   const { mealType, consumed: initialConsumed, calorieGoal } = route.params;
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<any[]>([]);
@@ -148,10 +150,10 @@ export default function AddMealScreen({ route, navigation }: any) {
 
       await AsyncStorage.setItem("dailyMeals", JSON.stringify(meals));
 
-      Alert.alert("✅ Added!", `${food.description} added to ${mealType}!`);
+      Alert.alert(`✅ ${t('addMeal.added')}`, t('addMeal.addedMessage', { food: food.description, meal: mealType }));
     } catch (error) {
       console.error("Add food error:", error);
-      Alert.alert("Error", "Unable to add food.");
+      Alert.alert(t('addMeal.error'), t('addMeal.unableToAdd'));
     }
   };
 
@@ -179,7 +181,7 @@ export default function AddMealScreen({ route, navigation }: any) {
         />
         <TextInput
           style={styles.searchInput}
-          placeholder="Search for food..."
+          placeholder={t('addMeal.searchFood')}
           placeholderTextColor="#90a4ae"
           value={search}
           onChangeText={setSearch}
@@ -188,7 +190,7 @@ export default function AddMealScreen({ route, navigation }: any) {
 
       {/* Daily Values */}
       <View style={styles.intakeBox}>
-        <Text style={styles.intakeTitle}>📊 Daily Intake</Text>
+        <Text style={styles.intakeTitle}>📊 {t('addMeal.dailyIntake')}</Text>
         <Text style={styles.intakeText}>
           {consumed.calorie} / {calorieGoal} kcal
         </Text>
@@ -202,9 +204,9 @@ export default function AddMealScreen({ route, navigation }: any) {
           style={{ marginVertical: 8, borderRadius: 10 }}
         />
         <View style={styles.intakeRow}>
-          <Text style={styles.intakeMacro}>Protein: {consumed.protein}g</Text>
-          <Text style={styles.intakeMacro}>Carbs: {consumed.carb}g</Text>
-          <Text style={styles.intakeMacro}>Fat: {consumed.fat}g</Text>
+          <Text style={styles.intakeMacro}>{t('addMeal.protein')}: {consumed.protein}g</Text>
+          <Text style={styles.intakeMacro}>{t('addMeal.carbs')}: {consumed.carb}g</Text>
+          <Text style={styles.intakeMacro}>{t('addMeal.fat')}: {consumed.fat}g</Text>
         </View>
       </View>
 
@@ -218,7 +220,7 @@ export default function AddMealScreen({ route, navigation }: any) {
           />
         )}
         {!loading && results.length === 0 && search.trim() !== "" && (
-          <Text style={styles.noResult}>No results found.</Text>
+          <Text style={styles.noResult}>{t('addMeal.noResults')}</Text>
         )}
         {!loading &&
           results.map((food, i) => {
@@ -235,7 +237,7 @@ export default function AddMealScreen({ route, navigation }: any) {
                 <View style={{ flex: 1 }}>
                   <Text style={styles.foodName}>{food.description}</Text>
                   <Text style={styles.foodBrand}>
-                    {food.brandOwner || "Generic"} • {Math.round(energy)} kcal
+                    {food.brandOwner || t('addMeal.generic')} • {Math.round(energy)} kcal
                   </Text>
                 </View>
                 <Ionicons

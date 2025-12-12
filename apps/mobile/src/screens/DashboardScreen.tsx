@@ -17,9 +17,11 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getDailyQuote, Quote } from "../utils/motivationalQuotes";
 import { getServerDateKey } from "../utils/serverTime";
 import { registerForPushNotificationsAsync, retryPendingTokenUpload } from "../utils/notificationService";
+import { useTranslation } from "../contexts/LanguageContext";
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
+  const { t, language } = useTranslation();
 
   const [userData, setUserData] = useState<any>(null);
   const [bmr, setBmr] = useState(0);
@@ -257,14 +259,22 @@ export default function DashboardScreen() {
     setConsumed(intakeData[today]);
   };
 
-  const openMealScreen = (t: string) =>
-    (navigation as any).navigate("AddMeal", { mealType: t, consumed, calorieGoal });
+  const openMealScreen = (mealType: string) =>
+    (navigation as any).navigate("AddMeal", { mealType, consumed, calorieGoal });
 
   const getDayLabel = () => {
-    if (dayOffset === 0) return "Today";
-    if (dayOffset === -1) return "Yesterday";
-    if (dayOffset === 1) return "Tomorrow";
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    if (dayOffset === 0) return t('dashboard.today');
+    if (dayOffset === -1) return t('dashboard.yesterday');
+    if (dayOffset === 1) return t('dashboard.tomorrow');
+    const days = [
+      t('dashboard.sunday'),
+      t('dashboard.monday'),
+      t('dashboard.tuesday'),
+      t('dashboard.wednesday'),
+      t('dashboard.thursday'),
+      t('dashboard.friday'),
+      t('dashboard.saturday')
+    ];
     const d = new Date();
     d.setDate(d.getDate() + dayOffset);
     return days[d.getDay()];
@@ -272,6 +282,18 @@ export default function DashboardScreen() {
 
   const todayWater = waterMap[getDateKey()] || 0;
   const totalGlasses = Math.ceil(Math.max(waterTarget, todayWater) / 500);
+
+  // Meal keys for navigation (keep English for the API) with translated display names
+  const mealKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+  const getMealTranslation = (key: string) => {
+    const translations: { [key: string]: string } = {
+      Breakfast: t('dashboard.breakfast'),
+      Lunch: t('dashboard.lunch'),
+      Dinner: t('dashboard.dinner'),
+      Snacks: t('dashboard.snacks'),
+    };
+    return translations[key] || key;
+  };
 
   const mealTargets: { [key: string]: number } = {
     Breakfast: Math.round(calorieGoal * 0.25),
@@ -284,11 +306,11 @@ export default function DashboardScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f8fc" }}>
       <ScrollView contentContainerStyle={styles.container}>
         {/* HEADER */}
-        <Text style={styles.title}>🏠 Dashboard</Text>
+        <Text style={styles.title}>{t('dashboard.title')}</Text>
         <Text style={styles.subtitle}>
           {getDayLabel()},{" "}
           {new Date(new Date().setDate(new Date().getDate() + dayOffset)).toLocaleDateString(
-            "tr-TR",
+            language === 'tr' ? 'tr-TR' : language === 'de' ? 'de-DE' : language === 'es' ? 'es-ES' : 'en-US',
             { day: "numeric", month: "long" }
           )}
         </Text>
@@ -320,17 +342,17 @@ export default function DashboardScreen() {
         {/* Progress Card */}
         {userData && startDate && (
           <View style={styles.progressCard}>
-            <Text style={styles.progressTitle}>🎯 Goal Progress</Text>
+            <Text style={styles.progressTitle}>{t('dashboard.goalProgress')}</Text>
 
             {/* Weight Progress */}
             <View style={styles.progressRow}>
               <View style={styles.progressStat}>
-                <Text style={styles.progressLabel}>Current</Text>
+                <Text style={styles.progressLabel}>{t('dashboard.current')}</Text>
                 <Text style={styles.progressValue}>{currentWeight.toFixed(1)} kg</Text>
               </View>
               <Ionicons name="arrow-forward" size={24} color="#1976d2" />
               <View style={styles.progressStat}>
-                <Text style={styles.progressLabel}>Target</Text>
+                <Text style={styles.progressLabel}>{t('dashboard.target')}</Text>
                 <Text style={styles.progressValue}>{userData.targetWeight} kg</Text>
               </View>
             </View>
@@ -374,18 +396,18 @@ export default function DashboardScreen() {
                   />
 
                   <Text style={styles.progressPercentText}>
-                    {progressPercent.toFixed(1)}% Complete
+                    {progressPercent.toFixed(1)}% {t('dashboard.complete')}
                   </Text>
 
                   {/* Days Info */}
                   <View style={styles.daysRow}>
                     <Text style={styles.daysText}>
-                      📅 Day {daysElapsed} of {totalDays} • {daysRemaining} days left
+                      {t('dashboard.dayOf', { current: daysElapsed, total: totalDays, remaining: daysRemaining })}
                     </Text>
                   </View>
 
                   <Text style={styles.finishDateText}>
-                    Target Date: {finishDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    {t('dashboard.targetDate')}: {finishDate.toLocaleDateString(language === 'tr' ? 'tr-TR' : language === 'de' ? 'de-DE' : language === 'es' ? 'es-ES' : 'en-US', { month: "short", day: "numeric", year: "numeric" })}
                   </Text>
 
                   {/* On Track Indicator */}
@@ -396,7 +418,7 @@ export default function DashboardScreen() {
                       color={onTrack ? "#4caf50" : "#ff9800"}
                     />
                     <Text style={[styles.trackText, { color: onTrack ? "#2e7d32" : "#e65100" }]}>
-                      {onTrack ? "On Track!" : "Need to Catch Up"}
+                      {onTrack ? t('dashboard.onTrack') : t('dashboard.needToCatchUp')}
                     </Text>
                   </View>
 
@@ -409,7 +431,7 @@ export default function DashboardScreen() {
                     }}
                   >
                     <Ionicons name="scale-outline" size={20} color="#1976d2" />
-                    <Text style={styles.logWeightText}>Log Current Weight</Text>
+                    <Text style={styles.logWeightText}>{t('dashboard.logWeight')}</Text>
                   </TouchableOpacity>
                 </>
               );
@@ -419,7 +441,7 @@ export default function DashboardScreen() {
 
         {/* Calorie Card */}
         <View style={styles.calorieCard}>
-          <Text style={styles.cardTitle}>🔥 Daily Calorie Goal</Text>
+          <Text style={styles.cardTitle}>{t('dashboard.dailyCalorieGoal')}</Text>
           <Text style={styles.cardValue}>{calorieGoal} kcal</Text>
           <Text style={styles.smallText}>
             {Math.round(consumed.calorie)} / {calorieGoal} kcal
@@ -438,19 +460,19 @@ export default function DashboardScreen() {
 
         {/* Macros */}
         <View style={styles.macroCard}>
-          <Text style={styles.macroTitle}>🍽️ Daily Macros</Text>
-          <Macro label="🥩 Protein" consumed={consumed.protein} total={macros.protein} color="#ef5350" />
-          <Macro label="🍞 Carbs" consumed={consumed.carb} total={macros.carb} color="#ffb74d" />
-          <Macro label="🧈 Fat" consumed={consumed.fat} total={macros.fat} color="#8d6e63" />
+          <Text style={styles.macroTitle}>{t('dashboard.dailyMacros')}</Text>
+          <Macro label={t('dashboard.protein')} consumed={consumed.protein} total={macros.protein} color="#ef5350" />
+          <Macro label={t('dashboard.carbs')} consumed={consumed.carb} total={macros.carb} color="#ffb74d" />
+          <Macro label={t('dashboard.fat')} consumed={consumed.fat} total={macros.fat} color="#8d6e63" />
         </View>
 
         {/* Meals */}
-        <Text style={styles.sectionHeader}>🍽️ Meals</Text>
+        <Text style={styles.sectionHeader}>{t('dashboard.meals')}</Text>
 
         {Object.keys(mealTargets).map((k) => (
           <MealBox
             key={k}
-            title={k}
+            title={getMealTranslation(k)}
             color="#64b5f6"
             target={mealTargets[k]}
             meals={meals[k] || []}   // 🔥 Empty array if missing
@@ -461,7 +483,7 @@ export default function DashboardScreen() {
 
         {/* Water Tracking */}
         <View style={styles.waterBox}>
-          <Text style={styles.waterTitle}>💧 Daily Water Tracking</Text>
+          <Text style={styles.waterTitle}>{t('dashboard.waterTracking')}</Text>
           <Text style={styles.waterValue}>
             {Math.round(todayWater)} / {waterTarget} ml
           </Text>
@@ -503,9 +525,9 @@ export default function DashboardScreen() {
           <View style={styles.exerciseContent}>
             <Ionicons name="restaurant" size={40} color="#4caf50" />
             <View style={styles.exerciseText}>
-              <Text style={styles.mealPlanTitle}>🍽️ AI Meal Planner</Text>
+              <Text style={styles.mealPlanTitle}>{t('dashboard.aiMealPlanner')}</Text>
               <Text style={styles.exerciseSubtitle}>
-                Get personalized 7-day diet plan with AI
+                {t('dashboard.getPersonalizedPlan')}
               </Text>
             </View>
             <Ionicons name="chevron-forward" size={24} color="#4caf50" />
@@ -515,14 +537,14 @@ export default function DashboardScreen() {
         {/* Biceps Curl Tutorial */}
         <TouchableOpacity
           style={styles.tutorialCard}
-          onPress={() => (navigation as any).navigate('TutorialList')}
+          onPress={() => (navigation as any).navigate('MuscleGroup')}
         >
           <View style={styles.exerciseContent}>
             <Ionicons name="school" size={40} color="#667eea" />
             <View style={styles.exerciseText}>
-              <Text style={styles.tutorialTitle}>📚 Egzersiz Eğitimleri</Text>
+              <Text style={styles.tutorialTitle}>{t('dashboard.exerciseTutorials')}</Text>
               <Text style={styles.exerciseSubtitle}>
-                AI analizinden önce doğru formu öğren
+                {t('dashboard.learnCorrectForm')}
               </Text>
             </View>
             <Ionicons name="chevron-forward" size={24} color="#667eea" />
@@ -537,9 +559,9 @@ export default function DashboardScreen() {
           <View style={styles.exerciseContent}>
             <Ionicons name="fitness" size={40} color="#1976d2" />
             <View style={styles.exerciseText}>
-              <Text style={styles.exerciseTitle}>💪 Exercise Evaluation</Text>
+              <Text style={styles.exerciseTitle}>{t('dashboard.exerciseEvaluation')}</Text>
               <Text style={styles.exerciseSubtitle}>
-                Analyze your biceps curl form with AI
+                {t('dashboard.analyzeForm')}
               </Text>
             </View>
             <Ionicons name="chevron-forward" size={24} color="#1976d2" />

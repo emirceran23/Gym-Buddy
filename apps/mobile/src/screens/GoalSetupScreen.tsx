@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LineChart } from "react-native-chart-kit";
+import { useTranslation, useLanguage } from "../contexts/LanguageContext";
 
 // Custom Slider Component (Pure JS - No Native Module Required)
 function CustomSlider({
@@ -154,6 +155,7 @@ const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function GoalSetupScreen() {
   const navigation = useNavigation<any>();
+  const { t, language } = useLanguage();
 
   const [step, setStep] = useState(1);
   const [reason, setReason] = useState<string | null>(null);
@@ -168,6 +170,19 @@ export default function GoalSetupScreen() {
   const next = () => setStep((prev) => prev + 1);
   const back = () => setStep((prev) => prev - 1);
 
+  // Map display value to internal value for storage
+  const goalInternalValues: Record<string, string> = {
+    [t('goalSetup.loseWeight')]: "Lose weight",
+    [t('goalSetup.gainWeight')]: "Gain weight",
+    [t('goalSetup.increaseMuscle')]: "Increase muscle mass",
+    [t('goalSetup.reduceBodyFat')]: "Reduce body fat",
+  };
+
+  const genderInternalValues: Record<string, string> = {
+    [t('goalSetup.female')]: "Female",
+    [t('goalSetup.male')]: "Male",
+  };
+
   // 🔹 Advanced Nutrition Calculator Function
   function calculateNutritionAdvanced({
     gender,
@@ -180,9 +195,13 @@ export default function GoalSetupScreen() {
   }: any) {
     if (!gender || !age || !height || !weight || !goal) return null;
 
+    // Convert translated goal to internal English value
+    const internalGoal = goalInternalValues[goal] || goal;
+    const internalGender = genderInternalValues[gender] || gender;
+
     // 1️⃣ Calculate BMR (Mifflin-St Jeor)
     const bmr =
-      gender === "Male"
+      internalGender === "Male"
         ? 10 * weight + 6.25 * height - 5 * age + 5
         : 10 * weight + 6.25 * height - 5 * age - 161;
 
@@ -199,10 +218,10 @@ export default function GoalSetupScreen() {
 
     // 4️⃣ Direction based on goal
     let targetCalories = tdee;
-    if (goal === "Lose weight" || goal === "Reduce body fat")
+    if (internalGoal === "Lose weight" || internalGoal === "Reduce body fat")
       targetCalories -= dailyDeficit;
-    else if (goal === "Gain weight") targetCalories += dailyDeficit;
-    else if (goal === "Increase muscle mass") targetCalories += dailyDeficit / 2;
+    else if (internalGoal === "Gain weight") targetCalories += dailyDeficit;
+    else if (internalGoal === "Increase muscle mass") targetCalories += dailyDeficit / 2;
 
     // 5️⃣ Macro ratios
     const macros: any = {
@@ -214,7 +233,7 @@ export default function GoalSetupScreen() {
     };
 
     const { protein, carb, fat } =
-      macros[goal] || macros["Maintain my form"];
+      macros[internalGoal] || macros["Maintain my form"];
 
     // 6️⃣ Convert to grams
     const proteinGr = (targetCalories * protein) / 4;
@@ -233,10 +252,14 @@ export default function GoalSetupScreen() {
 
   // 🔹 Finish and Save
   const handleFinish = async () => {
+    // Store internal English values for consistent calculations
+    const internalGoal = goalInternalValues[goal || ''] || goal;
+    const internalGender = genderInternalValues[gender || ''] || gender;
+
     const userData = {
       reason,
-      goal,
-      gender,
+      goal: internalGoal,
+      gender: internalGender,
       age,
       height,
       weight,
@@ -279,97 +302,104 @@ export default function GoalSetupScreen() {
       case 1:
         return (
           <StepCard
-            title="Why are you using this app?"
+            title={t('goalSetup.whyUsingApp')}
             options={[
-              "I want to lose weight",
-              "I want to build muscle",
-              "I want to live healthier",
-              "I want to maintain my form",
+              t('goalSetup.wantLoseWeight'),
+              t('goalSetup.wantBuildMuscle'),
+              t('goalSetup.wantLiveHealthier'),
+              t('goalSetup.wantMaintainForm'),
             ]}
             selected={reason}
             onSelect={setReason}
             onNext={next}
+            t={t}
           />
         );
       case 2:
         return (
           <StepCard
-            title="Select your gender"
-            options={["Female", "Male"]}
+            title={t('goalSetup.selectGender')}
+            options={[t('goalSetup.female'), t('goalSetup.male')]}
             selected={gender}
             onSelect={setGender}
             onNext={next}
             onBack={back}
+            t={t}
           />
         );
       case 3:
         return (
           <ScrollPickerCard
-            title="Select your age"
+            title={t('goalSetup.selectAge')}
             value={age}
             min={10}
             max={90}
             onChange={setAge}
             onNext={next}
             onBack={back}
+            t={t}
           />
         );
       case 4:
         return (
           <StepCard
-            title="What is your goal?"
+            title={t('goalSetup.whatIsGoal')}
             options={[
-              "Lose weight",
-              "Gain weight",
-              "Increase muscle mass",
-              "Reduce body fat",
+              t('goalSetup.loseWeight'),
+              t('goalSetup.gainWeight'),
+              t('goalSetup.increaseMuscle'),
+              t('goalSetup.reduceBodyFat'),
             ]}
             selected={goal}
             onSelect={setGoal}
             onNext={next}
             onBack={back}
+            t={t}
           />
         );
       case 5:
         return (
           <ScrollPickerCard
-            title="Select your height (cm)"
+            title={t('goalSetup.selectHeight')}
             value={height}
             min={120}
             max={210}
             onChange={setHeight}
             onNext={next}
             onBack={back}
+            t={t}
           />
         );
       case 6:
         return (
           <ScrollPickerCard
-            title="Select your weight (kg)"
+            title={t('goalSetup.selectWeight')}
             value={weight}
             min={30}
             max={200}
             onChange={setWeight}
             onNext={next}
             onBack={back}
+            t={t}
           />
         );
       case 7:
         return (
           <ScrollPickerCard
-            title="Select your target weight (kg)"
+            title={t('goalSetup.selectTargetWeight')}
             value={targetWeight}
             min={30}
             max={200}
             onChange={setTargetWeight}
             onNext={next}
             onBack={back}
+            t={t}
           />
         );
       case 8:
         return (
           <SliderCard
-            title="What is your weekly weight change goal? (kg)"
+            title={t('goalSetup.weeklyChangeGoal')}
             value={weeklyChange}
             onChange={setWeeklyChange}
             totalWeeks={totalWeeks}
@@ -377,6 +407,8 @@ export default function GoalSetupScreen() {
             targetWeight={targetWeight}
             onNext={handleFinish}
             onBack={back}
+            t={t}
+            language={language}
           />
         );
       default:
@@ -397,7 +429,7 @@ export default function GoalSetupScreen() {
 }
 
 // ---- StepCard ----
-function StepCard({ title, options, selected, onSelect, onNext, onBack }: any) {
+function StepCard({ title, options, selected, onSelect, onNext, onBack, t }: any) {
   return (
     <View style={styles.stepContainer}>
       <Text style={styles.title}>{title}</Text>
@@ -424,12 +456,12 @@ function StepCard({ title, options, selected, onSelect, onNext, onBack }: any) {
       <View style={styles.navButtons}>
         {onBack && (
           <TouchableOpacity style={[styles.navBtn, styles.navBack]} onPress={onBack}>
-            <Text style={styles.navBtnText}>← Back</Text>
+            <Text style={styles.navBtnText}>{t('goalSetup.back')}</Text>
           </TouchableOpacity>
         )}
         {selected && (
           <TouchableOpacity style={[styles.navBtn, styles.navNext]} onPress={onNext}>
-            <Text style={styles.navBtnText}>Continue →</Text>
+            <Text style={styles.navBtnText}>{t('goalSetup.continue')}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -438,7 +470,7 @@ function StepCard({ title, options, selected, onSelect, onNext, onBack }: any) {
 }
 
 // ---- ScrollPickerCard ----
-function ScrollPickerCard({ title, value, min, max, onChange, onNext, onBack }: any) {
+function ScrollPickerCard({ title, value, min, max, onChange, onNext, onBack, t }: any) {
   const numbers = Array.from({ length: max - min + 1 }, (_, i) => min + i);
 
   return (
@@ -461,11 +493,11 @@ function ScrollPickerCard({ title, value, min, max, onChange, onNext, onBack }: 
       <View style={styles.navButtons}>
         {onBack && (
           <TouchableOpacity style={[styles.navBtn, styles.navBack]} onPress={onBack}>
-            <Text style={styles.navBtnText}>← Back</Text>
+            <Text style={styles.navBtnText}>{t('goalSetup.back')}</Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity style={[styles.navBtn, styles.navNext]} onPress={onNext}>
-          <Text style={styles.navBtnText}>Continue →</Text>
+          <Text style={styles.navBtnText}>{t('goalSetup.continue')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -482,6 +514,8 @@ function SliderCard({
   onBack,
   weight,
   targetWeight,
+  t,
+  language,
 }: any) {
   const generateSmoothData = () => {
     const diff = targetWeight - weight;
@@ -509,6 +543,13 @@ function SliderCard({
     return data.length >= 2 ? data : [weight, targetWeight];
   };
 
+  const getLocale = () => {
+    if (language === 'tr') return 'tr-TR';
+    if (language === 'de') return 'de-DE';
+    if (language === 'es') return 'es-ES';
+    return 'en-US';
+  };
+
   const getFinishDate = () => {
     const now = new Date();
     const finish = new Date(now);
@@ -517,7 +558,7 @@ function SliderCard({
     const safeTotalWeeks = Math.max(1, Math.min(200, totalWeeks || 1));
     finish.setDate(now.getDate() + safeTotalWeeks * 7);
 
-    return finish.toLocaleDateString("en-US", {
+    return finish.toLocaleDateString(getLocale(), {
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -534,7 +575,7 @@ function SliderCard({
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <LineChart
           data={{
-            labels: ["Start", "1/3", "2/3", "Target"],
+            labels: [t('goalSetup.start'), "1/3", "2/3", t('goalSetup.target')],
             datasets: [{ data: chartData }],
           }}
           width={SCREEN_WIDTH * 0.9}
@@ -583,23 +624,23 @@ function SliderCard({
       />
 
       <Text style={styles.info}>
-        Weekly goal: <Text style={styles.bold}>{value.toFixed(2)} kg</Text>
+        {t('goalSetup.weeklyGoal')}: <Text style={styles.bold}>{value.toFixed(2)} kg</Text>
       </Text>
       <Text style={styles.info}>
-        Estimated duration: <Text style={styles.bold}>{totalWeeks} weeks</Text>
+        {t('goalSetup.estimatedDuration')}: <Text style={styles.bold}>{totalWeeks} {t('goalSetup.weeks')}</Text>
       </Text>
 
       <View style={styles.finishBox}>
-        <Text style={styles.finishLabel}>🎯 Target Date</Text>
+        <Text style={styles.finishLabel}>{t('goalSetup.targetDate')}</Text>
         <Text style={styles.finishDate}>{finishDate}</Text>
       </View>
 
       <View style={styles.navButtons}>
         <TouchableOpacity style={[styles.navBtn, styles.navBack]} onPress={onBack}>
-          <Text style={styles.navBtnText}>← Back</Text>
+          <Text style={styles.navBtnText}>{t('goalSetup.back')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.navBtn, styles.navNext]} onPress={onNext}>
-          <Text style={styles.navBtnText}>Finish →</Text>
+          <Text style={styles.navBtnText}>{t('goalSetup.finish')}</Text>
         </TouchableOpacity>
       </View>
     </View>

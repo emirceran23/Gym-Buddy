@@ -16,8 +16,11 @@ import MealPlanScreen from "./src/screens/MealPlanScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import TutorialDetailScreen from "./src/screens/TutorialDetailScreen";
 import TutorialListScreen from "./src/screens/TutorialListScreen";
+import MuscleGroupScreen from "./src/screens/MuscleGroupScreen";
+import ExerciseListScreen from "./src/screens/ExerciseListScreen";
 import NotificationTestScreen from "./src/screens/NotificationTestScreen";
 import { registerForPushNotificationsAsync } from "./src/utils/notificationService";
+import { LanguageProvider } from "./src/contexts/LanguageContext";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -109,26 +112,30 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={initialRoute}
-        screenOptions={{ headerShown: false }}
-      >
-        {/* Onboarding screens */}
-        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-        <Stack.Screen name="GoalSetup" component={GoalSetupScreen} />
+    <LanguageProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={initialRoute}
+          screenOptions={{ headerShown: false }}
+        >
+          {/* Onboarding screens */}
+          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+          <Stack.Screen name="GoalSetup" component={GoalSetupScreen} />
 
-        {/* Main app with bottom tabs */}
-        <Stack.Screen name="MainTabs" component={MainTabs} />
+          {/* Main app with bottom tabs */}
+          <Stack.Screen name="MainTabs" component={MainTabs} />
 
-        {/* Other screens (opened from Dashboard) */}
-        <Stack.Screen name="AddMeal" component={AddMealScreen} />
-        <Stack.Screen name="MealPlan" component={MealPlanScreen} />
-        <Stack.Screen name="TutorialList" component={TutorialListScreen} />
-        <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
-        <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
-        <Stack.Screen name="NotificationTest" component={NotificationTestScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+          {/* Other screens (opened from Dashboard) */}
+          <Stack.Screen name="AddMeal" component={AddMealScreen} />
+          <Stack.Screen name="MealPlan" component={MealPlanScreen} />
+          <Stack.Screen name="MuscleGroup" component={MuscleGroupScreen} />
+          <Stack.Screen name="ExerciseList" component={ExerciseListScreen} />
+          <Stack.Screen name="TutorialList" component={TutorialListScreen} />
+          <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
+          <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
+          <Stack.Screen name="NotificationTest" component={NotificationTestScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </LanguageProvider>
   );
 }
