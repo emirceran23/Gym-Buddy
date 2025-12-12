@@ -44,6 +44,7 @@ Thumbs.db
 !test_videos/*.mp4
 !test_videos/*.avi
 !test_videos/*.mov
+!apps/mobile/assets/videos/*.mp4
 
 # CSV outputs
 *__timeline.csv
