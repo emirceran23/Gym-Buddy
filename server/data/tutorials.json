@@ -32,7 +32,7 @@
                 "severity": "high",
                 "description": "Your elbows are moving away from your body during the curl.",
                 "correction": "Keep your elbows pinned to your sides throughout the movement. Imagine holding a piece of paper between your elbow and ribs.",
-                "visual_cue_url": "/static/tutorials/mistakes/elbow_flaring.gif",
+                "visual_cue_url": "https://www.youtube.com/watch?v=mexig5fgYAA",
                 "detection_metric": "shoulder_elbow_alignment"
             },
             {

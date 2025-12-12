@@ -515,14 +515,14 @@ export default function DashboardScreen() {
         {/* Biceps Curl Tutorial */}
         <TouchableOpacity
           style={styles.tutorialCard}
-          onPress={() => (navigation as any).navigate('TutorialDetail', { tutorialId: 'biceps_curl' })}
+          onPress={() => (navigation as any).navigate('TutorialList')}
         >
           <View style={styles.exerciseContent}>
             <Ionicons name="school" size={40} color="#667eea" />
             <View style={styles.exerciseText}>
-              <Text style={styles.tutorialTitle}>📚 Biceps Curl Tutorial</Text>
+              <Text style={styles.tutorialTitle}>📚 Egzersiz Eğitimleri</Text>
               <Text style={styles.exerciseSubtitle}>
-                Learn proper form before your workout
+                AI analizinden önce doğru formu öğren
               </Text>
             </View>
             <Ionicons name="chevron-forward" size={24} color="#667eea" />

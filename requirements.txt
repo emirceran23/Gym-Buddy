@@ -11,6 +11,11 @@ joblib>=1.3.0
 flask>=2.3.0
 flask-cors>=4.0.0
 python-dotenv>=1.0.0
+# Auth service
+flask-sqlalchemy
+flask-jwt-extended
+flask-bcrypt
+email-validator
 
 # Production web server
 gunicorn>=21.0.0

@@ -15,6 +15,8 @@ import ExerciseEvaluationScreen from "./src/screens/ExerciseEvaluationScreen";
 import MealPlanScreen from "./src/screens/MealPlanScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import TutorialDetailScreen from "./src/screens/TutorialDetailScreen";
+import TutorialListScreen from "./src/screens/TutorialListScreen";
+import NotificationTestScreen from "./src/screens/NotificationTestScreen";
 import { registerForPushNotificationsAsync } from "./src/utils/notificationService";
 
 const Stack = createNativeStackNavigator();
@@ -122,8 +124,10 @@ export default function App() {
         {/* Other screens (opened from Dashboard) */}
         <Stack.Screen name="AddMeal" component={AddMealScreen} />
         <Stack.Screen name="MealPlan" component={MealPlanScreen} />
+        <Stack.Screen name="TutorialList" component={TutorialListScreen} />
         <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
         <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
+        <Stack.Screen name="NotificationTest" component={NotificationTestScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

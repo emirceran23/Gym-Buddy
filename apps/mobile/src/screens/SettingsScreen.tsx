@@ -114,6 +114,27 @@ export default function SettingsScreen() {
                     </TouchableOpacity>
                 </View>
 
+                {/* Developer Section */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Developer</Text>
+
+                    <TouchableOpacity
+                        style={styles.settingItem}
+                        onPress={() => navigation.navigate("NotificationTest")}
+                    >
+                        <View style={styles.settingLeft}>
+                            <Ionicons name="notifications-outline" size={28} color="#9c27b0" />
+                            <View style={styles.settingTextContainer}>
+                                <Text style={styles.settingTitle}>Notification Test</Text>
+                                <Text style={styles.settingSubtitle}>
+                                    Test push notifications on this device
+                                </Text>
+                            </View>
+                        </View>
+                        <Ionicons name="chevron-forward" size={24} color="#b0bec5" />
+                    </TouchableOpacity>
+                </View>
+
                 {/* App Version */}
                 <View style={styles.versionContainer}>
                     <Text style={styles.versionText}>Version 1.0.0</Text>
