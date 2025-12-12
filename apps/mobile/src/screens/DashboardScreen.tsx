@@ -17,14 +17,11 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getDailyQuote, Quote } from "../utils/motivationalQuotes";
 import { getServerDateKey } from "../utils/serverTime";
 import { registerForPushNotificationsAsync, retryPendingTokenUpload } from "../utils/notificationService";
-<<<<<<< HEAD
 import { useTranslation } from "../contexts/LanguageContext";
-=======
 import CaloriesBurnedCard from "../components/CaloriesBurnedCard";
 import AddManualActivityModal from "../components/AddManualActivityModal";
 import { syncDailyCalories, getDailyCalorieSummary } from "../services/healthService";
 import type { DailyCalorieSummary } from "../types/health";
->>>>>>> 0560ab7cd57fadebeb76119d800b867d95c94748
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
