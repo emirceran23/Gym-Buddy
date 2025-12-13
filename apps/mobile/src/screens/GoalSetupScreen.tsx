@@ -16,7 +16,27 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LineChart } from "react-native-chart-kit";
+import { Ionicons } from "@expo/vector-icons";
 import { useTranslation, useLanguage } from "../contexts/LanguageContext";
+
+// SentryFit Color Palette
+const COLORS = {
+  background: "#F0F9FF",
+  backgroundMid: "#E0F2FE",
+  backgroundAccent: "#BAE6FD",
+  primary: "#0891B2",
+  primaryLight: "#22D3EE",
+  primaryDark: "#0E7490",
+  accent: "#F97316",
+  accentLight: "#FB923C",
+  text: "#0F172A",
+  textSecondary: "#475569",
+  textLight: "#64748B",
+  white: "#FFFFFF",
+  border: "#CBD5E1",
+  success: "#10B981",
+  cardBg: "#FFFFFF",
+};
 
 // Custom Slider Component (Pure JS - No Native Module Required)
 function CustomSlider({
@@ -25,9 +45,9 @@ function CustomSlider({
   step,
   value,
   onValueChange,
-  minimumTrackTintColor = "#00b894",
-  maximumTrackTintColor = "#cfd8dc",
-  thumbTintColor = "#1565c0",
+  minimumTrackTintColor = COLORS.primary,
+  maximumTrackTintColor = "#E2E8F0",
+  thumbTintColor = COLORS.accent,
   style,
 }: {
   minimumValue: number;
@@ -58,12 +78,10 @@ function CustomSlider({
     pendingValue.current = newValue;
     const now = Date.now();
 
-    // Throttle updates to every 50ms to prevent rapid re-renders
     if (now - lastUpdateTime.current >= 50) {
       lastUpdateTime.current = now;
       onValueChange(newValue);
     } else {
-      // Schedule a final update if we're throttling
       if (updateTimeoutRef.current) {
         clearTimeout(updateTimeoutRef.current);
       }
@@ -89,7 +107,6 @@ function CustomSlider({
         throttledUpdate(getValueFromPosition(x));
       },
       onPanResponderRelease: () => {
-        // Ensure final value is applied
         if (updateTimeoutRef.current) {
           clearTimeout(updateTimeoutRef.current);
         }
@@ -110,13 +127,12 @@ function CustomSlider({
     >
       <View
         style={{
-          height: 6,
-          borderRadius: 3,
+          height: 8,
+          borderRadius: 4,
           backgroundColor: maximumTrackTintColor,
           overflow: "hidden",
         }}
         onLayout={(e) => {
-          // Update sliderX with the absolute position
           e.target.measure((x, y, width, height, pageX, pageY) => {
             if (pageX !== undefined) sliderX.current = pageX;
             if (width !== undefined && width > 0) sliderWidth.current = width;
@@ -135,16 +151,16 @@ function CustomSlider({
         style={{
           position: "absolute",
           left: `${Math.min(100, Math.max(0, progress * 100))}%`,
-          marginLeft: -12,
-          width: 24,
-          height: 24,
-          borderRadius: 12,
+          marginLeft: -14,
+          width: 28,
+          height: 28,
+          borderRadius: 14,
           backgroundColor: thumbTintColor,
-          elevation: 3,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.25,
-          shadowRadius: 3,
+          elevation: 5,
+          shadowColor: COLORS.accent,
+          shadowOffset: { width: 0, height: 3 },
+          shadowOpacity: 0.3,
+          shadowRadius: 5,
         }}
       />
     </View>
@@ -167,6 +183,7 @@ export default function GoalSetupScreen() {
   const [targetWeight, setTargetWeight] = useState<number>(65);
   const [weeklyChange, setWeeklyChange] = useState<number>(0.5);
 
+  const totalSteps = 8;
   const next = () => setStep((prev) => prev + 1);
   const back = () => setStep((prev) => prev - 1);
 
@@ -195,35 +212,29 @@ export default function GoalSetupScreen() {
   }: any) {
     if (!gender || !age || !height || !weight || !goal) return null;
 
-    // Convert translated goal to internal English value
     const internalGoal = goalInternalValues[goal] || goal;
     const internalGender = genderInternalValues[gender] || gender;
 
-    // 1️⃣ Calculate BMR (Mifflin-St Jeor)
     const bmr =
       internalGender === "Male"
         ? 10 * weight + 6.25 * height - 5 * age + 5
         : 10 * weight + 6.25 * height - 5 * age - 161;
 
-    // 2️⃣ Activity multiplier
     let multiplier = 1.35;
     if (activityLevel === "sedentary") multiplier = 1.2;
     if (activityLevel === "active") multiplier = 1.5;
 
     const tdee = bmr * multiplier;
 
-    // 3️⃣ Weekly weight change → calorie difference
     const weeklyDeficit = weeklyChange ? weeklyChange * 7700 : 0;
     const dailyDeficit = weeklyDeficit / 7;
 
-    // 4️⃣ Direction based on goal
     let targetCalories = tdee;
     if (internalGoal === "Lose weight" || internalGoal === "Reduce body fat")
       targetCalories -= dailyDeficit;
     else if (internalGoal === "Gain weight") targetCalories += dailyDeficit;
     else if (internalGoal === "Increase muscle mass") targetCalories += dailyDeficit / 2;
 
-    // 5️⃣ Macro ratios
     const macros: any = {
       "Lose weight": { protein: 0.3, carb: 0.4, fat: 0.3 },
       "Reduce body fat": { protein: 0.35, carb: 0.35, fat: 0.3 },
@@ -232,10 +243,8 @@ export default function GoalSetupScreen() {
       "Maintain my form": { protein: 0.3, carb: 0.45, fat: 0.25 },
     };
 
-    const { protein, carb, fat } =
-      macros[internalGoal] || macros["Maintain my form"];
+    const { protein, carb, fat } = macros[internalGoal] || macros["Maintain my form"];
 
-    // 6️⃣ Convert to grams
     const proteinGr = (targetCalories * protein) / 4;
     const carbGr = (targetCalories * carb) / 4;
     const fatGr = (targetCalories * fat) / 9;
@@ -252,7 +261,6 @@ export default function GoalSetupScreen() {
 
   // 🔹 Finish and Save
   const handleFinish = async () => {
-    // Store internal English values for consistent calculations
     const internalGoal = goalInternalValues[goal || ''] || goal;
     const internalGender = genderInternalValues[gender || ''] || gender;
 
@@ -265,7 +273,7 @@ export default function GoalSetupScreen() {
       weight,
       targetWeight,
       weeklyChange,
-      activityLevel: "sedentary", // fixed for now
+      activityLevel: "sedentary",
     };
 
     const nutrition = calculateNutritionAdvanced(userData);
@@ -309,9 +317,12 @@ export default function GoalSetupScreen() {
               t('goalSetup.wantLiveHealthier'),
               t('goalSetup.wantMaintainForm'),
             ]}
+            icons={["trending-down", "barbell", "heart", "fitness"]}
             selected={reason}
             onSelect={setReason}
             onNext={next}
+            step={step}
+            totalSteps={totalSteps}
             t={t}
           />
         );
@@ -320,10 +331,13 @@ export default function GoalSetupScreen() {
           <StepCard
             title={t('goalSetup.selectGender')}
             options={[t('goalSetup.female'), t('goalSetup.male')]}
+            icons={["female", "male"]}
             selected={gender}
             onSelect={setGender}
             onNext={next}
             onBack={back}
+            step={step}
+            totalSteps={totalSteps}
             t={t}
           />
         );
@@ -334,9 +348,12 @@ export default function GoalSetupScreen() {
             value={age}
             min={10}
             max={90}
+            unit={t('goalSetup.yearsOld') || 'years old'}
             onChange={setAge}
             onNext={next}
             onBack={back}
+            step={step}
+            totalSteps={totalSteps}
             t={t}
           />
         );
@@ -350,10 +367,13 @@ export default function GoalSetupScreen() {
               t('goalSetup.increaseMuscle'),
               t('goalSetup.reduceBodyFat'),
             ]}
+            icons={["trending-down", "trending-up", "barbell", "body"]}
             selected={goal}
             onSelect={setGoal}
             onNext={next}
             onBack={back}
+            step={step}
+            totalSteps={totalSteps}
             t={t}
           />
         );
@@ -364,9 +384,12 @@ export default function GoalSetupScreen() {
             value={height}
             min={120}
             max={210}
+            unit="cm"
             onChange={setHeight}
             onNext={next}
             onBack={back}
+            step={step}
+            totalSteps={totalSteps}
             t={t}
           />
         );
@@ -377,9 +400,12 @@ export default function GoalSetupScreen() {
             value={weight}
             min={30}
             max={200}
+            unit="kg"
             onChange={setWeight}
             onNext={next}
             onBack={back}
+            step={step}
+            totalSteps={totalSteps}
             t={t}
           />
         );
@@ -390,9 +416,12 @@ export default function GoalSetupScreen() {
             value={targetWeight}
             min={30}
             max={200}
+            unit="kg"
             onChange={setTargetWeight}
             onNext={next}
             onBack={back}
+            step={step}
+            totalSteps={totalSteps}
             t={t}
           />
         );
@@ -407,6 +436,8 @@ export default function GoalSetupScreen() {
             targetWeight={targetWeight}
             onNext={handleFinish}
             onBack={back}
+            step={step}
+            totalSteps={totalSteps}
             t={t}
             language={language}
           />
@@ -418,6 +449,10 @@ export default function GoalSetupScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
+      {/* Background decorations */}
+      <View style={styles.bgDecor1} />
+      <View style={styles.bgDecor2} />
+
       <ScrollView
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
@@ -428,12 +463,32 @@ export default function GoalSetupScreen() {
   );
 }
 
+// ---- Progress Indicator ----
+function ProgressIndicator({ current, total }: { current: number; total: number }) {
+  return (
+    <View style={styles.progressContainer}>
+      <View style={styles.progressBar}>
+        <View
+          style={[
+            styles.progressFill,
+            { width: `${(current / total) * 100}%` }
+          ]}
+        />
+      </View>
+      <Text style={styles.progressText}>{current} / {total}</Text>
+    </View>
+  );
+}
+
 // ---- StepCard ----
-function StepCard({ title, options, selected, onSelect, onNext, onBack, t }: any) {
+function StepCard({ title, options, icons, selected, onSelect, onNext, onBack, step, totalSteps, t }: any) {
   return (
     <View style={styles.stepContainer}>
+      <ProgressIndicator current={step} total={totalSteps} />
+
       <Text style={styles.title}>{title}</Text>
-      {options.map((item: string) => (
+
+      {options.map((item: string, index: number) => (
         <TouchableOpacity
           key={item}
           style={[
@@ -441,7 +496,15 @@ function StepCard({ title, options, selected, onSelect, onNext, onBack, t }: any
             selected === item && styles.optionSelected,
           ]}
           onPress={() => onSelect(item)}
+          activeOpacity={0.8}
         >
+          <View style={[styles.optionIcon, selected === item && styles.optionIconSelected]}>
+            <Ionicons
+              name={icons?.[index] || "checkmark"}
+              size={22}
+              color={selected === item ? COLORS.white : COLORS.primary}
+            />
+          </View>
           <Text
             style={[
               styles.optionText,
@@ -450,18 +513,23 @@ function StepCard({ title, options, selected, onSelect, onNext, onBack, t }: any
           >
             {item}
           </Text>
+          {selected === item && (
+            <Ionicons name="checkmark-circle" size={24} color={COLORS.white} />
+          )}
         </TouchableOpacity>
       ))}
 
       <View style={styles.navButtons}>
         {onBack && (
           <TouchableOpacity style={[styles.navBtn, styles.navBack]} onPress={onBack}>
-            <Text style={styles.navBtnText}>{t('goalSetup.back')}</Text>
+            <Ionicons name="arrow-back" size={20} color={COLORS.textSecondary} />
+            <Text style={styles.navBackText}>{t('goalSetup.back')}</Text>
           </TouchableOpacity>
         )}
         {selected && (
           <TouchableOpacity style={[styles.navBtn, styles.navNext]} onPress={onNext}>
-            <Text style={styles.navBtnText}>{t('goalSetup.continue')}</Text>
+            <Text style={styles.navNextText}>{t('goalSetup.continue')}</Text>
+            <Ionicons name="arrow-forward" size={20} color={COLORS.white} />
           </TouchableOpacity>
         )}
       </View>
@@ -470,19 +538,26 @@ function StepCard({ title, options, selected, onSelect, onNext, onBack, t }: any
 }
 
 // ---- ScrollPickerCard ----
-function ScrollPickerCard({ title, value, min, max, onChange, onNext, onBack, t }: any) {
+function ScrollPickerCard({ title, value, min, max, unit, onChange, onNext, onBack, step, totalSteps, t }: any) {
   const numbers = Array.from({ length: max - min + 1 }, (_, i) => min + i);
 
   return (
     <View style={styles.stepContainer}>
+      <ProgressIndicator current={step} total={totalSteps} />
+
       <Text style={styles.title}>{title}</Text>
+
+      <View style={styles.valueDisplay}>
+        <Text style={styles.valueNumber}>{value}</Text>
+        <Text style={styles.valueUnit}>{unit}</Text>
+      </View>
 
       <View style={styles.pickerBox}>
         <Picker
           selectedValue={value}
           onValueChange={(itemValue) => onChange(itemValue)}
-          style={{ width: 200, height: 200 }}
-          itemStyle={{ fontSize: 22 }}
+          style={{ width: 200, height: 180 }}
+          itemStyle={{ fontSize: 24, color: COLORS.text }}
         >
           {numbers.map((n) => (
             <Picker.Item key={n} label={String(n)} value={n} />
@@ -493,18 +568,20 @@ function ScrollPickerCard({ title, value, min, max, onChange, onNext, onBack, t 
       <View style={styles.navButtons}>
         {onBack && (
           <TouchableOpacity style={[styles.navBtn, styles.navBack]} onPress={onBack}>
-            <Text style={styles.navBtnText}>{t('goalSetup.back')}</Text>
+            <Ionicons name="arrow-back" size={20} color={COLORS.textSecondary} />
+            <Text style={styles.navBackText}>{t('goalSetup.back')}</Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity style={[styles.navBtn, styles.navNext]} onPress={onNext}>
-          <Text style={styles.navBtnText}>{t('goalSetup.continue')}</Text>
+          <Text style={styles.navNextText}>{t('goalSetup.continue')}</Text>
+          <Ionicons name="arrow-forward" size={20} color={COLORS.white} />
         </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-// ---- SliderCard (Responsive Professional Chart + Finish Date) ----
+// ---- SliderCard ----
 function SliderCard({
   title,
   value,
@@ -514,16 +591,14 @@ function SliderCard({
   onBack,
   weight,
   targetWeight,
+  step,
+  totalSteps,
   t,
   language,
 }: any) {
   const generateSmoothData = () => {
     const diff = targetWeight - weight;
-
-    // Prevent division by zero or very small values
     const safeValue = Math.max(0.1, Math.abs(value));
-
-    // Cap step count to prevent too many data points
     const stepCount = Math.min(20, Math.max(2, Math.ceil(Math.abs(diff) / safeValue)));
 
     const data = [];
@@ -531,7 +606,6 @@ function SliderCard({
       const ratio = i / stepCount;
       const smoothed = weight + diff * Math.pow(ratio, 1.5);
 
-      // Ensure valid number
       if (isNaN(smoothed) || !isFinite(smoothed)) {
         data.push(weight);
       } else {
@@ -539,7 +613,6 @@ function SliderCard({
       }
     }
 
-    // Ensure at least 2 data points
     return data.length >= 2 ? data : [weight, targetWeight];
   };
 
@@ -553,8 +626,6 @@ function SliderCard({
   const getFinishDate = () => {
     const now = new Date();
     const finish = new Date(now);
-
-    // Ensure totalWeeks is valid
     const safeTotalWeeks = Math.max(1, Math.min(200, totalWeeks || 1));
     finish.setDate(now.getDate() + safeTotalWeeks * 7);
 
@@ -570,33 +641,35 @@ function SliderCard({
 
   return (
     <View style={styles.stepContainer}>
+      <ProgressIndicator current={step} total={totalSteps} />
+
       <Text style={styles.title}>{title}</Text>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <LineChart
           data={{
-            labels: [t('goalSetup.start'), "1/3", "2/3", t('goalSetup.target')],
+            labels: [t('goalSetup.start'), "", "", t('goalSetup.target')],
             datasets: [{ data: chartData }],
           }}
-          width={SCREEN_WIDTH * 0.9}
-          height={240}
+          width={SCREEN_WIDTH * 0.85}
+          height={200}
           yAxisSuffix="kg"
           withInnerLines={true}
           withOuterLines={false}
           chartConfig={{
-            backgroundGradientFrom: "#ffffff",
-            backgroundGradientTo: "#f4f7fb",
-            color: (opacity = 1) => `rgba(0, 122, 255, ${opacity})`,
-            labelColor: () => "#37474f",
+            backgroundGradientFrom: COLORS.white,
+            backgroundGradientTo: COLORS.backgroundMid,
+            color: (opacity = 1) => `rgba(8, 145, 178, ${opacity})`,
+            labelColor: () => COLORS.textSecondary,
             propsForDots: {
-              r: "5",
+              r: "6",
               strokeWidth: "2",
-              stroke: "#0288d1",
-              fill: "#b3e5fc",
+              stroke: COLORS.primary,
+              fill: COLORS.primaryLight,
             },
             propsForBackgroundLines: {
-              stroke: "#e0e0e0",
-              strokeDasharray: "3 3",
+              stroke: "#E2E8F0",
+              strokeDasharray: "4 4",
             },
             style: {
               borderRadius: 16,
@@ -617,30 +690,38 @@ function SliderCard({
         step={0.1}
         value={value}
         onValueChange={onChange}
-        minimumTrackTintColor="#00b894"
-        maximumTrackTintColor="#cfd8dc"
-        thumbTintColor="#1565c0"
-        style={{ width: "90%", marginVertical: 10 }}
+        style={{ width: "90%", marginVertical: 16 }}
       />
 
-      <Text style={styles.info}>
-        {t('goalSetup.weeklyGoal')}: <Text style={styles.bold}>{value.toFixed(2)} kg</Text>
-      </Text>
-      <Text style={styles.info}>
-        {t('goalSetup.estimatedDuration')}: <Text style={styles.bold}>{totalWeeks} {t('goalSetup.weeks')}</Text>
-      </Text>
+      <View style={styles.infoRow}>
+        <View style={styles.infoBox}>
+          <Ionicons name="speedometer-outline" size={20} color={COLORS.primary} />
+          <Text style={styles.infoLabel}>{t('goalSetup.weeklyGoal')}</Text>
+          <Text style={styles.infoValue}>{value.toFixed(2)} kg</Text>
+        </View>
+        <View style={styles.infoBox}>
+          <Ionicons name="time-outline" size={20} color={COLORS.primary} />
+          <Text style={styles.infoLabel}>{t('goalSetup.estimatedDuration')}</Text>
+          <Text style={styles.infoValue}>{totalWeeks} {t('goalSetup.weeks')}</Text>
+        </View>
+      </View>
 
       <View style={styles.finishBox}>
-        <Text style={styles.finishLabel}>{t('goalSetup.targetDate')}</Text>
-        <Text style={styles.finishDate}>{finishDate}</Text>
+        <Ionicons name="calendar" size={22} color={COLORS.accent} />
+        <View style={{ marginLeft: 12 }}>
+          <Text style={styles.finishLabel}>{t('goalSetup.targetDate')}</Text>
+          <Text style={styles.finishDate}>{finishDate}</Text>
+        </View>
       </View>
 
       <View style={styles.navButtons}>
         <TouchableOpacity style={[styles.navBtn, styles.navBack]} onPress={onBack}>
-          <Text style={styles.navBtnText}>{t('goalSetup.back')}</Text>
+          <Ionicons name="arrow-back" size={20} color={COLORS.textSecondary} />
+          <Text style={styles.navBackText}>{t('goalSetup.back')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.navBtn, styles.navNext]} onPress={onNext}>
-          <Text style={styles.navBtnText}>{t('goalSetup.finish')}</Text>
+        <TouchableOpacity style={[styles.navBtn, styles.navFinish]} onPress={onNext}>
+          <Text style={styles.navNextText}>{t('goalSetup.finish')}</Text>
+          <Ionicons name="checkmark-circle" size={22} color={COLORS.white} />
         </TouchableOpacity>
       </View>
     </View>
@@ -649,78 +730,229 @@ function SliderCard({
 
 // ---- Styles ----
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#f9f9f9" },
+  safe: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+  bgDecor1: {
+    position: 'absolute',
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: COLORS.primaryLight,
+    opacity: 0.1,
+    top: -50,
+    right: -50,
+  },
+  bgDecor2: {
+    position: 'absolute',
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: COLORS.accent,
+    opacity: 0.08,
+    bottom: 100,
+    left: -50,
+  },
   scroll: {
     flexGrow: 1,
     justifyContent: "center",
     paddingVertical: 20,
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     minHeight: SCREEN_HEIGHT * 0.9,
   },
   stepContainer: {
-    backgroundColor: "#fff",
-    borderRadius: 20,
+    backgroundColor: COLORS.cardBg,
+    borderRadius: 24,
     padding: 24,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
-    elevation: 4,
+    shadowColor: COLORS.primary,
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 8 },
+    shadowRadius: 24,
+    elevation: 8,
+  },
+  progressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 24,
+  },
+  progressBar: {
+    flex: 1,
+    height: 6,
+    backgroundColor: '#E2E8F0',
+    borderRadius: 3,
+    marginRight: 12,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: COLORS.primary,
+    borderRadius: 3,
+  },
+  progressText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: COLORS.textSecondary,
   },
   title: {
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 20,
+    fontSize: 24,
+    fontWeight: "800",
+    marginBottom: 24,
     textAlign: "center",
-    color: "#2d3436",
+    color: COLORS.text,
   },
   option: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 12,
-    paddingVertical: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: COLORS.border,
+    borderRadius: 16,
+    paddingVertical: 16,
     paddingHorizontal: 16,
-    marginVertical: 8,
+    marginVertical: 6,
     width: "100%",
-    alignItems: "center",
+    backgroundColor: COLORS.white,
   },
   optionSelected: {
-    backgroundColor: "#00b894",
-    borderColor: "#00b894",
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
   },
-  optionText: { fontSize: 16, color: "#2d3436" },
-  optionTextSelected: { color: "#fff", fontWeight: "600" },
+  optionIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: COLORS.backgroundMid,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 14,
+  },
+  optionIconSelected: {
+    backgroundColor: 'rgba(255,255,255,0.25)',
+  },
+  optionText: {
+    fontSize: 16,
+    color: COLORS.text,
+    flex: 1,
+    fontWeight: '500',
+  },
+  optionTextSelected: {
+    color: COLORS.white,
+    fontWeight: "700",
+  },
+  valueDisplay: {
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  valueNumber: {
+    fontSize: 56,
+    fontWeight: '800',
+    color: COLORS.primary,
+  },
+  valueUnit: {
+    fontSize: 18,
+    color: COLORS.textSecondary,
+    marginTop: -4,
+  },
   pickerBox: {
+    borderRadius: 20,
+    backgroundColor: COLORS.backgroundMid,
+    marginVertical: 16,
+    overflow: 'hidden',
+  },
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 8,
+    gap: 12,
+  },
+  infoBox: {
+    flex: 1,
+    backgroundColor: COLORS.backgroundMid,
     borderRadius: 16,
-    backgroundColor: "#ecf0f1",
-    marginVertical: 20,
+    padding: 16,
+    alignItems: 'center',
   },
-  info: { fontSize: 16, marginTop: 10, color: "#2d3436" },
-  bold: { fontWeight: "700", color: "#0984e3" },
+  infoLabel: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+    marginTop: 6,
+    textAlign: 'center',
+  },
+  infoValue: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: COLORS.text,
+    marginTop: 4,
+  },
   finishBox: {
-    marginTop: 15,
-    backgroundColor: "#e3f2fd",
-    borderRadius: 12,
-    paddingVertical: 10,
+    marginTop: 16,
+    backgroundColor: '#FFF7ED',
+    borderRadius: 16,
+    paddingVertical: 16,
     paddingHorizontal: 20,
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#FFEDD5',
   },
-  finishLabel: { fontSize: 14, color: "#1565c0", fontWeight: "600" },
-  finishDate: { fontSize: 16, fontWeight: "700", color: "#0d47a1" },
+  finishLabel: {
+    fontSize: 13,
+    color: COLORS.textSecondary,
+  },
+  finishDate: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: COLORS.accent,
+    marginTop: 2,
+  },
   navButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 30,
+    marginTop: 28,
     width: "100%",
+    gap: 12,
   },
   navBtn: {
-    paddingVertical: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
     paddingHorizontal: 20,
-    borderRadius: 10,
-    width: "48%",
-    alignItems: "center",
+    borderRadius: 16,
+    flex: 1,
+    gap: 8,
   },
-  navNext: { backgroundColor: "#0984e3" },
-  navBack: { backgroundColor: "#b2bec3" },
-  navBtnText: { color: "#fff", fontWeight: "600", fontSize: 16 },
+  navNext: {
+    backgroundColor: COLORS.primary,
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  navFinish: {
+    backgroundColor: COLORS.accent,
+    shadowColor: COLORS.accent,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  navBack: {
+    backgroundColor: COLORS.backgroundMid,
+  },
+  navBackText: {
+    color: COLORS.textSecondary,
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  navNextText: {
+    color: COLORS.white,
+    fontWeight: "700",
+    fontSize: 16,
+  },
 });

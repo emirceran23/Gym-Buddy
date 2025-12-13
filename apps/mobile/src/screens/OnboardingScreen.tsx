@@ -9,11 +9,24 @@ import {
   Easing,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "../contexts/LanguageContext";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+
+// Color palette for SentryFit Light Theme
+const COLORS = {
+  background: "#F0F9FF",    // Light cyan
+  backgroundMid: "#E0F2FE", // Soft blue
+  backgroundAccent: "#BAE6FD", // Lighter accent
+  primary: "#0891B2",       // Deep cyan (Sentry feel)
+  primaryLight: "#22D3EE",  // Light cyan
+  accent: "#F97316",        // Coral orange
+  accentGradient: "#FB923C", // Light orange
+  text: "#0F172A",          // Dark slate
+  textSecondary: "#475569", // Slate gray
+  white: "#FFFFFF",
+};
 
 // Floating particle component
 const FloatingParticle = ({ delay, startX, startY, size, duration }: any) => {
@@ -24,7 +37,6 @@ const FloatingParticle = ({ delay, startX, startY, size, duration }: any) => {
 
   useEffect(() => {
     const animate = () => {
-      // Reset values
       translateY.setValue(0);
       translateX.setValue(0);
       opacity.setValue(0);
@@ -33,24 +45,21 @@ const FloatingParticle = ({ delay, startX, startY, size, duration }: any) => {
       Animated.sequence([
         Animated.delay(delay),
         Animated.parallel([
-          // Float up
           Animated.timing(translateY, {
             toValue: -SCREEN_HEIGHT * 0.4,
             duration: duration,
             easing: Easing.out(Easing.quad),
             useNativeDriver: true,
           }),
-          // Slight horizontal drift
           Animated.timing(translateX, {
             toValue: (Math.random() - 0.5) * 100,
             duration: duration,
             easing: Easing.inOut(Easing.sin),
             useNativeDriver: true,
           }),
-          // Fade in then out
           Animated.sequence([
             Animated.timing(opacity, {
-              toValue: 0.7,
+              toValue: 0.5,
               duration: duration * 0.2,
               useNativeDriver: true,
             }),
@@ -60,7 +69,6 @@ const FloatingParticle = ({ delay, startX, startY, size, duration }: any) => {
               useNativeDriver: true,
             }),
           ]),
-          // Scale up
           Animated.timing(scale, {
             toValue: 1,
             duration: duration * 0.5,
@@ -107,16 +115,13 @@ export default function OnboardingScreen() {
   const glowPulse = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    // Staggered entrance animations
-    Animated.sequence([
-      // Icon bounces in
-      Animated.spring(iconScale, {
-        toValue: 1,
-        friction: 4,
-        tension: 100,
-        useNativeDriver: true,
-      }),
-    ]).start();
+    // Icon bounces in
+    Animated.spring(iconScale, {
+      toValue: 1,
+      friction: 4,
+      tension: 100,
+      useNativeDriver: true,
+    }).start();
 
     // Icon rotation animation
     Animated.loop(
@@ -191,7 +196,7 @@ export default function OnboardingScreen() {
     Animated.loop(
       Animated.sequence([
         Animated.timing(glowPulse, {
-          toValue: 1.2,
+          toValue: 1.15,
           duration: 1500,
           easing: Easing.inOut(Easing.sin),
           useNativeDriver: true,
@@ -208,137 +213,145 @@ export default function OnboardingScreen() {
 
   const rotateInterpolate = iconRotate.interpolate({
     inputRange: [0, 1],
-    outputRange: ["-10deg", "10deg"],
+    outputRange: ["-8deg", "8deg"],
   });
 
   // Generate particles
-  const particles = Array.from({ length: 15 }).map((_, i) => ({
+  const particles = Array.from({ length: 12 }).map((_, i) => ({
     id: i,
     startX: Math.random() * SCREEN_WIDTH,
     startY: SCREEN_HEIGHT * 0.5 + Math.random() * SCREEN_HEIGHT * 0.4,
-    size: 8 + Math.random() * 12,
+    size: 10 + Math.random() * 15,
     delay: Math.random() * 3000,
-    duration: 4000 + Math.random() * 3000,
+    duration: 5000 + Math.random() * 3000,
   }));
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={["#667eea", "#764ba2", "#f093fb"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.gradient}
-      >
-        {/* Floating particles */}
-        {particles.map((p) => (
-          <FloatingParticle
-            key={p.id}
-            startX={p.startX}
-            startY={p.startY}
-            size={p.size}
-            delay={p.delay}
-            duration={p.duration}
+      {/* Background layers */}
+      <View style={styles.bgLayer1} />
+      <View style={styles.bgLayer2} />
+      <View style={styles.bgLayer3} />
+
+      {/* Decorative circles */}
+      <View style={styles.decorCircle1} />
+      <View style={styles.decorCircle2} />
+      <View style={styles.decorCircle3} />
+
+      {/* Floating particles */}
+      {particles.map((p) => (
+        <FloatingParticle
+          key={p.id}
+          startX={p.startX}
+          startY={p.startY}
+          size={p.size}
+          delay={p.delay}
+          duration={p.duration}
+        />
+      ))}
+
+      {/* Content */}
+      <View style={styles.content}>
+        {/* Animated Icon with Glow */}
+        <View style={styles.iconContainer}>
+          <Animated.View
+            style={[
+              styles.iconGlow,
+              {
+                transform: [{ scale: glowPulse }],
+              },
+            ]}
           />
-        ))}
-
-        {/* Content */}
-        <View style={styles.content}>
-          {/* Animated Icon with Glow */}
-          <View style={styles.iconContainer}>
-            <Animated.View
-              style={[
-                styles.iconGlow,
-                {
-                  transform: [{ scale: glowPulse }],
-                },
-              ]}
-            />
-            <Animated.View
-              style={[
-                styles.iconWrapper,
-                {
-                  transform: [
-                    { scale: iconScale },
-                    { rotate: rotateInterpolate },
-                  ],
-                },
-              ]}
-            >
-              <Ionicons name="fitness" size={80} color="#fff" />
-            </Animated.View>
-          </View>
-
-          {/* Title */}
-          <Animated.Text
-            style={[
-              styles.title,
-              {
-                opacity: titleOpacity,
-                transform: [{ translateY: titleTranslateY }],
-              },
-            ]}
-          >
-            {t("onboarding.welcome")}
-          </Animated.Text>
-
-          {/* Subtitle */}
-          <Animated.Text
-            style={[
-              styles.subtitle,
-              {
-                opacity: subtitleOpacity,
-                transform: [{ translateY: subtitleTranslateY }],
-              },
-            ]}
-          >
-            {t("onboarding.subtitle")}
-          </Animated.Text>
-
-          {/* Button */}
-          <Animated.View
-            style={{
-              opacity: buttonOpacity,
-              transform: [{ scale: buttonScale }],
-            }}
-          >
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("GoalSetup")}
-              activeOpacity={0.9}
-            >
-              <LinearGradient
-                colors={["#00b894", "#00cec9"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.buttonGradient}
-              >
-                <Text style={styles.buttonText}>{t("onboarding.letsStart")}</Text>
-                <Ionicons name="arrow-forward" size={22} color="#fff" style={{ marginLeft: 8 }} />
-              </LinearGradient>
-            </TouchableOpacity>
-          </Animated.View>
-
-          {/* Features dots */}
           <Animated.View
             style={[
-              styles.featuresRow,
+              styles.iconWrapper,
               {
-                opacity: buttonOpacity,
+                transform: [
+                  { scale: iconScale },
+                  { rotate: rotateInterpolate },
+                ],
               },
             ]}
           >
-            <View style={styles.featureDot}>
-              <Ionicons name="restaurant-outline" size={20} color="rgba(255,255,255,0.9)" />
-            </View>
-            <View style={styles.featureDot}>
-              <Ionicons name="barbell-outline" size={20} color="rgba(255,255,255,0.9)" />
-            </View>
-            <View style={styles.featureDot}>
-              <Ionicons name="analytics-outline" size={20} color="rgba(255,255,255,0.9)" />
-            </View>
+            <Ionicons name="shield-checkmark" size={70} color={COLORS.white} />
           </Animated.View>
         </View>
-      </LinearGradient>
+
+        {/* Title */}
+        <Animated.Text
+          style={[
+            styles.title,
+            {
+              opacity: titleOpacity,
+              transform: [{ translateY: titleTranslateY }],
+            },
+          ]}
+        >
+          {t("onboarding.welcome")}
+        </Animated.Text>
+
+        {/* Subtitle */}
+        <Animated.Text
+          style={[
+            styles.subtitle,
+            {
+              opacity: subtitleOpacity,
+              transform: [{ translateY: subtitleTranslateY }],
+            },
+          ]}
+        >
+          {t("onboarding.subtitle")}
+        </Animated.Text>
+
+        {/* Button */}
+        <Animated.View
+          style={{
+            opacity: buttonOpacity,
+            transform: [{ scale: buttonScale }],
+          }}
+        >
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("GoalSetup")}
+            activeOpacity={0.9}
+          >
+            <Text style={styles.buttonText}>{t("onboarding.letsStart")}</Text>
+            <Ionicons name="arrow-forward" size={22} color={COLORS.white} style={{ marginLeft: 10 }} />
+          </TouchableOpacity>
+        </Animated.View>
+
+        {/* Features dots */}
+        <Animated.View
+          style={[
+            styles.featuresRow,
+            {
+              opacity: buttonOpacity,
+            },
+          ]}
+        >
+          <View style={styles.featureDot}>
+            <Ionicons name="barbell-outline" size={22} color={COLORS.primary} />
+          </View>
+          <View style={styles.featureDot}>
+            <Ionicons name="analytics-outline" size={22} color={COLORS.primary} />
+          </View>
+          <View style={styles.featureDot}>
+            <Ionicons name="restaurant-outline" size={22} color={COLORS.primary} />
+          </View>
+        </Animated.View>
+
+        {/* Feature labels */}
+        <Animated.View
+          style={[
+            styles.featureLabels,
+            { opacity: buttonOpacity },
+          ]}
+        >
+          <Text style={styles.featureLabel}>Workouts</Text>
+          <Text style={styles.featureLabel}>Analytics</Text>
+          <Text style={styles.featureLabel}>Nutrition</Text>
+        </Animated.View>
+      </View>
     </View>
   );
 }
@@ -346,15 +359,69 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
-  gradient: {
-    flex: 1,
+  bgLayer1: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: COLORS.background,
+  },
+  bgLayer2: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "60%",
+    backgroundColor: COLORS.backgroundMid,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+  },
+  bgLayer3: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "35%",
+    backgroundColor: COLORS.backgroundAccent,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    opacity: 0.5,
+  },
+  decorCircle1: {
+    position: "absolute",
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: COLORS.primaryLight,
+    opacity: 0.1,
+    top: -50,
+    right: -50,
+  },
+  decorCircle2: {
+    position: "absolute",
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: COLORS.primary,
+    opacity: 0.08,
+    bottom: 100,
+    left: -50,
+  },
+  decorCircle3: {
+    position: "absolute",
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: COLORS.accent,
+    opacity: 0.1,
+    top: 150,
+    left: 20,
   },
   content: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 24,
+    paddingTop: 60,
   },
   iconContainer: {
     position: "relative",
@@ -362,79 +429,94 @@ const styles = StyleSheet.create({
   },
   iconGlow: {
     position: "absolute",
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    top: -30,
-    left: -30,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: COLORS.primaryLight,
+    opacity: 0.3,
+    top: -25,
+    left: -25,
   },
   iconWrapper: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: "rgba(255,255,255,0.15)",
+    backgroundColor: COLORS.primary,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 3,
-    borderColor: "rgba(255,255,255,0.3)",
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+    elevation: 15,
   },
   title: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: "800",
-    color: "#fff",
+    color: COLORS.text,
     textAlign: "center",
-    marginBottom: 16,
-    textShadowColor: "rgba(0,0,0,0.2)",
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
+    marginBottom: 14,
   },
   subtitle: {
-    fontSize: 17,
-    color: "rgba(255,255,255,0.9)",
+    fontSize: 16,
+    color: COLORS.textSecondary,
     textAlign: "center",
-    marginBottom: 50,
-    lineHeight: 26,
-    paddingHorizontal: 20,
+    marginBottom: 45,
+    lineHeight: 24,
+    paddingHorizontal: 30,
   },
   button: {
-    borderRadius: 30,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 15,
-    elevation: 10,
-  },
-  buttonGradient: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: COLORS.accent,
     paddingVertical: 18,
     paddingHorizontal: 50,
     borderRadius: 30,
+    shadowColor: COLORS.accent,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 15,
+    elevation: 10,
   },
   buttonText: {
-    color: "#fff",
-    fontSize: 19,
+    color: COLORS.white,
+    fontSize: 18,
     fontWeight: "700",
   },
   featuresRow: {
     flexDirection: "row",
-    marginTop: 60,
-    gap: 20,
+    marginTop: 50,
+    gap: 30,
   },
   featureDot: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "rgba(255,255,255,0.15)",
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: COLORS.white,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.2)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  featureLabels: {
+    flexDirection: "row",
+    marginTop: 12,
+    gap: 20,
+  },
+  featureLabel: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+    fontWeight: "600",
+    width: 70,
+    textAlign: "center",
   },
   particle: {
     position: "absolute",
-    backgroundColor: "rgba(255,255,255,0.6)",
+    backgroundColor: COLORS.primary,
+    opacity: 0.3,
   },
 });
