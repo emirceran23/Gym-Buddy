@@ -4,6 +4,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import type { DailyCalorieSummary } from '../types/health';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CaloriesBurnedCardProps {
     summary: DailyCalorieSummary | null;
@@ -22,6 +23,7 @@ const CaloriesBurnedCard: React.FC<CaloriesBurnedCardProps> = ({
     onViewActivities,
     calorieGoal = 500, // default goal
 }) => {
+    const { t } = useLanguage();
     const totalCalories = summary?.totalCalories || 0;
     const smartwatchCalories = summary?.smartwatchCalories || 0;
     const manualCalories = summary?.manualCalories || 0;
@@ -54,7 +56,7 @@ const CaloriesBurnedCard: React.FC<CaloriesBurnedCardProps> = ({
                 <View style={styles.headerLeft}>
                     <Text style={styles.icon}>🔥</Text>
                     <View>
-                        <Text style={styles.title}>Yakılan Kalori</Text>
+                        <Text style={styles.title}>{t('calories.title')}</Text>
                         <Text style={styles.subtitle}>
                             {getDataSourceIcon()} {getDataSourceText()}
                         </Text>
@@ -73,7 +75,7 @@ const CaloriesBurnedCard: React.FC<CaloriesBurnedCardProps> = ({
             <View style={styles.calorieDisplay}>
                 <Text style={styles.calorieValue}>{totalCalories}</Text>
                 <Text style={styles.calorieUnit}>kcal</Text>
-                <Text style={styles.calorieGoal}> / {calorieGoal} hedef</Text>
+                <Text style={styles.calorieGoal}> / {calorieGoal} {t('dashboard.target').toLowerCase()}</Text>
             </View>
 
             {/* Progress Bar */}
@@ -90,14 +92,14 @@ const CaloriesBurnedCard: React.FC<CaloriesBurnedCardProps> = ({
                     <View style={styles.breakdownRow}>
                         <View style={styles.breakdownItem}>
                             <Text style={styles.breakdownIcon}>⌚</Text>
-                            <Text style={styles.breakdownLabel}>Akıllı Saat</Text>
-                            <Text style={styles.breakdownValue}>{smartwatchCalories} kcal</Text>
+                            <Text style={styles.breakdownLabel}>{t('common.exercises')}</Text>
+                            <Text style={styles.breakdownValue}>{smartwatchCalories} {t('calories.kcal')}</Text>
                         </View>
                         <View style={styles.breakdownDivider} />
                         <View style={styles.breakdownItem}>
                             <Text style={styles.breakdownIcon}>✍️</Text>
-                            <Text style={styles.breakdownLabel}>Manuel</Text>
-                            <Text style={styles.breakdownValue}>{manualCalories} kcal</Text>
+                            <Text style={styles.breakdownLabel}>{t('calories.manualActivity')}</Text>
+                            <Text style={styles.breakdownValue}>{manualCalories} {t('calories.kcal')}</Text>
                         </View>
                     </View>
                 </View>
@@ -111,23 +113,23 @@ const CaloriesBurnedCard: React.FC<CaloriesBurnedCardProps> = ({
                     activeOpacity={0.7}
                 >
                     <Text style={styles.activitiesText}>
-                        📝 {summary.activities.length} manuel aktivite
+                        📝 {summary.activities.length} {t('calories.manualActivity').toLowerCase()}
                     </Text>
-                    <Text style={styles.viewDetails}>Detayları gör →</Text>
+                    <Text style={styles.viewDetails}>{t('calories.activityHistory')} →</Text>
                 </TouchableOpacity>
             )}
 
             {/* Action Buttons */}
             <View style={styles.actions}>
                 <TouchableOpacity style={styles.addButton} onPress={onAddManual}>
-                    <Text style={styles.addButtonText}>+ Manuel Aktivite Ekle</Text>
+                    <Text style={styles.addButtonText}>+ {t('calories.addManualActivity')}</Text>
                 </TouchableOpacity>
             </View>
 
             {/* Last Sync Time */}
             {summary?.lastSync && (
                 <Text style={styles.lastSync}>
-                    Son senkronizasyon: {new Date(summary.lastSync).toLocaleTimeString('tr-TR', {
+                    {t('labels.lastSync')}: {new Date(summary.lastSync).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
                     })}

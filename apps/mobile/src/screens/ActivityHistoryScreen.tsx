@@ -14,9 +14,11 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { getManualActivities, deleteManualActivity, type ManualActivity } from '../services/manualActivityService';
 import { ACTIVITY_DATABASE } from '../constants/activityDatabase';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function ActivityHistoryScreen() {
     const navigation = useNavigation();
+    const { t } = useLanguage();
     const [activities, setActivities] = useState<ManualActivity[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -46,21 +48,21 @@ export default function ActivityHistoryScreen() {
 
     const getIntensityLabel = (intensity: string) => {
         switch (intensity) {
-            case 'light': return { label: 'Hafif', color: '#4CAF50' };
-            case 'moderate': return { label: 'Orta', color: '#FF9800' };
-            case 'vigorous': return { label: 'Yoğun', color: '#F44336' };
+            case 'light': return { label: t('calories.light'), color: '#4CAF50' };
+            case 'moderate': return { label: t('calories.moderate'), color: '#FF9800' };
+            case 'vigorous': return { label: t('calories.vigorous'), color: '#F44336' };
             default: return { label: intensity, color: '#666' };
         }
     };
 
     const handleDelete = (id: string) => {
         Alert.alert(
-            'Aktiviteyi Sil',
-            'Bu aktiviteyi silmek istediğinizden emin misiniz?',
+            t('calories.deleteActivity'),
+            t('calories.confirmDelete'),
             [
-                { text: 'İptal', style: 'cancel' },
+                { text: t('calories.cancel'), style: 'cancel' },
                 {
-                    text: 'Sil',
+                    text: t('calories.delete'),
                     style: 'destructive',
                     onPress: async () => {
                         const today = new Date().toISOString().split('T')[0];
@@ -84,46 +86,46 @@ export default function ActivityHistoryScreen() {
             {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                    <Text style={styles.backText}>← Geri</Text>
+                    <Text style={styles.backText}>{t('calories.back')}</Text>
                 </TouchableOpacity>
-                <Text style={styles.headerTitle}>Aktivite Geçmişi</Text>
+                <Text style={styles.headerTitle}>{t('calories.activityHistory')}</Text>
                 <View style={{ width: 60 }} />
             </View>
 
             <ScrollView style={styles.content}>
                 {/* Summary */}
                 <View style={styles.summaryCard}>
-                    <Text style={styles.summaryTitle}>📊 Bugünün Özeti</Text>
+                    <Text style={styles.summaryTitle}>📊 {t('calories.todaySummary')}</Text>
                     <View style={styles.summaryRow}>
                         <View style={styles.summaryItem}>
                             <Text style={styles.summaryValue}>{activities.length}</Text>
-                            <Text style={styles.summaryLabel}>Aktivite</Text>
+                            <Text style={styles.summaryLabel}>{t('calories.activity')}</Text>
                         </View>
                         <View style={styles.summaryItem}>
                             <Text style={styles.summaryValue}>
                                 {activities.reduce((sum, a) => sum + a.duration, 0)}
                             </Text>
-                            <Text style={styles.summaryLabel}>Dakika</Text>
+                            <Text style={styles.summaryLabel}>{t('calories.time')}</Text>
                         </View>
                         <View style={styles.summaryItem}>
                             <Text style={styles.summaryValue}>
                                 {activities.reduce((sum, a) => sum + a.caloriesBurned, 0)}
                             </Text>
-                            <Text style={styles.summaryLabel}>Kalori</Text>
+                            <Text style={styles.summaryLabel}>{t('calories.calories')}</Text>
                         </View>
                     </View>
                 </View>
 
                 {/* Activities Table */}
                 <View style={styles.tableContainer}>
-                    <Text style={styles.tableTitle}>📝 Aktivite Detayları</Text>
+                    <Text style={styles.tableTitle}>📝 {t('calories.activityDetails')}</Text>
 
                     {/* Table Header */}
                     <View style={styles.tableHeader}>
-                        <Text style={[styles.tableHeaderCell, { flex: 2 }]}>Aktivite</Text>
-                        <Text style={[styles.tableHeaderCell, { flex: 1 }]}>Şiddet</Text>
-                        <Text style={[styles.tableHeaderCell, { flex: 1 }]}>Süre</Text>
-                        <Text style={[styles.tableHeaderCell, { flex: 1 }]}>Kalori</Text>
+                        <Text style={[styles.tableHeaderCell, { flex: 2 }]}>{t('calories.activity')}</Text>
+                        <Text style={[styles.tableHeaderCell, { flex: 1 }]}>{t('calories.intensity')}</Text>
+                        <Text style={[styles.tableHeaderCell, { flex: 1 }]}>{t('calories.time')}</Text>
+                        <Text style={[styles.tableHeaderCell, { flex: 1 }]}>{t('calories.calories')}</Text>
                     </View>
 
                     {/* Table Rows */}
@@ -142,7 +144,9 @@ export default function ActivityHistoryScreen() {
                                 <View style={styles.activityColumn}>
                                     <Text style={styles.activityIcon}>{info.icon}</Text>
                                     <View style={styles.activityTextContainer}>
-                                        <Text style={styles.activityName} numberOfLines={1}>{info.name}</Text>
+                                        <Text style={styles.activityName} numberOfLines={1}>
+                                            {t(`activities.${activity.activityType}`, { defaultValue: info.name }).replace(/_/g, ' ')}
+                                        </Text>
                                         <Text style={styles.activityTime}>{formatTime(activity.timestamp)}</Text>
                                     </View>
                                 </View>
@@ -158,7 +162,7 @@ export default function ActivityHistoryScreen() {
 
                                 {/* Duration Column */}
                                 <View style={styles.durationColumn}>
-                                    <Text style={styles.durationText}>{activity.duration} dk</Text>
+                                    <Text style={styles.durationText}>{activity.duration} {t('calories.minutes')}</Text>
                                 </View>
 
                                 {/* Calories Column */}
@@ -172,12 +176,12 @@ export default function ActivityHistoryScreen() {
                     {activities.length === 0 && (
                         <View style={styles.emptyState}>
                             <Text style={styles.emptyIcon}>🏃</Text>
-                            <Text style={styles.emptyText}>Henüz aktivite eklenmedi</Text>
+                            <Text style={styles.emptyText}>{t('calories.noActivitiesYet')}</Text>
                         </View>
                     )}
                 </View>
 
-                <Text style={styles.hint}>💡 Silmek için aktiviteye uzun basın</Text>
+                <Text style={styles.hint}>💡 {t('calories.longPressToDelete')}</Text>
             </ScrollView>
         </SafeAreaView>
     );

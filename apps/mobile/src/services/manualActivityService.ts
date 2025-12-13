@@ -3,6 +3,13 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getActivityById, type Activity } from '../constants/activityDatabase';
+import {
+    getStrengthExerciseById,
+    getCalorieCoefficient,
+    getStrengthMET,
+    calculateWorkoutDuration,
+    type StrengthExercise
+} from '../constants/strengthExerciseDatabase';
 
 // Types
 export interface CalorieCalculationParams {
@@ -16,6 +23,32 @@ export interface CalorieCalculationParams {
     bmi?: number;
     heartRate?: number;  // average during activity (optional)
     environment?: 'indoor' | 'outdoor_hot' | 'outdoor_cold' | 'high_altitude';
+}
+
+// Strength training specific parameters
+export interface StrengthActivityParams {
+    exerciseId: string;
+    exerciseName: string;
+    sets: number;
+    reps: number;
+    liftedWeight: number;  // kg - weight being lifted
+    restTime: number;      // seconds between sets
+    userWeight: number;    // kg - user's body weight
+    age: number;
+    gender: 'male' | 'female';
+    fitnessLevel: 'beginner' | 'intermediate' | 'advanced' | 'athlete';
+    bmi?: number;
+}
+
+// Strength exercise details for activity record
+export interface StrengthExerciseDetails {
+    exerciseId: string;
+    sets: number;
+    reps: number;
+    liftedWeight: number;
+    restTime: number;
+    totalVolume: number;  // sets × reps × weight
+    estimatedDuration: number;  // minutes
 }
 
 export interface ManualActivity {
@@ -36,6 +69,9 @@ export interface ManualActivity {
     heartRate?: number;
     environment?: 'indoor' | 'outdoor_hot' | 'outdoor_cold' | 'high_altitude';
 
+    // Strength exercise details (optional, only for strength activities)
+    strengthDetails?: StrengthExerciseDetails;
+
     // Calculation breakdown
     baseMET: number;
     adjustedMET: number;
@@ -53,6 +89,7 @@ export interface ManualActivity {
         bmiAdjustment: number;
         environmentAdjustment: number;
         epocBonus: number;
+        volumeCalories?: number;  // For strength training
     };
 
     timestamp: string;
@@ -247,6 +284,94 @@ export function calculateAdvancedCalories(params: CalorieCalculationParams): {
 }
 
 /**
+ * Calculate calories for strength training exercises
+ * Uses volume (sets × reps × weight) + MET-based calculation
+ */
+export function calculateStrengthCalories(params: StrengthActivityParams): {
+    totalCalories: number;
+    breakdown: {
+        volumeCalories: number;
+        metCalories: number;
+        ageAdjustment: number;
+        genderAdjustment: number;
+        fitnessAdjustment: number;
+        bmiAdjustment: number;
+        epocBonus: number;
+        totalVolume: number;
+        estimatedDuration: number;
+    };
+} {
+    const {
+        exerciseId,
+        sets,
+        reps,
+        liftedWeight,
+        restTime,
+        userWeight,
+        age,
+        gender,
+        fitnessLevel,
+        bmi
+    } = params;
+
+    // Get exercise details
+    const exercise = getStrengthExerciseById(exerciseId);
+
+    // Calculate total volume
+    const totalVolume = sets * reps * liftedWeight;
+
+    // Calculate workout duration (in minutes)
+    const estimatedDuration = calculateWorkoutDuration(sets, reps, restTime);
+
+    // Get calorie coefficient based on exercise type (compound vs isolation)
+    const calorieCoefficient = exercise ? getCalorieCoefficient(exercise) : 0.04;
+
+    // Calculate volume-based calories
+    // Formula: sets × reps × weight × coefficient
+    const volumeCalories = totalVolume * calorieCoefficient;
+
+    // Calculate MET-based calories for the workout duration
+    // Use moderate intensity as baseline for strength training
+    const baseMET = exercise ? getStrengthMET(exercise, 'moderate') : 5.0;
+
+    // MET formula: (MET × 3.5 × Weight_kg × Duration_min) / 200
+    const metCalories = (baseMET * 3.5 * userWeight * estimatedDuration) / 200;
+
+    // Apply user adjustments
+    const ageAdj = getAgeAdjustment(age);
+    const genderAdj = getGenderAdjustment(gender);
+    const fitnessAdj = getFitnessAdjustment(fitnessLevel);
+    const bmiAdj = getBMIAdjustment(bmi);
+
+    // Combine volume and MET calories
+    // Weight the calculation: 60% volume-based, 40% MET-based
+    let baseCalories = (volumeCalories * 0.6) + (metCalories * 0.4);
+
+    // Apply adjustments
+    const adjustedCalories = baseCalories * ageAdj * genderAdj * fitnessAdj * bmiAdj;
+
+    // EPOC bonus for strength training (typically 1.12 = 12% bonus)
+    const epocMultiplier = exercise?.mechanic === 'compound' ? 1.15 : 1.10;
+    const finalCalories = adjustedCalories * epocMultiplier;
+    const epocBonus = adjustedCalories * (epocMultiplier - 1);
+
+    return {
+        totalCalories: Math.round(finalCalories),
+        breakdown: {
+            volumeCalories: Math.round(volumeCalories),
+            metCalories: Math.round(metCalories),
+            ageAdjustment: Math.round((ageAdj - 1) * baseCalories),
+            genderAdjustment: Math.round((genderAdj - 1) * baseCalories),
+            fitnessAdjustment: Math.round((fitnessAdj - 1) * baseCalories),
+            bmiAdjustment: Math.round((bmiAdj - 1) * baseCalories),
+            epocBonus: Math.round(epocBonus),
+            totalVolume,
+            estimatedDuration
+        }
+    };
+}
+
+/**
  * Add a manual activity
  */
 export async function addManualActivity(params: CalorieCalculationParams): Promise<ManualActivity> {
@@ -364,3 +489,75 @@ export function getPersonalizedMET(
 
     return baseMET * ageAdj * genderAdj * fitnessAdj * bmiAdj;
 }
+
+/**
+ * Add a strength training activity with detailed exercise info
+ */
+export async function addStrengthActivity(params: StrengthActivityParams): Promise<ManualActivity> {
+    const exercise = getStrengthExerciseById(params.exerciseId);
+
+    // Calculate calories with strength-specific formula
+    const result = calculateStrengthCalories(params);
+
+    // Create activity record
+    const manualActivity: ManualActivity = {
+        id: `strength_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        date: new Date().toISOString().split('T')[0],
+        activityType: params.exerciseId,
+        activityName: params.exerciseName,
+        category: 'strength',
+        intensity: 'moderate',  // Strength training is always moderate intensity for MET purposes
+        duration: result.breakdown.estimatedDuration,
+        userAge: params.age,
+        userGender: params.gender,
+        userWeight: params.userWeight,
+        fitnessLevel: params.fitnessLevel,
+        bmi: params.bmi,
+        environment: 'indoor',
+
+        // Strength exercise details
+        strengthDetails: {
+            exerciseId: params.exerciseId,
+            sets: params.sets,
+            reps: params.reps,
+            liftedWeight: params.liftedWeight,
+            restTime: params.restTime,
+            totalVolume: result.breakdown.totalVolume,
+            estimatedDuration: result.breakdown.estimatedDuration
+        },
+
+        baseMET: exercise ? getStrengthMET(exercise, 'moderate') : 5.0,
+        adjustedMET: exercise ? getStrengthMET(exercise, 'moderate') : 5.0,
+        baseCalories: result.breakdown.volumeCalories + result.breakdown.metCalories,
+        epocBonus: result.breakdown.epocBonus,
+        totalAdjustments: result.breakdown.ageAdjustment + result.breakdown.genderAdjustment +
+            result.breakdown.fitnessAdjustment + result.breakdown.bmiAdjustment,
+        caloriesBurned: result.totalCalories,
+        calculations: {
+            baseCalories: result.breakdown.volumeCalories + result.breakdown.metCalories,
+            ageAdjustment: result.breakdown.ageAdjustment,
+            genderAdjustment: result.breakdown.genderAdjustment,
+            fitnessAdjustment: result.breakdown.fitnessAdjustment,
+            bmiAdjustment: result.breakdown.bmiAdjustment,
+            environmentAdjustment: 0,
+            epocBonus: result.breakdown.epocBonus,
+            volumeCalories: result.breakdown.volumeCalories
+        },
+        timestamp: new Date().toISOString()
+    };
+
+    // Save to storage
+    const stored = await AsyncStorage.getItem(STORAGE_KEY_MANUAL_ACTIVITIES);
+    const activities: { [date: string]: ManualActivity[] } = stored ? JSON.parse(stored) : {};
+
+    const dateKey = manualActivity.date;
+    if (!activities[dateKey]) {
+        activities[dateKey] = [];
+    }
+    activities[dateKey].push(manualActivity);
+
+    await AsyncStorage.setItem(STORAGE_KEY_MANUAL_ACTIVITIES, JSON.stringify(activities));
+
+    return manualActivity;
+}
+
