@@ -30,6 +30,7 @@
     "expo-file-system": "~19.0.20",
     "expo-gl": "~16.0.8",
     "expo-image-picker": "~17.0.9",
+    "expo-linear-gradient": "~15.0.8",
     "expo-localization": "~17.0.8",
     "expo-notifications": "^0.32.14",
     "expo-status-bar": "~3.0.9",
