@@ -40,12 +40,12 @@ const CaloriesBurnedCard: React.FC<CaloriesBurnedCardProps> = ({
     };
 
     const getDataSourceText = () => {
-        if (!summary) return 'Veri yok';
+        if (!summary) return t('calories.dataSource.noData');
         switch (summary.dataSource) {
-            case 'smartwatch': return 'Akıllı saat';
-            case 'manual': return 'Manuel';
-            case 'hybrid': return 'Hibrit';
-            default: return 'Bilinmiyor';
+            case 'smartwatch': return t('calories.dataSource.smartwatch');
+            case 'manual': return t('calories.dataSource.manual');
+            case 'hybrid': return t('calories.dataSource.hybrid');
+            default: return t('calories.dataSource.unknown');
         }
     };
 

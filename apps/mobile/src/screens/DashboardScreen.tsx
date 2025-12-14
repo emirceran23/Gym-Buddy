@@ -47,7 +47,7 @@ export default function DashboardScreen() {
   const [weightInput, setWeightInput] = useState("");
 
   // Daily Motivational Quote
-  const [dailyQuote, setDailyQuote] = useState<Quote>({ text: "", author: "" });
+  const [dailyQuote, setDailyQuote] = useState<Quote>({ textKey: "", author: "" });
 
   // Calories Burned Tracking (NEW!)
   const [caloriesSummary, setCaloriesSummary] = useState<DailyCalorieSummary | null>(null);
@@ -370,13 +370,13 @@ export default function DashboardScreen() {
         </View>
 
         {/* Daily Motivational Quote */}
-        {dailyQuote.text && (
+        {dailyQuote.textKey && (
           <View style={styles.quoteCard}>
             <View style={styles.quoteIconContainer}>
               <Ionicons name="sparkles" size={28} color="#ff6f00" />
             </View>
             <View style={styles.quoteContent}>
-              <Text style={styles.quoteText}>"{dailyQuote.text}"</Text>
+              <Text style={styles.quoteText}>"{t(dailyQuote.textKey)}"</Text>
               <Text style={styles.quoteAuthor}>— {dailyQuote.author}</Text>
             </View>
           </View>

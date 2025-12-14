@@ -388,7 +388,7 @@ export async function addManualActivity(params: CalorieCalculationParams): Promi
         id: `manual_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         date: new Date().toISOString().split('T')[0],
         activityType: params.activityType,
-        activityName: activity.name,
+        activityName: activity.nameKey,
         category: activity.category,
         intensity: params.intensity,
         duration: params.duration,

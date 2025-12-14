@@ -21,8 +21,8 @@ import MuscleGroupScreen from "./src/screens/MuscleGroupScreen";
 import ExerciseListScreen from "./src/screens/ExerciseListScreen";
 import NotificationTestScreen from "./src/screens/NotificationTestScreen";
 import ActivityHistoryScreen from "./src/screens/ActivityHistoryScreen";
-import { registerForPushNotificationsAsync } from "./src/utils/notificationService";
-import { LanguageProvider } from "./src/contexts/LanguageContext";
+import { registerForPushNotificationsAsync, setupNotificationTranslator } from "./src/utils/notificationService";
+import { LanguageProvider, useTranslation } from "./src/contexts/LanguageContext";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -122,30 +122,43 @@ export default function App() {
 
   return (
     <LanguageProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={initialRoute}
-          screenOptions={{ headerShown: false }}
-        >
-          {/* Onboarding screens */}
-          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-          <Stack.Screen name="GoalSetup" component={GoalSetupScreen} />
-
-          {/* Main app with bottom tabs */}
-          <Stack.Screen name="MainTabs" component={MainTabs} />
-
-          {/* Other screens (opened from Training or Dashboard) */}
-          <Stack.Screen name="AddMeal" component={AddMealScreen} />
-          <Stack.Screen name="MealPlan" component={MealPlanScreen} />
-          <Stack.Screen name="MuscleGroup" component={MuscleGroupScreen} />
-          <Stack.Screen name="ExerciseList" component={ExerciseListScreen} />
-          <Stack.Screen name="TutorialList" component={TutorialListScreen} />
-          <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
-          <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
-          <Stack.Screen name="NotificationTest" component={NotificationTestScreen} />
-          <Stack.Screen name="ActivityHistory" component={ActivityHistoryScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <AppContent initialRoute={initialRoute} />
     </LanguageProvider>
+  );
+}
+
+// Separate component that has access to translation context
+function AppContent({ initialRoute }: { initialRoute: string }) {
+  const { t } = useTranslation();
+
+  // Set up notification translator (runs when t changes, i.e., language changes)
+  useEffect(() => {
+    const subscription = setupNotificationTranslator(t);
+    return () => subscription.remove();
+  }, [t]);
+  <NavigationContainer>
+    <Stack.Navigator
+      initialRouteName={initialRoute}
+      screenOptions={{ headerShown: false }}
+    >
+      {/* Onboarding screens */}
+      <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+      <Stack.Screen name="GoalSetup" component={GoalSetupScreen} />
+
+      {/* Main app with bottom tabs */}
+      <Stack.Screen name="MainTabs" component={MainTabs} />
+
+      {/* Other screens (opened from Training or Dashboard) */}
+      <Stack.Screen name="AddMeal" component={AddMealScreen} />
+      <Stack.Screen name="MealPlan" component={MealPlanScreen} />
+      <Stack.Screen name="MuscleGroup" component={MuscleGroupScreen} />
+      <Stack.Screen name="ExerciseList" component={ExerciseListScreen} />
+      <Stack.Screen name="TutorialList" component={TutorialListScreen} />
+      <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
+      <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
+      <Stack.Screen name="NotificationTest" component={NotificationTestScreen} />
+      <Stack.Screen name="ActivityHistory" component={ActivityHistoryScreen} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }

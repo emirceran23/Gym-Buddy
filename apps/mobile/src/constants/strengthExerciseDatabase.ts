@@ -19,79 +19,108 @@ export interface StrengthExercise {
 export interface MuscleGroup {
     id: string;
     name: string;
+    translationKey: string; // i18n key for dynamic translations
     icon: string;
     muscles: string[];
 }
 
-// Muscle group definitions with Turkish names
+// Muscle group definitions with translation keys for i18n
 export const MUSCLE_GROUPS: MuscleGroup[] = [
     {
         id: 'chest',
         name: 'Göğüs',
+        translationKey: 'muscleGroups.chest',
         icon: '🫁',
         muscles: ['chest']
     },
     {
         id: 'back',
         name: 'Sırt',
+        translationKey: 'muscleGroups.back',
         icon: '🔙',
         muscles: ['lats', 'middle back', 'lower back', 'traps']
     },
     {
         id: 'shoulders',
         name: 'Omuz',
+        translationKey: 'muscleGroups.shoulders',
         icon: '🏋️',
         muscles: ['shoulders']
     },
     {
         id: 'biceps',
         name: 'Biceps',
+        translationKey: 'muscleGroups.biceps',
         icon: '💪',
         muscles: ['biceps']
     },
     {
         id: 'triceps',
         name: 'Triceps',
+        translationKey: 'muscleGroups.triceps',
         icon: '💪',
         muscles: ['triceps']
     },
     {
         id: 'forearms',
         name: 'Ön Kol',
+        translationKey: 'muscleGroups.forearms',
         icon: '✊',
         muscles: ['forearms']
     },
     {
         id: 'quadriceps',
         name: 'Ön Bacak',
+        translationKey: 'muscleGroups.quads',
         icon: '🦵',
         muscles: ['quadriceps']
     },
     {
         id: 'hamstrings',
         name: 'Arka Bacak',
+        translationKey: 'muscleGroups.hamstrings',
         icon: '🦵',
         muscles: ['hamstrings', 'glutes']
     },
     {
         id: 'calves',
         name: 'Baldır',
+        translationKey: 'muscleGroups.calves',
         icon: '🦶',
         muscles: ['calves']
     },
     {
         id: 'abdominals',
         name: 'Karın',
+        translationKey: 'muscleGroups.abs',
         icon: '🎯',
         muscles: ['abdominals']
     },
     {
         id: 'adductors',
         name: 'İç Bacak',
+        translationKey: 'muscleGroups.adductors',
         icon: '🦵',
         muscles: ['adductors', 'abductors']
     }
 ];
+
+// Equipment key mapping from exercises.json values to i18n keys
+export const EQUIPMENT_KEY_MAP: { [key: string]: string } = {
+    'dumbbell': 'equipment.dumbbell',
+    'barbell': 'equipment.barbell',
+    'cable': 'equipment.cable',
+    'machine': 'equipment.machine',
+    'body only': 'equipment.body_only',
+    'kettlebells': 'equipment.kettlebell',
+    'e-z curl bar': 'equipment.ez_curl_bar',
+    'exercise ball': 'equipment.exercise_ball',
+    'foam roll': 'equipment.foam_roll',
+    'medicine ball': 'equipment.medicine_ball',
+    'bands': 'equipment.bands',
+    'other': 'equipment.other',
+    'null': 'equipment.none'
+};
 
 // Equipment translations
 export const EQUIPMENT_TRANSLATIONS: { [key: string]: string } = {

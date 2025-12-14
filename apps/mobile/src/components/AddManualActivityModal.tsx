@@ -14,7 +14,7 @@ import {
     Dimensions,
     ActivityIndicator,
 } from 'react-native';
-import { ACTIVITY_DATABASE, ACTIVITY_CATEGORIES, type Activity } from '../constants/activityDatabase';
+import { ACTIVITY_DATABASE, ACTIVITY_CATEGORY_KEYS, type Activity } from '../constants/activityDatabase';
 import {
     calculateAdvancedCalories,
     addManualActivity,
@@ -26,6 +26,7 @@ import { getUserProfile } from '../services/userProfileService';
 import {
     MUSCLE_GROUPS,
     EQUIPMENT_TRANSLATIONS,
+    EQUIPMENT_KEY_MAP,
     LEVEL_TRANSLATIONS,
     getExercisesByMuscleGroup,
     searchExercises,
@@ -195,7 +196,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
         try {
             const profile = await getUserProfile();
             if (!profile) {
-                alert('Lütfen önce profil bilgilerinizi tamamlayın');
+                alert(t('calories.alerts.completeProfile'));
                 return;
             }
 
@@ -216,7 +217,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
             resetAndClose();
         } catch (error) {
             console.error('Error saving activity:', error);
-            alert('Aktivite kaydedilirken hata oluştu');
+            alert(t('calories.alerts.saveError'));
         } finally {
             setIsLoading(false);
         }
@@ -229,7 +230,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
         try {
             const profile = await getUserProfile();
             if (!profile) {
-                alert('Lütfen önce profil bilgilerinizi tamamlayın');
+                alert(t('calories.alerts.completeProfile'));
                 return;
             }
 
@@ -251,7 +252,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
             resetAndClose();
         } catch (error) {
             console.error('Error saving strength activity:', error);
-            alert('Aktivite kaydedilirken hata oluştu');
+            alert(t('calories.alerts.saveError'));
         } finally {
             setIsLoading(false);
         }
@@ -281,7 +282,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
     };
 
     const renderCategorySelection = () => {
-        const categories = Object.entries(ACTIVITY_CATEGORIES);
+        const categories = Object.entries(ACTIVITY_CATEGORY_KEYS);
 
         return (
             <View style={styles.stepContainer}>
@@ -331,8 +332,8 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                         >
                             <Text style={styles.activityIcon}>{activity.icon}</Text>
                             <View style={styles.activityInfo}>
-                                <Text style={styles.activityName}>{t(`activities.${activity.id}`, { defaultValue: activity.name })}</Text>
-                                <Text style={styles.activityDescription}>{t(`activities.${activity.id}_desc`, { defaultValue: activity.description })}</Text>
+                                <Text style={styles.activityName}>{t(activity.nameKey)}</Text>
+                                <Text style={styles.activityDescription}>{t(activity.descriptionKey)}</Text>
                             </View>
                         </TouchableOpacity>
                     ))}
@@ -362,7 +363,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                             }}
                         >
                             <Text style={styles.muscleGroupIcon}>{muscleGroup.icon}</Text>
-                            <Text style={styles.muscleGroupName}>{t(`muscleGroups.${muscleGroup.id}`, { defaultValue: muscleGroup.name })}</Text>
+                            <Text style={styles.muscleGroupName}>{t(muscleGroup.translationKey, { defaultValue: muscleGroup.name })}</Text>
                             <Text style={styles.arrowText}>›</Text>
                         </TouchableOpacity>
                     ))}
@@ -388,7 +389,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                 </TouchableOpacity>
                 <Text style={styles.stepTitle}>{t('calories.selectExerciseTitle')}</Text>
                 <Text style={styles.stepSubtitle}>
-                    {selectedMuscleGroup?.icon} {selectedMuscleGroup?.name} - {filteredExercises.length} {t('calories.exercisesCount')}
+                    {selectedMuscleGroup?.icon} {selectedMuscleGroup ? t(selectedMuscleGroup.translationKey, { defaultValue: selectedMuscleGroup.name }) : ''} - {filteredExercises.length} {t('calories.exercisesCount')}
                 </Text>
 
                 {/* Search Bar */}
@@ -416,7 +417,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                             onPress={() => setSelectedEquipment(equipment)}
                         >
                             <Text style={[styles.filterChipText, selectedEquipment === equipment && styles.filterChipTextSelected]}>
-                                {EQUIPMENT_TRANSLATIONS[equipment] || equipment}
+                                {t(EQUIPMENT_KEY_MAP[equipment] || `equipment.${equipment}`, { defaultValue: EQUIPMENT_TRANSLATIONS[equipment] || equipment })}
                             </Text>
                         </TouchableOpacity>
                     ))}
@@ -443,7 +444,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                                     <View style={styles.exerciseTags}>
                                         {exercise.equipment && (
                                             <Text style={styles.exerciseTag}>
-                                                {EQUIPMENT_TRANSLATIONS[exercise.equipment] || exercise.equipment}
+                                                {t(EQUIPMENT_KEY_MAP[exercise.equipment] || `equipment.${exercise.equipment}`, { defaultValue: EQUIPMENT_TRANSLATIONS[exercise.equipment] || exercise.equipment })}
                                             </Text>
                                         )}
                                         <Text style={[styles.exerciseTag, styles.levelTag]}>
@@ -644,7 +645,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                             </View>
 
                             <View style={styles.breakdownRow}>
-                                <Text style={styles.breakdownLabel}>Tahmini {t('calories.duration')}:</Text>
+                                <Text style={styles.breakdownLabel}>{t('calories.estimatedDuration')}:</Text>
                                 <Text style={styles.breakdownValue}>
                                     {strengthCaloriePreview.breakdown.estimatedDuration} {t('calories.minutes')}
                                 </Text>
@@ -691,7 +692,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                 </TouchableOpacity>
                 <Text style={styles.stepTitle}>{t('calories.intensityLevel')}</Text>
                 <Text style={styles.stepSubtitle}>
-                    {selectedActivity?.icon} {t(`activities.${selectedActivity?.id}`, { defaultValue: selectedActivity?.name })}
+                    {selectedActivity?.icon} {selectedActivity?.nameKey ? t(selectedActivity.nameKey) : ''}
                 </Text>
                 <View style={styles.intensityContainer}>
                     {intensities.map(item => (
@@ -729,7 +730,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                 </TouchableOpacity>
                 <Text style={styles.stepTitle}>{t('calories.duration')}</Text>
                 <Text style={styles.stepSubtitle}>
-                    {selectedActivity?.icon} {t(`activities.${selectedActivity?.id}`, { defaultValue: selectedActivity?.name })} - {intensity === 'light' ? t('calories.light') : intensity === 'moderate' ? t('calories.moderate') : t('calories.vigorous')}
+                    {selectedActivity?.icon} {selectedActivity?.nameKey ? t(selectedActivity.nameKey) : ''} - {intensity === 'light' ? t('calories.light') : intensity === 'moderate' ? t('calories.moderate') : t('calories.vigorous')}
                 </Text>
                 <View style={styles.durationInputContainer}>
                     <TextInput
@@ -743,13 +744,14 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                     <Text style={styles.durationUnit}>{t('calories.minutes')}</Text>
                 </View>
                 <View style={styles.quickDurations}>
-                    {[15, 30, 45, 60].map(mins => (
+                    {[15, 30, 45, 60, 90].map(mins => (
                         <TouchableOpacity
                             key={mins}
-                            style={styles.quickDurationButton}
+                            style={[styles.quickDurationButton, duration === mins.toString() && styles.quickDurationButtonSelected]}
                             onPress={() => setDuration(mins.toString())}
                         >
-                            <Text style={styles.quickDurationText}>{mins} {t('calories.minutes')}</Text>
+                            <Text style={[styles.quickDurationText, duration === mins.toString() && styles.quickDurationTextSelected]}>{mins}</Text>
+                            <Text style={[styles.quickDurationUnit, duration === mins.toString() && styles.quickDurationTextSelected]}>{t('calories.minutes').substring(0, 3)}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -775,7 +777,7 @@ const AddManualActivityModal: React.FC<AddManualActivityModalProps> = ({
                 <Text style={styles.stepTitle}>{t('calories.caloriePreview')}</Text>
                 <View style={styles.previewCard}>
                     <Text style={styles.previewActivity}>
-                        {selectedActivity?.icon} {t(`activities.${selectedActivity?.id}`, { defaultValue: selectedActivity?.name })}
+                        {selectedActivity?.icon} {selectedActivity?.nameKey ? t(selectedActivity.nameKey) : ''}
                     </Text>
                     <Text style={styles.previewDetails}>
                         {intensity === 'light' ? t('calories.light') : intensity === 'moderate' ? t('calories.moderate') : t('calories.vigorous')} • {duration} {t('calories.minutes')}
@@ -1211,18 +1213,34 @@ const styles = StyleSheet.create({
     },
     quickDurations: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: 10,
         marginBottom: 30,
     },
     quickDurationButton: {
         backgroundColor: '#e3f2fd',
         paddingVertical: 12,
-        paddingHorizontal: 20,
-        borderRadius: 20,
+        paddingHorizontal: 16,
+        borderRadius: 12,
+        alignItems: 'center',
+        minWidth: 60,
+    },
+    quickDurationButtonSelected: {
+        backgroundColor: '#2196F3',
     },
     quickDurationText: {
         color: '#2196F3',
-        fontWeight: '600',
+        fontWeight: 'bold',
+        fontSize: 18,
+    },
+    quickDurationTextSelected: {
+        color: '#fff',
+    },
+    quickDurationUnit: {
+        color: '#2196F3',
+        fontSize: 12,
+        marginTop: 2,
     },
     nextButton: {
         backgroundColor: '#2196F3',

@@ -41,7 +41,7 @@ export default function ActivityHistoryScreen() {
 
     const getActivityInfo = (activityType: string) => {
         return ACTIVITY_DATABASE.find(a => a.id === activityType) || {
-            name: activityType,
+            nameKey: activityType,
             icon: '🏋️',
         };
     };
@@ -145,7 +145,7 @@ export default function ActivityHistoryScreen() {
                                     <Text style={styles.activityIcon}>{info.icon}</Text>
                                     <View style={styles.activityTextContainer}>
                                         <Text style={styles.activityName} numberOfLines={1}>
-                                            {t(`activities.${activity.activityType}`, { defaultValue: info.name }).replace(/_/g, ' ')}
+                                            {t(`activities.${activity.activityType}`, { defaultValue: 'nameKey' in info ? info.nameKey : activity.activityType }).replace(/_/g, ' ')}
                                         </Text>
                                         <Text style={styles.activityTime}>{formatTime(activity.timestamp)}</Text>
                                     </View>

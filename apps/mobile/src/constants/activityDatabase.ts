@@ -3,7 +3,7 @@
 
 export interface Activity {
     id: string;
-    name: string;
+    nameKey: string; // i18n key for activity name
     category: 'cardio' | 'strength' | 'sports' | 'flexibility' | 'other';
     icon: string;
     mets: {
@@ -11,7 +11,7 @@ export interface Activity {
         moderate?: number;
         vigorous?: number;
     };
-    description: string;
+    descriptionKey: string; // i18n key for description
     epocFactor: number; // EPOC bonus multiplier (1.0 = no bonus)
 }
 
@@ -19,7 +19,7 @@ export const ACTIVITY_DATABASE: Activity[] = [
     // CARDIO ACTIVITIES
     {
         id: 'running',
-        name: 'Koşu',
+        nameKey: 'activities.running',
         category: 'cardio',
         icon: '🏃',
         mets: {
@@ -27,12 +27,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 10.0, // 6 mph (10 min/mile)
             vigorous: 12.5  // 7.5 mph (8 min/mile)
         },
-        description: 'Açık havada veya koşu bandında koşu',
+        descriptionKey: 'activityDescriptions.running',
         epocFactor: 1.08
     },
     {
         id: 'jogging',
-        name: 'Jogging',
+        nameKey: 'activities.jogging',
         category: 'cardio',
         icon: '🏃‍♂️',
         mets: {
@@ -40,12 +40,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 8.8,
             vigorous: 10.0
         },
-        description: 'Yavaş tempolu koşu',
+        descriptionKey: 'activityDescriptions.jogging',
         epocFactor: 1.08
     },
     {
         id: 'cycling',
-        name: 'Bisiklet',
+        nameKey: 'activities.cycling',
         category: 'cardio',
         icon: '🚴',
         mets: {
@@ -53,12 +53,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 8.0,  // 12-13 mph
             vigorous: 16.0  // 20+ mph
         },
-        description: 'Bisiklet sürme (açık hava veya sabit)',
+        descriptionKey: 'activityDescriptions.cycling',
         epocFactor: 1.08
     },
     {
         id: 'swimming',
-        name: 'Yüzme',
+        nameKey: 'activities.swimming',
         category: 'cardio',
         icon: '🏊',
         mets: {
@@ -66,12 +66,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 7.0,  // moderate laps
             vigorous: 11.0  // fast/vigorous laps
         },
-        description: 'Havuz veya açık su yüzme',
+        descriptionKey: 'activityDescriptions.swimming',
         epocFactor: 1.10
     },
     {
         id: 'walking',
-        name: 'Yürüyüş',
+        nameKey: 'activities.walking',
         category: 'cardio',
         icon: '🚶',
         mets: {
@@ -79,12 +79,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 3.5,  // 3 mph
             vigorous: 5.0   // 4+ mph
         },
-        description: 'Düz zeminde yürüyüş',
+        descriptionKey: 'activityDescriptions.walking',
         epocFactor: 1.03
     },
     {
         id: 'hiking',
-        name: 'Doğa Yürüyüşü',
+        nameKey: 'activities.hiking',
         category: 'cardio',
         icon: '🥾',
         mets: {
@@ -92,12 +92,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 6.0,
             vigorous: 7.5
         },
-        description: 'Doğada engebeli arazide yürüyüş',
+        descriptionKey: 'activityDescriptions.hiking',
         epocFactor: 1.05
     },
     {
         id: 'stairs',
-        name: 'Merdiven Çıkma',
+        nameKey: 'activities.stairs',
         category: 'cardio',
         icon: '🪜',
         mets: {
@@ -105,12 +105,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 8.0,
             vigorous: 15.0
         },
-        description: 'Merdiven çıkma egzersizi',
+        descriptionKey: 'activityDescriptions.stairs',
         epocFactor: 1.10
     },
     {
         id: 'elliptical',
-        name: 'Eliptik',
+        nameKey: 'activities.elliptical',
         category: 'cardio',
         icon: '🏃‍♀️',
         mets: {
@@ -118,12 +118,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 6.0,
             vigorous: 8.0
         },
-        description: 'Eliptik bisiklet egzersizi',
+        descriptionKey: 'activityDescriptions.elliptical',
         epocFactor: 1.06
     },
     {
         id: 'rowing',
-        name: 'Kürek Çekme',
+        nameKey: 'activities.rowing',
         category: 'cardio',
         icon: '🚣',
         mets: {
@@ -131,26 +131,26 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 7.0,
             vigorous: 12.0
         },
-        description: 'Kürek çekme makinesi veya gerçek kürek',
+        descriptionKey: 'activityDescriptions.rowing',
         epocFactor: 1.12
     },
     {
         id: 'jump_rope',
-        name: 'İp Atlama',
+        nameKey: 'activities.jump_rope',
         category: 'cardio',
         icon: '🤸',
         mets: {
             moderate: 9.8,
             vigorous: 12.3
         },
-        description: 'İp atlama egzersizi',
+        descriptionKey: 'activityDescriptions.jump_rope',
         epocFactor: 1.15
     },
 
     // STRENGTH TRAINING
     {
         id: 'weight_lifting',
-        name: 'Ağırlık Kaldırma',
+        nameKey: 'activities.weight_lifting',
         category: 'strength',
         icon: '🏋️',
         mets: {
@@ -158,12 +158,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 5.0,
             vigorous: 6.0
         },
-        description: 'Dambıl veya barbell ile ağırlık çalışması',
+        descriptionKey: 'activityDescriptions.weight_lifting',
         epocFactor: 1.12
     },
     {
         id: 'bodyweight',
-        name: 'Vücut Ağırlığı',
+        nameKey: 'activities.bodyweight',
         category: 'strength',
         icon: '💪',
         mets: {
@@ -171,24 +171,24 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 5.0,
             vigorous: 8.0
         },
-        description: 'Şınav, mekik, squat gibi egzersizler',
+        descriptionKey: 'activityDescriptions.bodyweight',
         epocFactor: 1.12
     },
     {
         id: 'crossfit',
-        name: 'CrossFit',
+        nameKey: 'activities.crossfit',
         category: 'strength',
         icon: '🤸‍♂️',
         mets: {
             moderate: 5.5,
             vigorous: 8.0
         },
-        description: 'Yüksek yoğunluklu fonksiyonel fitness',
+        descriptionKey: 'activityDescriptions.crossfit',
         epocFactor: 1.15
     },
     {
         id: 'kettlebell',
-        name: 'Kettlebell',
+        nameKey: 'activities.kettlebell',
         category: 'strength',
         icon: '🏋️‍♀️',
         mets: {
@@ -196,12 +196,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 6.0,
             vigorous: 9.0
         },
-        description: 'Kettlebell swing ve diğer hareketler',
+        descriptionKey: 'activityDescriptions.kettlebell',
         epocFactor: 1.12
     },
     {
         id: 'resistance_band',
-        name: 'Direnç Bandı',
+        nameKey: 'activities.resistance_band',
         category: 'strength',
         icon: '🎗️',
         mets: {
@@ -209,38 +209,38 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 5.0,
             vigorous: 6.5
         },
-        description: 'Elastik band ile güçlendirme',
+        descriptionKey: 'activityDescriptions.resistance_band',
         epocFactor: 1.08
     },
 
     // SPORTS
     {
         id: 'soccer',
-        name: 'Futbol',
+        nameKey: 'activities.soccer',
         category: 'sports',
         icon: '⚽',
         mets: {
             moderate: 7.0,
             vigorous: 10.0
         },
-        description: 'Futbol maçı veya antrenmanı',
+        descriptionKey: 'activityDescriptions.soccer',
         epocFactor: 1.10
     },
     {
         id: 'basketball',
-        name: 'Basketbol',
+        nameKey: 'activities.basketball',
         category: 'sports',
         icon: '🏀',
         mets: {
             moderate: 6.5,
             vigorous: 8.0
         },
-        description: 'Basketbol maçı veya antrenmanı',
+        descriptionKey: 'activityDescriptions.basketball',
         epocFactor: 1.10
     },
     {
         id: 'tennis',
-        name: 'Tenis',
+        nameKey: 'activities.tennis',
         category: 'sports',
         icon: '🎾',
         mets: {
@@ -248,24 +248,24 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 7.0,
             vigorous: 8.0
         },
-        description: 'Tenis maçı (tekler veya çiftler)',
+        descriptionKey: 'activityDescriptions.tennis',
         epocFactor: 1.08
     },
     {
         id: 'volleyball',
-        name: 'Voleybol',
+        nameKey: 'activities.volleyball',
         category: 'sports',
         icon: '🏐',
         mets: {
             moderate: 4.0,
             vigorous: 8.0
         },
-        description: 'Voleybol maçı veya antrenmanı',
+        descriptionKey: 'activityDescriptions.volleyball',
         epocFactor: 1.08
     },
     {
         id: 'badminton',
-        name: 'Badminton',
+        nameKey: 'activities.badminton',
         category: 'sports',
         icon: '🏸',
         mets: {
@@ -273,12 +273,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 5.5,
             vigorous: 7.0
         },
-        description: 'Badminton maçı',
+        descriptionKey: 'activityDescriptions.badminton',
         epocFactor: 1.06
     },
     {
         id: 'table_tennis',
-        name: 'Masa Tenisi',
+        nameKey: 'activities.table_tennis',
         category: 'sports',
         icon: '🏓',
         mets: {
@@ -286,50 +286,50 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 4.0,
             vigorous: 6.0
         },
-        description: 'Masa tenisi oynama',
+        descriptionKey: 'activityDescriptions.table_tennis',
         epocFactor: 1.05
     },
     {
         id: 'boxing',
-        name: 'Boks',
+        nameKey: 'activities.boxing',
         category: 'sports',
         icon: '🥊',
         mets: {
             moderate: 6.0,
             vigorous: 12.8
         },
-        description: 'Boks antrenmanı veya sparring',
+        descriptionKey: 'activityDescriptions.boxing',
         epocFactor: 1.15
     },
     {
         id: 'martial_arts',
-        name: 'Dövüş Sanatları',
+        nameKey: 'activities.martial_arts',
         category: 'sports',
         icon: '🥋',
         mets: {
             moderate: 6.0,
             vigorous: 10.0
         },
-        description: 'Karate, taekwondo, judo vb.',
+        descriptionKey: 'activityDescriptions.martial_arts',
         epocFactor: 1.12
     },
     {
         id: 'golf',
-        name: 'Golf',
+        nameKey: 'activities.golf',
         category: 'sports',
         icon: '⛳',
         mets: {
             light: 3.5,
             moderate: 4.8
         },
-        description: 'Golf oynama (yürüyerek)',
+        descriptionKey: 'activityDescriptions.golf',
         epocFactor: 1.03
     },
 
     // FLEXIBILITY & BALANCE
     {
         id: 'yoga',
-        name: 'Yoga',
+        nameKey: 'activities.yoga',
         category: 'flexibility',
         icon: '🧘',
         mets: {
@@ -337,12 +337,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 3.0,
             vigorous: 4.0
         },
-        description: 'Hatha, vinyasa veya diğer yoga stilleri',
+        descriptionKey: 'activityDescriptions.yoga',
         epocFactor: 1.03
     },
     {
         id: 'pilates',
-        name: 'Pilates',
+        nameKey: 'activities.pilates',
         category: 'flexibility',
         icon: '🤸‍♀️',
         mets: {
@@ -350,38 +350,38 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 4.5,
             vigorous: 6.0
         },
-        description: 'Pilates egzersizleri',
+        descriptionKey: 'activityDescriptions.pilates',
         epocFactor: 1.06
     },
     {
         id: 'stretching',
-        name: 'Esneme',
+        nameKey: 'activities.stretching',
         category: 'flexibility',
         icon: '🧘‍♂️',
         mets: {
             light: 2.3,
             moderate: 3.5
         },
-        description: 'Statik veya dinamik esneme',
+        descriptionKey: 'activityDescriptions.stretching',
         epocFactor: 1.02
     },
     {
         id: 'tai_chi',
-        name: 'Tai Chi',
+        nameKey: 'activities.tai_chi',
         category: 'flexibility',
         icon: '🧘‍♀️',
         mets: {
             light: 3.0,
             moderate: 4.0
         },
-        description: 'Tai Chi hareketleri',
+        descriptionKey: 'activityDescriptions.tai_chi',
         epocFactor: 1.03
     },
 
     // OTHER ACTIVITIES
     {
         id: 'dancing',
-        name: 'Dans',
+        nameKey: 'activities.dancing',
         category: 'other',
         icon: '💃',
         mets: {
@@ -389,24 +389,24 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 4.5,
             vigorous: 7.8
         },
-        description: 'Sosyal dans, zumba, salsa vb.',
+        descriptionKey: 'activityDescriptions.dancing',
         epocFactor: 1.08
     },
     {
         id: 'zumba',
-        name: 'Zumba',
+        nameKey: 'activities.zumba',
         category: 'other',
         icon: '💃🕺',
         mets: {
             moderate: 6.5,
             vigorous: 8.5
         },
-        description: 'Zumba fitness sınıfı',
+        descriptionKey: 'activityDescriptions.zumba',
         epocFactor: 1.10
     },
     {
         id: 'aerobics',
-        name: 'Aerobik',
+        nameKey: 'activities.aerobics',
         category: 'other',
         icon: '🤸',
         mets: {
@@ -414,36 +414,36 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 6.5,
             vigorous: 10.0
         },
-        description: 'Aerobik grup dersi',
+        descriptionKey: 'activityDescriptions.aerobics',
         epocFactor: 1.10
     },
     {
         id: 'spinning',
-        name: 'Spinning',
+        nameKey: 'activities.spinning',
         category: 'other',
         icon: '🚴‍♀️',
         mets: {
             moderate: 8.5,
             vigorous: 12.0
         },
-        description: 'Spinning/indoor cycling sınıfı',
+        descriptionKey: 'activityDescriptions.spinning',
         epocFactor: 1.12
     },
     {
         id: 'climb_stairs_daily',
-        name: 'Günlük Merdiven',
+        nameKey: 'activities.climb_stairs_daily',
         category: 'other',
         icon: '🪜',
         mets: {
             light: 3.5,
             moderate: 4.0
         },
-        description: 'Günlük aktiviteler sırasında merdiven',
+        descriptionKey: 'activityDescriptions.climb_stairs_daily',
         epocFactor: 1.03
     },
     {
         id: 'housework',
-        name: 'Ev İşleri',
+        nameKey: 'activities.housework',
         category: 'other',
         icon: '🧹',
         mets: {
@@ -451,12 +451,12 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 3.5,
             vigorous: 4.5
         },
-        description: 'Temizlik, bahçe işleri vb.',
+        descriptionKey: 'activityDescriptions.housework',
         epocFactor: 1.02
     },
     {
         id: 'gardening',
-        name: 'Bahçe İşleri',
+        nameKey: 'activities.gardening',
         category: 'other',
         icon: '🌱',
         mets: {
@@ -464,53 +464,54 @@ export const ACTIVITY_DATABASE: Activity[] = [
             moderate: 4.0,
             vigorous: 5.0
         },
-        description: 'Bahçe düzenleme ve bakım',
+        descriptionKey: 'activityDescriptions.gardening',
         epocFactor: 1.03
     },
     {
         id: 'skating',
-        name: 'Paten',
+        nameKey: 'activities.skating',
         category: 'other',
         icon: '⛸️',
         mets: {
             moderate: 5.5,
             vigorous: 9.0
         },
-        description: 'Buz pateni veya inline skate',
+        descriptionKey: 'activityDescriptions.skating',
         epocFactor: 1.08
     },
     {
         id: 'skiing',
-        name: 'Kayak',
+        nameKey: 'activities.skiing',
         category: 'other',
         icon: '⛷️',
         mets: {
             moderate: 5.3,
             vigorous: 8.0
         },
-        description: 'Kayak (alpine veya cross-country)',
+        descriptionKey: 'activityDescriptions.skiing',
         epocFactor: 1.10
     },
     {
         id: 'snowboarding',
-        name: 'Snowboard',
+        nameKey: 'activities.snowboarding',
         category: 'other',
         icon: '🏂',
         mets: {
             moderate: 5.3,
             vigorous: 8.0
         },
-        description: 'Snowboard yapma',
+        descriptionKey: 'activityDescriptions.snowboarding',
         epocFactor: 1.10
     }
 ];
 
-export const ACTIVITY_CATEGORIES = {
-    cardio: 'Kardio',
-    strength: 'Güç Antrenmanı',
-    sports: 'Spor',
-    flexibility: 'Esneklik & Denge',
-    other: 'Diğer'
+// Activity category keys for i18n
+export const ACTIVITY_CATEGORY_KEYS = {
+    cardio: 'calories.categories.cardio',
+    strength: 'calories.categories.strength',
+    sports: 'calories.categories.sports',
+    flexibility: 'calories.categories.flexibility',
+    other: 'calories.categories.other'
 };
 
 // Helper function to get activity by ID

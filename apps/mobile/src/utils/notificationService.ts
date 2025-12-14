@@ -23,7 +23,42 @@ Notifications.setNotificationHandler({
 });
 
 /**
+ * Setup notification listener that translates quotes to user's language
+ * This should be called once when the app starts (e.g., in App.tsx)
+ */
+export function setupNotificationTranslator(t: (key: string) => string) {
+    // Listen for notifications received while app is foregrounded
+    const subscription = Notifications.addNotificationReceivedListener(async (notification) => {
+        const { data } = notification.request.content;
+
+        // Check if this is a daily quote notification
+        if (data.type === 'daily_quote' && data.textKey && data.author) {
+            // Cancel the original notification
+            await Notifications.dismissNotificationAsync(notification.request.identifier);
+
+            // Translate the quote text
+            const translatedText = t(data.textKey as string);
+            const author = data.author as string;
+
+            // Show new notification with translated text
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: '\ud83d\udcaa ' + t('notifications.dailyMotivation'),
+                    body: `"${translatedText}"\n\n— ${author}`,
+                    sound: 'default',
+                    priority: Notifications.AndroidNotificationPriority.HIGH,
+                },
+                trigger: null, // Show immediately
+            });
+        }
+    });
+
+    return subscription;
+}
+
+/**
  * Request notification permissions for iOS and Android
+ * Only registers once per day to prevent duplicate notifications
  */
 export async function registerForPushNotificationsAsync(): Promise<string | null> {
     let token = null;
@@ -31,6 +66,16 @@ export async function registerForPushNotificationsAsync(): Promise<string | null
     if (!Device.isDevice) {
         console.log('⚠️ [Notifications] Must use physical device for Push Notifications');
         return null;
+    }
+
+    // Check if already registered today to prevent duplicates
+    const today = new Date().toISOString().split('T')[0];
+    const lastRegistrationDate = await AsyncStorage.getItem('lastNotificationRegistration');
+    const existingToken = await AsyncStorage.getItem('fcmToken');
+
+    if (lastRegistrationDate === today && existingToken) {
+        console.log('ℹ️ [Notifications] Already registered today, skipping');
+        return existingToken;
     }
 
     // Android-specific channel configuration - MUST be done before requesting permissions
@@ -83,21 +128,26 @@ export async function registerForPushNotificationsAsync(): Promise<string | null
         // Store token locally
         await AsyncStorage.setItem('fcmToken', token);
 
-        // Send token to Cloudflare Worker
-        await sendTokenToServer(token);
+        // Get user's current language preference
+        const userLanguage = await AsyncStorage.getItem('userLanguage') || 'tr'; // Default to Turkish
+
+        // Send token and language to Cloudflare Worker
+        await sendTokenToServer(token, userLanguage);
+
+        // Mark as registered today
+        await AsyncStorage.setItem('lastNotificationRegistration', today);
 
     } catch (error) {
         console.error('❌ [Notifications] Failed to get token:', error);
-        return null;
     }
 
     return token;
 }
 
 /**
- * Send FCM token to Cloudflare Worker for storage
+ * Send FCM token and user's language preference to server for push notification registration
  */
-async function sendTokenToServer(token: string): Promise<void> {
+async function sendTokenToServer(token: string, language: string): Promise<void> {
     try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
@@ -107,19 +157,19 @@ async function sendTokenToServer(token: string): Promise<void> {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token }),
+            body: JSON.stringify({ token, language }),
             signal: controller.signal,
         });
 
         clearTimeout(timeoutId);
 
         if (response.ok) {
-            console.log('✅ [Notifications] Token registered with server');
+            console.log('✅ [Notifications] Token and language registered with server');
             // Clear any pending uploads on success
             await AsyncStorage.removeItem('pendingTokenUpload');
         } else {
             console.warn('⚠️ [Notifications] Server returned:', response.status);
-            await AsyncStorage.setItem('pendingTokenUpload', token);
+            await AsyncStorage.setItem('pendingTokenUpload', JSON.stringify({ token, language }));
         }
     } catch (error: any) {
         // Silently fail for network errors - don't spam console
@@ -128,8 +178,8 @@ async function sendTokenToServer(token: string): Promise<void> {
         } else {
             console.log('⚠️ [Notifications] Server unavailable - will retry later');
         }
-        // Store token locally for retry later
-        await AsyncStorage.setItem('pendingTokenUpload', token);
+        // Store token and language locally for retry later
+        await AsyncStorage.setItem('pendingTokenUpload', JSON.stringify({ token, language }));
     }
 }
 
@@ -137,10 +187,19 @@ async function sendTokenToServer(token: string): Promise<void> {
  * Retry pending token uploads
  */
 export async function retryPendingTokenUpload(): Promise<void> {
-    const pendingToken = await AsyncStorage.getItem('pendingTokenUpload');
-    if (pendingToken) {
-        // Silently retry without logging
-        await sendTokenToServer(pendingToken);
+    const pendingData = await AsyncStorage.getItem('pendingTokenUpload');
+    if (pendingData) {
+        try {
+            // Parse the stored data
+            const { token, language } = JSON.parse(pendingData);
+            // Silently retry without logging
+            await sendTokenToServer(token, language);
+        } catch (error) {
+            // If parse fails, might be old format (just token string)
+            // Get language from storage
+            const userLanguage = await AsyncStorage.getItem('userLanguage') || 'tr';
+            await sendTokenToServer(pendingData, userLanguage);
+        }
     }
 }
 
