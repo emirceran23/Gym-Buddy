@@ -136,29 +136,30 @@ function AppContent({ initialRoute }: { initialRoute: string }) {
     const subscription = setupNotificationTranslator(t);
     return () => subscription.remove();
   }, [t]);
-  <NavigationContainer>
-    <Stack.Navigator
-      initialRouteName={initialRoute}
-      screenOptions={{ headerShown: false }}
-    >
-      {/* Onboarding screens */}
-      <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-      <Stack.Screen name="GoalSetup" component={GoalSetupScreen} />
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName={initialRoute}
+        screenOptions={{ headerShown: false }}
+      >
+        {/* Onboarding screens */}
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+        <Stack.Screen name="GoalSetup" component={GoalSetupScreen} />
 
-      {/* Main app with bottom tabs */}
-      <Stack.Screen name="MainTabs" component={MainTabs} />
+        {/* Main app with bottom tabs */}
+        <Stack.Screen name="MainTabs" component={MainTabs} />
 
-      {/* Other screens (opened from Training or Dashboard) */}
-      <Stack.Screen name="AddMeal" component={AddMealScreen} />
-      <Stack.Screen name="MealPlan" component={MealPlanScreen} />
-      <Stack.Screen name="MuscleGroup" component={MuscleGroupScreen} />
-      <Stack.Screen name="ExerciseList" component={ExerciseListScreen} />
-      <Stack.Screen name="TutorialList" component={TutorialListScreen} />
-      <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
-      <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
-      <Stack.Screen name="NotificationTest" component={NotificationTestScreen} />
-      <Stack.Screen name="ActivityHistory" component={ActivityHistoryScreen} />
-    </Stack.Navigator>
-  </NavigationContainer>
+        {/* Other screens (opened from Training or Dashboard) */}
+        <Stack.Screen name="AddMeal" component={AddMealScreen} />
+        <Stack.Screen name="MealPlan" component={MealPlanScreen} />
+        <Stack.Screen name="MuscleGroup" component={MuscleGroupScreen} />
+        <Stack.Screen name="ExerciseList" component={ExerciseListScreen} />
+        <Stack.Screen name="TutorialList" component={TutorialListScreen} />
+        <Stack.Screen name="TutorialDetail" component={TutorialDetailScreen} />
+        <Stack.Screen name="ExerciseEvaluation" component={ExerciseEvaluationScreen} />
+        <Stack.Screen name="NotificationTest" component={NotificationTestScreen} />
+        <Stack.Screen name="ActivityHistory" component={ActivityHistoryScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
