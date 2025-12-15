@@ -556,8 +556,9 @@ function ScrollPickerCard({ title, value, min, max, unit, onChange, onNext, onBa
         <Picker
           selectedValue={value}
           onValueChange={(itemValue) => onChange(itemValue)}
-          style={{ width: 200, height: 180 }}
-          itemStyle={{ fontSize: 24, color: COLORS.text }}
+          style={{ width: 200, height: 180, color: '#0F172A' }}
+          itemStyle={{ fontSize: 24, color: '#0F172A' }}
+          dropdownIconColor="#0F172A"
         >
           {numbers.map((n) => (
             <Picker.Item key={n} label={String(n)} value={n} />
