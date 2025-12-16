@@ -586,7 +586,7 @@ class BicepsCurlVideoAnalyzer:
         
         # --- Load the augmented model and predict ---
         script_dir = Path(__file__).parent
-        model_path = script_dir.parent / 'model_training' / 'biceps_curl_rf_augmented.joblib'
+        model_path = script_dir.parent / 'models' / 'biceps_curl_rf_augmented.joblib'
         
         if not model_path.exists():
             print(f"⚠️ Model not found: {model_path}")
