@@ -219,7 +219,7 @@
     "onboarding": {
         "welcome": "GymBuddy'ye Hoş Geldin 💪",
         "subtitle": "Hedeflerini belirle, ilerlemenizi takip et ve formda kal.",
-        "letsStart": "Başlayalım →"
+        "letsStart": "Başlayalım "
     },
     "settings": {
         "title": "⚙️ Ayarlar",
@@ -319,7 +319,7 @@
         "reps": "Tekrar Sayısı",
         "weight": "Kaldırılan Ağırlık (kg)",
         "restTime": "Setler Arası Dinlenme (saniye)",
-        "continue": "Devam →",
+        "continue": "Devam",
         "selectActivity": "Aktivite Seçin",
         "intensityLevel": "Şiddet Seviyesi",
         "light": "Hafif",

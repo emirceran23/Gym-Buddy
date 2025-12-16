@@ -219,7 +219,7 @@
     "onboarding": {
         "welcome": "Bienvenido a GymBuddy 💪",
         "subtitle": "Establece tus metas, rastrea tu progreso y mantente en forma.",
-        "letsStart": "Empecemos →"
+        "letsStart": "Empecemos"
     },
     "settings": {
         "title": "⚙️ Configuración",
@@ -319,7 +319,7 @@
         "reps": "Repeticiones",
         "weight": "Peso Levantado (kg)",
         "restTime": "Descanso Entre Series (segundos)",
-        "continue": "Continuar →",
+        "continue": "Continuar",
         "selectActivity": "Seleccionar Actividad",
         "intensityLevel": "Nivel de Intensidad",
         "light": "Ligero",
