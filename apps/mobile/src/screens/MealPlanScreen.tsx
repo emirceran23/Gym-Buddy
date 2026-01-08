@@ -87,10 +87,14 @@ export default function MealPlanScreen() {
             });
 
             const data = await response.json();
+            console.log('📥 Response status:', response.status);
+            console.log('📥 Response data:', JSON.stringify(data, null, 2));
+
             if (!response.ok) throw new Error(data.error || t('mealPlan.errorCreating'));
 
-            console.log('✅ Meal plan received');
+            console.log('✅ Meal plan received, diet_plan length:', data.diet_plan?.length);
             setMealPlan(data);
+            console.log('📊 State updated with new meal plan');
 
             // Save to AsyncStorage
             await AsyncStorage.setItem(MEAL_PLAN_STORAGE_KEY, JSON.stringify(data));

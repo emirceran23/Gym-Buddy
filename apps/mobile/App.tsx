@@ -6,7 +6,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-// 📱 Screens
 import OnboardingScreen from "./src/screens/OnboardingScreen";
 import GoalSetupScreen from "./src/screens/GoalSetupScreen";
 import DashboardScreen from "./src/screens/DashboardScreen";
@@ -89,7 +88,6 @@ export default function App() {
     checkUserData();
     // Register for push notifications on app startup
     registerForPushNotificationsAsync().catch((error) => {
-      // Silent fail - notifications are not critical for app functionality
       console.log("ℹ️ [App] Notification registration skipped:", error?.message);
     });
   }, []);

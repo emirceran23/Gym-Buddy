@@ -50,7 +50,7 @@ export default function AddMealScreen({ route, navigation }: any) {
     }
   };
 
-  // 🔍 Fetch data from FoodData Central
+  //Fetch data from FoodData Central
   const searchFood = async (query: string) => {
     if (!query.trim()) {
       setResults([]);
@@ -88,7 +88,6 @@ export default function AddMealScreen({ route, navigation }: any) {
     return () => clearTimeout(timeout);
   }, [search]);
 
-  // 🔹 Add selected item (UPDATED FULL VERSION)
   const handleAddFood = async (food: any) => {
     try {
       const nutrients = food.foodNutrients || [];
@@ -125,7 +124,7 @@ export default function AddMealScreen({ route, navigation }: any) {
 
       await AsyncStorage.setItem("dailyIntake", JSON.stringify(intake));
 
-      // 🔥 Update local state immediately for UI refresh
+      //  Update local state immediately for UI refresh
       setConsumed({
         calorie: intake[today].calorie,
         protein: intake[today].protein,

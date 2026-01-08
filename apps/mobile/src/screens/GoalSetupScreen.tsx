@@ -19,7 +19,6 @@ import { LineChart } from "react-native-chart-kit";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation, useLanguage } from "../contexts/LanguageContext";
 
-// SentryFit Color Palette
 const COLORS = {
   background: "#F0F9FF",
   backgroundMid: "#E0F2FE",
@@ -200,7 +199,6 @@ export default function GoalSetupScreen() {
     [t('goalSetup.male')]: "Male",
   };
 
-  // 🔹 Advanced Nutrition Calculator Function
   function calculateNutritionAdvanced({
     gender,
     age,
@@ -259,7 +257,6 @@ export default function GoalSetupScreen() {
     };
   }
 
-  // 🔹 Finish and Save
   const handleFinish = async () => {
     const internalGoal = goalInternalValues[goal || ''] || goal;
     const internalGender = genderInternalValues[gender || ''] || gender;
@@ -279,7 +276,7 @@ export default function GoalSetupScreen() {
     const nutrition = calculateNutritionAdvanced(userData);
 
     if (!nutrition) {
-      console.error("❌ Failed to calculate nutrition - missing required fields");
+      console.error(" Failed to calculate nutrition - missing required fields");
       return;
     }
 
@@ -288,23 +285,20 @@ export default function GoalSetupScreen() {
         "userData",
         JSON.stringify({ ...userData, ...nutrition })
       );
-      console.log("✅ User data saved:", {
+      console.log(" User data saved:", {
         ...userData,
         ...nutrition,
       });
       navigation.navigate("MainTabs");
     } catch (err) {
-      console.error("❌ Failed to save data:", err);
+      console.error(" Failed to save data:", err);
     }
   };
 
-  // 🔹 Target Duration (weeks)
   const totalWeeks = Math.max(
     1,
     Math.ceil(Math.abs(weight - targetWeight) / weeklyChange)
   );
-
-  // 🔹 Render Step
   const renderStep = () => {
     switch (step) {
       case 1:

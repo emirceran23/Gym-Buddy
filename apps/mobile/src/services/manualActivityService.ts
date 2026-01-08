@@ -21,7 +21,7 @@ export interface CalorieCalculationParams {
     gender: 'male' | 'female';
     fitnessLevel: 'beginner' | 'intermediate' | 'advanced' | 'athlete';
     bmi?: number;
-    heartRate?: number;  // average during activity (optional)
+    heartRate?: number;  // average during activity
     environment?: 'indoor' | 'outdoor_hot' | 'outdoor_cold' | 'high_altitude';
 }
 
@@ -159,10 +159,7 @@ function getEnvironmentAdjustment(environment?: string): number {
     }
 }
 
-/**
- * Calculate EPOC (Excess Post-exercise Oxygen Consumption) bonus
- * Higher intensity activities continue burning calories after exercise
- */
+
 function getEPOCBonus(activity: Activity | undefined, intensity: string): number {
     if (!activity) return 0;
 

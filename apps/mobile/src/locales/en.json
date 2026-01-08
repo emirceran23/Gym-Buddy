@@ -250,7 +250,7 @@
         "features": "✨ Features",
         "featuresText": "• Personalized calorie and macro tracking\n• AI-powered meal plan generation\n• Exercise form analysis with AI\n• Daily water intake tracking\n• Progress monitoring and insights",
         "ourTeam": "👥 Our Team",
-        "teamText": "Developed with passion by a team dedicated to making fitness and nutrition accessible to everyone. We combine cutting-edge AI technology with proven nutritional science to deliver a comprehensive health platform.",
+        "teamText": "Mustafa Emir Ceran - 24118080702\nOsman Gazi Atalay - 23118080703",
         "contactUs": "📧 Contact Us",
         "contactText": "Have questions or feedback? We'd love to hear from you!\n\nEmail: support@gymbuddy.app\nWebsite: www.gymbuddy.app",
         "acknowledgments": "🙏 Acknowledgments",
@@ -470,20 +470,6 @@
         "skating": "Ice skating or inline skating",
         "skiing": "Skiing (alpine or cross-country)",
         "snowboarding": "Snowboarding"
-    },
-    "muscleGroups": {
-        "chest": "Chest",
-        "back": "Back",
-        "shoulders": "Shoulders",
-        "biceps": "Biceps",
-        "triceps": "Triceps",
-        "forearms": "Forearms",
-        "abs": "Abs",
-        "quads": "Quadriceps",
-        "hamstrings": "Hamstrings",
-        "glutes": "Glutes",
-        "calves": "Calves",
-        "adductors": "Adductors"
     },
     "equipment": {
         "all": "All",

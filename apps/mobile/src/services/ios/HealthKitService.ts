@@ -110,7 +110,6 @@ export async function fetchCalories(date: string): Promise<number> {
     });
 
     // Return total (Active + Basal)
-    // Note: Some apps only count active, but total = active + basal is more accurate
     return activeEnergy + basalEnergy;
 }
 

@@ -1,6 +1,3 @@
-// Add Manual Activity Modal Component
-// Multi-step wizard with real-time calorie preview
-// Enhanced with strength training: target muscle → exercise → sets/reps/weight
 
 import React, { useState, useEffect, useMemo } from 'react';
 import {

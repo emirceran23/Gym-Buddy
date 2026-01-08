@@ -13,7 +13,7 @@ export interface ProcessingResult {
     rightIncorrectReps: number;
     formFeedback: string[];
     formScore?: number;          // ML-based form score (0-100)
-    formLabel?: string;          // "Good Form ✅" or "Bad Form ❌"
+    formLabel?: string;
     timeline: any[];
     duration: number;
     annotatedVideoUrl?: string;  // URL to annotated video with pose overlay
@@ -69,7 +69,6 @@ export class VideoProcessor {
                 const response = await fetch(API_ENDPOINTS.ANALYZE_VIDEO, {
                     method: 'POST',
                     body: formData,
-                    // Don't set Content-Type manually - let fetch set it with boundary for multipart/form-data
                 });
 
                 console.log('📥 Response status:', response.status);
@@ -180,7 +179,6 @@ export class VideoProcessor {
 
                 const result: ProcessingResult = await response.json();
 
-                // If we got a jobId, connect to SSE for real-time progress
                 if (result.jobId) {
                     console.log('🔄 Job ID received:', result.jobId);
                     console.log('📡 Connecting to SSE for real-time progress...');
@@ -226,7 +224,6 @@ export class VideoProcessor {
                         if (eventSource) {
                             eventSource.close();
                         }
-                        // Don't reject, just resolve with result (video is already processed)
                         resolve(result);
                     });
 

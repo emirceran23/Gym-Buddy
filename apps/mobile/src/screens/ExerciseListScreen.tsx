@@ -161,7 +161,7 @@ export default function ExerciseListScreen() {
                 <View style={styles.gridContainer}>
                     {exercises.map((exercise) => {
                         const imageSource = getExerciseImage(exercise.id);
-                        const isAvailable = exercise.tutorialId === 'biceps_curl'; // Only biceps_curl has a full tutorial
+                        const isAvailable = exercise.tutorialId === 'biceps_curl';
 
                         return (
                             <TouchableOpacity

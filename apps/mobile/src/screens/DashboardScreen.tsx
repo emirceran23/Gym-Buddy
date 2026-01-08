@@ -49,15 +49,14 @@ export default function DashboardScreen() {
   // Daily Motivational Quote
   const [dailyQuote, setDailyQuote] = useState<Quote>({ textKey: "", author: "" });
 
-  // Calories Burned Tracking (NEW!)
+  // Calories Burned Tracking
   const [caloriesSummary, setCaloriesSummary] = useState<DailyCalorieSummary | null>(null);
   const [isCaloriesLoading, setIsCaloriesLoading] = useState(false);
   const [showManualActivityModal, setShowManualActivityModal] = useState(false);
 
   // ----------------------------
-  // 🔹 DATA LOADING (MAIN MECHANISM)
+  //  DATA LOADING (MAIN MECHANISM)
   // ----------------------------
-  // Use useFocusEffect for reliable data refresh when screen comes into focus
   useFocusEffect(
     useCallback(() => {
       const loadData = async () => {
@@ -66,12 +65,11 @@ export default function DashboardScreen() {
         const serverDate = await getServerDateKey();
         setDailyQuote(getDailyQuote(serverDate));
 
-        // Register for push notifications (non-blocking)
+        // Register for push notifications 
         try {
           await registerForPushNotificationsAsync();
           await retryPendingTokenUpload();
         } catch (error) {
-          // Silently fail - notifications are not critical
           console.log('ℹ️ [Dashboard] Notifications unavailable');
         }
 
@@ -130,9 +128,7 @@ export default function DashboardScreen() {
     }
   };
 
-  // ----------------------------
-  // 🔥 MAIN FIX: Reading dailyMeals + dailyIntake
-  // ----------------------------
+
   const loadIntakeAndMeals = async () => {
     const today = getDateKey();
     console.log("📊 [Dashboard] Loading intake for date:", today);
@@ -199,7 +195,7 @@ export default function DashboardScreen() {
   };
 
   // ----------------------------
-  // 🔹 Calculations
+  //  Calculations
   // ----------------------------
   const calculateStats = (d: any) => {
     const { gender, age, height, weight, weeklyChange, goal } = d;
@@ -238,7 +234,7 @@ export default function DashboardScreen() {
   };
 
   // ----------------------------
-  // 🔥 CALORIES BURNED TRACKING (NEW!)
+  // CALORIES BURNED TRACKING (NEW!)
   // ----------------------------
   const loadCaloriesSummary = async () => {
     try {
@@ -268,9 +264,7 @@ export default function DashboardScreen() {
     await handleCaloriesSync();
   };
 
-  // ----------------------------
-  // 🔥 UPDATED: Delete Meal
-  // ----------------------------
+
   const handleDeleteMeal = async (mealType: string, i: number) => {
     const today = getDateKey();
 

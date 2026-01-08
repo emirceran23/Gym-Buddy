@@ -94,9 +94,6 @@ const muscleGroups: MuscleGroup[] = [
 // Local images mapping for muscle groups
 const muscleGroupImages: Record<string, any> = {
     biceps: require('../../assets/images/biceps.webp'),
-    // Add more muscle group images here as they become available
-    // chest: require('../../assets/tutorials/chest.png'),
-    // calves: require('../../assets/tutorials/calves.png'),
 };
 
 export default function MuscleGroupScreen() {

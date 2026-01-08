@@ -29,8 +29,8 @@ interface ProcessingResult {
     leftIncorrectReps: number;
     rightIncorrectReps: number;
     formFeedback: string[];
-    formScore?: number;          // ML-based form score (0-100)
-    formLabel?: string;          // "Good Form ✅" or "Bad Form ❌"
+    formScore?: number;
+    formLabel?: string;
     timeline: any[];
     duration: number;
     annotatedVideoUrl?: string;

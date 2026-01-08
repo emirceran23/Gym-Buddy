@@ -1,5 +1,3 @@
-// Activity Database with MET (Metabolic Equivalent of Task) values
-// Based on Compendium of Physical Activities 2024
 
 export interface Activity {
     id: string;
@@ -12,7 +10,7 @@ export interface Activity {
         vigorous?: number;
     };
     descriptionKey: string; // i18n key for description
-    epocFactor: number; // EPOC bonus multiplier (1.0 = no bonus)
+    epocFactor: number;
 }
 
 export const ACTIVITY_DATABASE: Activity[] = [

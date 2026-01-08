@@ -62,13 +62,11 @@ export async function getServerDateKey(): Promise<string> {
             return serverDate;
         }
 
-        // If fetch failed but we have cached data, use it
         if (cachedDate) {
             console.log(`⚠️ [ServerTime] API unavailable, using cached date: ${cachedDate}`);
             return cachedDate;
         }
 
-        // Last resort: use local date with warning
         const localDate = new Date();
         const fallbackDate = `${localDate.getFullYear()}-${String(localDate.getMonth() + 1).padStart(2, '0')}-${String(localDate.getDate()).padStart(2, '0')}`;
         console.warn(`⚠️ [ServerTime] Using local device date as fallback: ${fallbackDate}`);

@@ -24,8 +24,7 @@ const i18n = new I18n({
 const LANGUAGE_KEY = 'user_language';
 
 // Set default locale based on device settings
-// Priority: 1. Saved preference, 2. Device locale, 3. Turkish (default)
-i18n.defaultLocale = 'tr';
+i18n.defaultLocale = 'en';
 i18n.enableFallback = true;
 
 // Get device's preferred language without expo-localization
@@ -50,7 +49,7 @@ const getDeviceLanguage = (): SupportedLanguage => {
         console.log('Could not detect device language:', error);
     }
 
-    return 'tr'; // Default to Turkish
+    return 'en'; // Default to English
 };
 
 // Initialize language from storage or device
@@ -66,7 +65,7 @@ export const initializeLanguage = async (): Promise<string> => {
     }
 
     // Fall back to device language
-    const deviceLanguage = getDeviceLanguage();
+    const deviceLanguage = 'en'; //getDeviceLanguage();
     i18n.locale = deviceLanguage;
     return deviceLanguage;
 };

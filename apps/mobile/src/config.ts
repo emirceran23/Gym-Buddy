@@ -1,8 +1,8 @@
-// Temporarily using production URL for testing
-// Change back to __DEV__ check after testing
-export const API_URL = 'https://gym-buddy-api.onrender.com';  // Render production server
-// ? 'http://10.2.15.2:5000'  // Local development server
-// : 'https://gym-buddy-api.onrender.com';  // Render production server
+// Production server on Render
+//export const API_URL = 'https://gym-buddy-api.onrender.com';
+// Local development server 
+export const API_URL = 'http://10.141.233.239:5000';
+// export const API_URL = 'http://192.168.x.x:5000';     
 
 console.log('🔧 DEV MODE:', __DEV__);
 console.log('🌐 API_URL:', API_URL);

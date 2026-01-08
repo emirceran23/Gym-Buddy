@@ -14,17 +14,16 @@ import { useTranslation } from "../contexts/LanguageContext";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-// Color palette for SentryFit Light Theme
 const COLORS = {
-  background: "#F0F9FF",    // Light cyan
-  backgroundMid: "#E0F2FE", // Soft blue
-  backgroundAccent: "#BAE6FD", // Lighter accent
-  primary: "#0891B2",       // Deep cyan (Sentry feel)
-  primaryLight: "#22D3EE",  // Light cyan
-  accent: "#F97316",        // Coral orange
-  accentGradient: "#FB923C", // Light orange
-  text: "#0F172A",          // Dark slate
-  textSecondary: "#475569", // Slate gray
+  background: "#F0F9FF",
+  backgroundMid: "#E0F2FE",
+  backgroundAccent: "#BAE6FD",
+  primary: "#0891B2",
+  primaryLight: "#22D3EE",
+  accent: "#F97316",
+  accentGradient: "#FB923C",
+  text: "#0F172A",
+  textSecondary: "#475569",
   white: "#FFFFFF",
 };
 

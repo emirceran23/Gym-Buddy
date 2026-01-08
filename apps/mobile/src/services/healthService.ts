@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { HealthPermissions, CalorieData, DailyCalorieSummary } from '../types/health';
 import { getTotalManualCalories, getManualActivities } from './manualActivityService';
 
-// Import platform-specific services (will be created next)
 let HealthKitService: any;
 let HealthConnectService: any;
 

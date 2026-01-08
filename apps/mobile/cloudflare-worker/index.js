@@ -1,21 +1,4 @@
-/**
- * Cloudflare Worker for Daily Motivational Notifications
- * 
- * This worker sends daily push notifications at 9:00 AM UTC
- * to all registered users with their daily motivational quote.
- * 
- * Setup Instructions:
- * 1. Create a Cloudflare Workers account (free)
- * 2. Create a new Worker
- * 3. Copy this code to your worker
- * 4. Create a KV namespace called "TOKENS"
- * 5. Bind the KV namespace to your worker
- * 6. Add a Cron Trigger:  0 6 * * * (9:00 AM Turkey time = 6:00 AM UTC)
- * 7. Deploy!
- */
 
-// Quote index mapping (textKey to author)
-// Client will translate textKey based on user's language
 const quoteAuthors = [
     // Motivation & Hard Work (1-50)
     { textKey: "quotes.q1", author: "Pelé" },
@@ -594,7 +577,6 @@ export default {
                             metadata = JSON.parse(storedValue);
                         }
                     } catch (e) {
-                        // Old format (just timestamp), migrate to new format
                         metadata = { registeredAt: parseInt(storedValue) || Date.now(), lastNotified: null };
                     }
 

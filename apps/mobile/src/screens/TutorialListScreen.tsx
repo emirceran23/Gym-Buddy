@@ -29,10 +29,7 @@ interface TutorialSummary {
 
 const localImages: Record<string, any> = {
     biceps_curl: require('../../assets/tutorials/biceps_curl.png'),
-    // squat: require('../../assets/tutorials/squat.png'),
-    // deadlift: require('../../assets/tutorials/deadlift.png'),
-    // shoulder_press: require('../../assets/tutorials/shoulder_press.png'),
-    // bench_press: require('../../assets/tutorials/bench_press.png'),
+
 };
 
 export default function TutorialListScreen() {

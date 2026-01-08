@@ -71,7 +71,6 @@ export const useLanguage = (): LanguageContextType => {
     return context;
 };
 
-// Simple hook for translations only (if you don't need full context)
 export const useTranslation = () => {
     const { t, language } = useLanguage();
     return { t, language };
