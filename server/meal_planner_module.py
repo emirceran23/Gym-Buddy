@@ -164,7 +164,8 @@ def prepare_user_profile(
 def build_prompt(
     user_profile: Dict[str, Any],
     exercise_reco: str,
-    diet_reco: str
+    diet_reco: str,
+    dietary_restrictions: str | None = None
 ) -> str:
     """
     Build the prompt for the LLM, including schema and dataset recommendations.
@@ -227,6 +228,23 @@ Dataset-based recommendations:
 - General Exercise Schedule: {exercise_reco}
 - General Meal Plan: {diet_reco}
 """
+
+    # Add dietary restrictions if provided
+    if dietary_restrictions and dietary_restrictions.strip():
+        dietary_text = f"""
+DIETARY RESTRICTIONS/PREFERENCES:
+The user has specified the following dietary restrictions or preferences:
+"{dietary_restrictions.strip()}"
+
+IMPORTANT:
+- Respect these restrictions ONLY if they are logical, safe, and medically sound.
+- If any restriction seems medically unsafe or illogical (e.g., "no vegetables", "no protein"), 
+  you may ignore it and include a note in the "notes" field explaining why.
+- Common valid restrictions include: allergies (peanuts, dairy, gluten), dietary choices 
+  (vegetarian, vegan, halal, kosher), intolerances (lactose, gluten), or specific food dislikes.
+- Ensure the meal plan is still nutritionally balanced even with restrictions applied.
+"""
+        user_text += dietary_text
 
     return schema_description + "\n" + user_text
 
@@ -332,6 +350,7 @@ def generate_plan_for_user(
     target_weight_kg: float,
     weekly_goal_kg: float,
     goal_text: str,
+    dietary_restrictions: str | None = None,
     hf_api_key: str | None = None,
     model_id: str = HF_MODEL
 ) -> Dict[str, Any]:
@@ -364,8 +383,8 @@ def generate_plan_for_user(
         bmi_cat=user_profile["bmi_category"]
     )
 
-    # 3) prompt
-    prompt = build_prompt(user_profile, exercise_reco, diet_reco)
+    # 3) prompt (with optional dietary restrictions)
+    prompt = build_prompt(user_profile, exercise_reco, diet_reco, dietary_restrictions)
 
     # 4) LLM call + parse
     raw_output = call_llm(

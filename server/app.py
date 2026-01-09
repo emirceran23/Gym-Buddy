@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.dirname(__file__))  # Add server directory for meal_p
 
 from biceps_curl_video_analyzer import BicepsCurlVideoAnalyzer
 import meal_planner_module as mpm
+import workout_planner_module as wpm
 
 app = Flask(__name__)
 
@@ -639,6 +640,7 @@ def generate_meal_plan():
         - targetWeight: float (kg)
         - weeklyGoal: float (kg per week)
         - goal: string (Turkish: "Kilo almak"/"Kilo vermek", or English goal text)
+        - dietaryRestrictions: string (optional - allergies, preferences, etc.)
         
     Returns:
         JSON with diet_plan (7 days) and notes
@@ -657,6 +659,16 @@ def generate_meal_plan():
             return jsonify({
                 'error': 'Missing required fields',
                 'missingFields': missing_fields
+            }), 400
+        
+        # Extract optional dietary restrictions
+        dietary_restrictions = data.get('dietaryRestrictions', '').strip()
+        
+        # Validate dietary restrictions length (max 1000 characters)
+        if dietary_restrictions and len(dietary_restrictions) > 1000:
+            return jsonify({
+                'error': 'Dietary restrictions too long',
+                'details': 'Maximum 1000 characters allowed'
             }), 400
         
         # Map Turkish terms to English
@@ -687,6 +699,8 @@ def generate_meal_plan():
         print(f"   Age: {data['age']}, Gender: {gender}")
         print(f"   Height: {data['height']}cm, Weight: {data['weight']}kg")
         print(f"   Target: {data['targetWeight']}kg, Goal: {goal}")
+        if dietary_restrictions:
+            print(f"   Dietary Restrictions: {dietary_restrictions}")
         
         # Load dataset
         df = mpm.load_dataset()
@@ -701,7 +715,9 @@ def generate_meal_plan():
             target_weight_kg=float(data['targetWeight']),
             weekly_goal_kg=float(data['weeklyGoal']),
             goal_text=goal,
-            hf_api_key=os.getenv('HF_API_KEY')        )
+            dietary_restrictions=dietary_restrictions if dietary_restrictions else None,
+            hf_api_key=os.getenv('HF_API_KEY')
+        )
         
         print("✅ Meal plan generated successfully")
         
@@ -724,6 +740,110 @@ def generate_meal_plan():
         }), 500
 
 
+@app.route('/api/generate-workout-plan', methods=['POST'])
+def generate_workout_plan():
+    """
+    Generate a personalized 7-day workout plan using LLM
+    
+    Expects JSON body with:
+        - age: int
+        - gender: string (Turkish: "Erkek" or "Kadın", or English: "Male" or "Female")
+        - height: float (cm)
+        - weight: float (kg)
+        - targetWeight: float (kg)
+        - weeklyGoal: float (kg per week)
+        - goal: string (Turkish: "Kilo almak"/"Kilo vermek", or English goal text)
+        - workoutPreferences: string (optional, e.g., "No weekends, bodyweight only")
+        
+    Returns:
+        JSON with workout_plan (7 days) and notes
+    """
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No JSON data provided'}), 400
+        
+        # Extract and validate required fields
+        required_fields = ['age', 'gender', 'height', 'weight', 'targetWeight', 'weeklyGoal', 'goal']
+        missing_fields = [field for field in required_fields if field not in data]
+        
+        if missing_fields:
+            return jsonify({
+                'error': 'Missing required fields',
+                'missingFields': missing_fields
+            }), 400
+        
+        # Map Turkish gender to English
+        gender = data['gender']
+        if gender == "Erkek":
+            gender = "Male"
+        elif gender == "Kadın":
+            gender = "Female"
+        
+        # Map Turkish goal to English
+        goal = data['goal']
+        if goal == "Kilo almak":
+            goal = "Gain weight / Build muscle"
+        elif goal == "Kilo vermek":
+            goal = "Lose weight / Reduce body fat"
+        
+        # Extract optional workout preferences
+        workout_preferences = data.get('workoutPreferences', '').strip()
+        
+        # Validate workout preferences length
+        if workout_preferences and len(workout_preferences) > 1000:
+            return jsonify({
+                'error': 'Workout preferences too long',
+                'details': 'Maximum 1000 characters allowed'
+            }), 400
+        
+        print(f"📋 Generating workout plan for user:")
+        print(f"   Age: {data['age']}, Gender: {gender}")
+        print(f"   Height: {data['height']} cm, Weight: {data['weight']} kg")
+        print(f"   Goal: {goal}")
+        if workout_preferences:
+            print(f"   Preferences: {workout_preferences}")
+        
+        # Load exercise database
+        exercises_df = wpm.load_exercises()
+        print(f"📚 Loaded {len(exercises_df)} exercises from database")
+        
+        # Generate workout plan using the LLM
+        plan = wpm.generate_workout_for_user(
+            df=exercises_df,
+            age=int(data['age']),
+            gender=gender,
+            height_cm=float(data['height']),
+            weight_kg=float(data['weight']),
+            target_weight_kg=float(data['targetWeight']),
+            weekly_goal_kg=float(data['weeklyGoal']),
+            goal_text=goal,
+            hf_api_key=os.getenv('HF_API_KEY'),
+            workout_preferences=workout_preferences if workout_preferences else None
+        )
+        
+        print("✅ Workout plan generated successfully")
+        
+        return jsonify(plan), 200
+        
+    except ValueError as e:
+        print(f"❌ Value error: {str(e)}")
+        return jsonify({
+            'error': 'Invalid input data',
+            'details': str(e)
+        }), 400
+        
+    except Exception as e:
+        print(f"❌ Error generating workout plan: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            'error': 'Failed to generate workout plan',
+            'details': str(e)
+        }), 500
+
+
 if __name__ == '__main__':
     # Get port from environment or default to 5000 for local dev
     port = int(os.getenv('PORT', 5000))
@@ -742,6 +862,7 @@ if __name__ == '__main__':
     print("   GET  /api/health")
     print("   POST /api/analyze-video")
     print("   POST /api/generate-meal-plan")
+    print("   POST /api/generate-workout-plan")
     print("\n")
     
     # Run server (0.0.0.0 = listen on all network interfaces)

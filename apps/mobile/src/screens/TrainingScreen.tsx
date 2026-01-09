@@ -65,6 +65,16 @@ export default function TrainingScreen() {
                         onPress={() => navigation.navigate('MealPlan')}
                     />
 
+                    {/* AI Workout Planner */}
+                    <FeatureCard
+                        title={t('training.workoutPlanner')}
+                        description={t('training.workoutPlannerDesc')}
+                        icon="barbell-outline"
+                        color="#EF4444"
+                        bgColor="#FEE2E2"
+                        onPress={() => navigation.navigate('WorkoutPlan')}
+                    />
+
                     {/* Exercise Tutorials */}
                     <FeatureCard
                         title={t('training.exerciseTutorials')}

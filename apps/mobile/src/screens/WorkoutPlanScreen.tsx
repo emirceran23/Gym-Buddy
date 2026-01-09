@@ -6,31 +6,32 @@ import { useNavigation } from '@react-navigation/native';
 import { API_ENDPOINTS } from '../config';
 import { useTranslation } from '../contexts/LanguageContext';
 
-interface Meal {
+interface Exercise {
     name: string;
-    description: string;
-    kcal: number;
-    protein_g: number;
-    notes: string;
+    sets: number;
+    reps: string;
+    equipment: string;
+    bodyPart: string;
 }
 
-interface DayPlan {
+interface DayWorkout {
     day: string;
-    meals: Meal[];
+    focus: string;
+    exercises: Exercise[];
 }
 
-interface MealPlanItem {
+interface WorkoutPlanItem {
     id: string;
     name: string;
     createdAt: string;
     preferences: string;
-    diet_plan: DayPlan[];
+    workout_plan: DayWorkout[];
     notes: string;
 }
 
-const MEAL_PLANS_STORAGE_KEY = 'mealPlans';
+const WORKOUT_PLANS_STORAGE_KEY = 'workoutPlans';
 
-export default function MealPlanScreen() {
+export default function WorkoutPlanScreen() {
     const navigation = useNavigation();
     const { t } = useTranslation();
 
@@ -38,12 +39,12 @@ export default function MealPlanScreen() {
     const [activeTab, setActiveTab] = useState<'myPlans' | 'createNew'>('myPlans');
 
     // Plans state
-    const [savedPlans, setSavedPlans] = useState<MealPlanItem[]>([]);
-    const [selectedPlan, setSelectedPlan] = useState<MealPlanItem | null>(null);
+    const [savedPlans, setSavedPlans] = useState<WorkoutPlanItem[]>([]);
+    const [selectedPlan, setSelectedPlan] = useState<WorkoutPlanItem | null>(null);
 
     // Create new plan state
     const [loading, setLoading] = useState(false);
-    const [dietaryRestrictions, setDietaryRestrictions] = useState('');
+    const [workoutPreferences, setWorkoutPreferences] = useState('');
     const [showPreferencesInput, setShowPreferencesInput] = useState(false);
     const [expandedDay, setExpandedDay] = useState<string | null>(null);
 
@@ -64,20 +65,20 @@ export default function MealPlanScreen() {
 
     const migrateOldPlan = async () => {
         try {
-            const oldPlan = await AsyncStorage.getItem('mealPlan');
+            const oldPlan = await AsyncStorage.getItem('workoutPlan');
             if (oldPlan) {
                 const parsed = JSON.parse(oldPlan);
-                const migrated: MealPlanItem = {
+                const migrated: WorkoutPlanItem = {
                     id: Date.now().toString(),
-                    name: 'My Meal Plan',
+                    name: 'My Workout Plan',
                     createdAt: new Date().toISOString(),
-                    preferences: parsed.dietaryRestrictions || '',
-                    diet_plan: parsed.diet_plan,
+                    preferences: parsed.workoutPreferences || '',
+                    workout_plan: parsed.workout_plan,
                     notes: parsed.notes
                 };
                 const existingPlans = await loadPlansFromStorage();
-                await AsyncStorage.setItem(MEAL_PLANS_STORAGE_KEY, JSON.stringify([...existingPlans, migrated]));
-                await AsyncStorage.removeItem('mealPlan');
+                await AsyncStorage.setItem(WORKOUT_PLANS_STORAGE_KEY, JSON.stringify([...existingPlans, migrated]));
+                await AsyncStorage.removeItem('workoutPlan');
                 loadPlans();
             }
         } catch (error) {
@@ -85,9 +86,9 @@ export default function MealPlanScreen() {
         }
     };
 
-    const loadPlansFromStorage = async (): Promise<MealPlanItem[]> => {
+    const loadPlansFromStorage = async (): Promise<WorkoutPlanItem[]> => {
         try {
-            const plansJson = await AsyncStorage.getItem(MEAL_PLANS_STORAGE_KEY);
+            const plansJson = await AsyncStorage.getItem(WORKOUT_PLANS_STORAGE_KEY);
             return plansJson ? JSON.parse(plansJson) : [];
         } catch (error) {
             console.error('Error loading plans:', error);
@@ -106,17 +107,17 @@ export default function MealPlanScreen() {
     const savePlan = async () => {
         if (!pendingPlan) return;
 
-        const newPlan: MealPlanItem = {
+        const newPlan: WorkoutPlanItem = {
             id: Date.now().toString(),
-            name: planName.trim() || `Meal Plan - ${new Date().toLocaleDateString()}`,
+            name: planName.trim() || `Workout Plan - ${new Date().toLocaleDateString()}`,
             createdAt: new Date().toISOString(),
-            preferences: dietaryRestrictions.trim(),
-            diet_plan: pendingPlan.diet_plan,
+            preferences: workoutPreferences.trim(),
+            workout_plan: pendingPlan.workout_plan,
             notes: pendingPlan.notes
         };
 
         const updatedPlans = [...savedPlans, newPlan];
-        await AsyncStorage.setItem(MEAL_PLANS_STORAGE_KEY, JSON.stringify(updatedPlans));
+        await AsyncStorage.setItem(WORKOUT_PLANS_STORAGE_KEY, JSON.stringify(updatedPlans));
         setSavedPlans(updatedPlans);
         setSelectedPlan(newPlan);
 
@@ -129,16 +130,16 @@ export default function MealPlanScreen() {
 
     const deletePlan = async (planId: string) => {
         Alert.alert(
-            t('mealPlan.deletePlan'),
-            t('mealPlan.deleteConfirm'),
+            t('workoutPlan.deletePlan'),
+            t('workoutPlan.deleteConfirm'),
             [
-                { text: t('mealPlan.cancel'), style: 'cancel' },
+                { text: t('workoutPlan.cancel'), style: 'cancel' },
                 {
-                    text: t('mealPlan.delete'),
+                    text: t('workoutPlan.delete'),
                     style: 'destructive',
                     onPress: async () => {
                         const updatedPlans = savedPlans.filter(p => p.id !== planId);
-                        await AsyncStorage.setItem(MEAL_PLANS_STORAGE_KEY, JSON.stringify(updatedPlans));
+                        await AsyncStorage.setItem(WORKOUT_PLANS_STORAGE_KEY, JSON.stringify(updatedPlans));
                         setSavedPlans(updatedPlans);
                         if (selectedPlan?.id === planId) {
                             setSelectedPlan(updatedPlans[0] || null);
@@ -164,7 +165,7 @@ export default function MealPlanScreen() {
         const updatedPlans = savedPlans.map(p =>
             p.id === renamingPlanId ? { ...p, name: newPlanName.trim() } : p
         );
-        await AsyncStorage.setItem(MEAL_PLANS_STORAGE_KEY, JSON.stringify(updatedPlans));
+        await AsyncStorage.setItem(WORKOUT_PLANS_STORAGE_KEY, JSON.stringify(updatedPlans));
         setSavedPlans(updatedPlans);
         if (selectedPlan?.id === renamingPlanId) {
             setSelectedPlan({ ...selectedPlan, name: newPlanName.trim() });
@@ -175,24 +176,24 @@ export default function MealPlanScreen() {
         setNewPlanName('');
     };
 
-    const generateMealPlan = async () => {
+    const generateWorkoutPlan = async () => {
         try {
             setLoading(true);
 
             const userDataStr = await AsyncStorage.getItem('userData');
             if (!userDataStr) {
-                Alert.alert(t('common.error'), t('mealPlan.userDataNotFound'));
+                Alert.alert(t('common.error'), 'User data not found');
                 navigation.navigate('GoalSetup' as never);
                 return;
             }
 
             const userData = JSON.parse(userDataStr);
-            console.log('📤 Sending meal plan request');
-            if (dietaryRestrictions.trim()) {
-                console.log('🥗 Dietary restrictions:', dietaryRestrictions);
+            console.log('📤 Sending workout plan request');
+            if (workoutPreferences.trim()) {
+                console.log('🏋️ Workout preferences:', workoutPreferences);
             }
 
-            const response = await fetch(API_ENDPOINTS.GENERATE_MEAL_PLAN, {
+            const response = await fetch(API_ENDPOINTS.GENERATE_WORKOUT_PLAN, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -203,31 +204,39 @@ export default function MealPlanScreen() {
                     targetWeight: userData.targetWeight,
                     weeklyGoal: userData.weeklyChange,
                     goal: userData.goal,
-                    dietaryRestrictions: dietaryRestrictions.trim() || undefined,
+                    workoutPreferences: workoutPreferences.trim() || undefined,
                 }),
             });
 
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to generate meal plan');
+                throw new Error(data.error || 'Failed to generate workout plan');
             }
 
-            console.log('✅ Meal plan received');
+            console.log('✅ Workout plan received');
 
             // Show naming modal
             setPendingPlan(data);
             setShowNameModal(true);
 
         } catch (err: any) {
-            console.error('❌ Error generating meal plan:', err);
-            Alert.alert(t('common.error'), err.message || t('mealPlan.errorCreating'));
+            console.error('❌ Error generating workout plan:', err);
+            Alert.alert(t('common.error'), err.message || t('workoutPlan.errorCreating'));
         } finally {
             setLoading(false);
         }
     };
 
     const toggleDay = (day: string) => setExpandedDay(expandedDay === day ? null : day);
+
+    const getWorkoutDaysCount = (plan: WorkoutPlanItem) => {
+        return plan.workout_plan.filter(day =>
+            day.focus.toLowerCase() !== 'rest day' &&
+            day.focus.toLowerCase() !== 'rest' &&
+            day.exercises && day.exercises.length > 0
+        ).length;
+    };
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString();
@@ -238,9 +247,9 @@ export default function MealPlanScreen() {
         if (savedPlans.length === 0) {
             return (
                 <View style={styles.emptyState}>
-                    <Ionicons name="restaurant-outline" size={64} color="#10B981" />
-                    <Text style={styles.emptyTitle}>{t('mealPlan.noPlansYet')}</Text>
-                    <Text style={styles.emptySubtitle}>{t('mealPlan.createFirstPlan')}</Text>
+                    <Ionicons name="barbell-outline" size={64} color="#EF4444" />
+                    <Text style={styles.emptyTitle}>{t('workoutPlan.noPlansYet')}</Text>
+                    <Text style={styles.emptySubtitle}>{t('workoutPlan.createFirstPlan')}</Text>
                 </View>
             );
         }
@@ -267,20 +276,69 @@ export default function MealPlanScreen() {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <Text style={styles.planDate}>{t('mealPlan.createdOn', { date: formatDate(plan.createdAt) })}</Text>
+                        <Text style={styles.planDate}>{t('workoutPlan.createdOn', { date: formatDate(plan.createdAt) })}</Text>
+                        <Text style={styles.planPreview}>
+                            {getWorkoutDaysCount(plan)} {t('workoutPlan.workoutDaysCount_other', { count: getWorkoutDaysCount(plan) })}
+                        </Text>
                     </TouchableOpacity>
                 ))}
 
                 {selectedPlan && (
                     <View style={styles.selectedPlanDetails}>
-                        <Text style={styles.detailsTitle}>🍽️ {selectedPlan.name}</Text>
+                        <Text style={styles.detailsTitle}>📋 {selectedPlan.name}</Text>
 
                         {selectedPlan.preferences && (
                             <View style={styles.preferencesDisplay}>
-                                <Text style={styles.preferencesLabel}>{t('mealPlan.currentPreferences')}</Text>
+                                <Text style={styles.preferencesLabel}>{t('workoutPlan.currentPreferences')}</Text>
                                 <Text style={styles.preferencesText}>{selectedPlan.preferences}</Text>
                             </View>
                         )}
+
+                        {selectedPlan.workout_plan.map((dayWorkout, index) => (
+                            <View key={index} style={styles.dayCard}>
+                                <TouchableOpacity
+                                    style={styles.dayHeader}
+                                    onPress={() => toggleDay(dayWorkout.day)}
+                                    activeOpacity={0.7}
+                                >
+                                    <View style={styles.dayHeaderLeft}>
+                                        <Text style={styles.dayName}>{dayWorkout.day}</Text>
+                                        <Text style={styles.dayFocus}>💪 {dayWorkout.focus}</Text>
+                                    </View>
+                                    <Ionicons
+                                        name={expandedDay === dayWorkout.day ? 'chevron-up' : 'chevron-down'}
+                                        size={24}
+                                        color="#666"
+                                    />
+                                </TouchableOpacity>
+
+                                {expandedDay === dayWorkout.day && dayWorkout.exercises && dayWorkout.exercises.length > 0 && (
+                                    <View style={styles.exercisesContainer}>
+                                        {dayWorkout.exercises.map((exercise, exIndex) => (
+                                            <View key={exIndex} style={styles.exerciseItem}>
+                                                <View style={styles.exerciseHeader}>
+                                                    <Text style={styles.exerciseName}>{exercise.name}</Text>
+                                                    <Text style={styles.exerciseSetsReps}>
+                                                        {exercise.sets} {t('workoutPlan.sets')} × {exercise.reps} {t('workoutPlan.reps')}
+                                                    </Text>
+                                                </View>
+                                                <View style={styles.exerciseDetails}>
+                                                    <Text style={styles.exerciseEquipment}>🏋️ {exercise.equipment}</Text>
+                                                    <Text style={styles.exerciseBodyPart}>🎯 {exercise.bodyPart}</Text>
+                                                </View>
+                                            </View>
+                                        ))}
+                                    </View>
+                                )}
+
+                                {expandedDay === dayWorkout.day && (!dayWorkout.exercises || dayWorkout.exercises.length === 0) && (
+                                    <View style={styles.restDayContainer}>
+                                        <Ionicons name="bed-outline" size={32} color="#999" />
+                                        <Text style={styles.restDayText}>Rest Day</Text>
+                                    </View>
+                                )}
+                            </View>
+                        ))}
 
                         {selectedPlan.notes && (
                             <View style={styles.notesCard}>
@@ -291,50 +349,6 @@ export default function MealPlanScreen() {
                                 <Text style={styles.notesText}>{selectedPlan.notes}</Text>
                             </View>
                         )}
-
-                        {selectedPlan.diet_plan.map((dayPlan, index) => (
-                            <View key={index} style={styles.dayCard}>
-                                <TouchableOpacity
-                                    style={styles.dayHeader}
-                                    onPress={() => toggleDay(dayPlan.day)}
-                                    activeOpacity={0.7}
-                                >
-                                    <Text style={styles.dayName}>{dayPlan.day}</Text>
-                                    <Ionicons
-                                        name={expandedDay === dayPlan.day ? 'chevron-up' : 'chevron-down'}
-                                        size={24}
-                                        color="#666"
-                                    />
-                                </TouchableOpacity>
-
-                                {expandedDay === dayPlan.day && (
-                                    <View style={styles.mealsContainer}>
-                                        {dayPlan.meals.map((meal, mIndex) => (
-                                            <View key={mIndex} style={styles.mealItem}>
-                                                <View style={styles.mealHeader}>
-                                                    <View style={styles.mealTitleRow}>
-                                                        <Ionicons
-                                                            name={meal.name.toLowerCase().includes('snack') ? 'cafe-outline' : 'restaurant-outline'}
-                                                            size={18}
-                                                            color="#10B981"
-                                                            style={{ marginRight: 8 }}
-                                                        />
-                                                        <Text style={styles.mealName}>{meal.name}</Text>
-                                                    </View>
-                                                    <Text style={styles.mealCalories}>
-                                                        {meal.kcal} kcal • {meal.protein_g}g protein
-                                                    </Text>
-                                                </View>
-                                                <Text style={styles.mealDescription}>{meal.description}</Text>
-                                                {meal.notes && (
-                                                    <Text style={styles.mealNotes}>💡 {meal.notes}</Text>
-                                                )}
-                                            </View>
-                                        ))}
-                                    </View>
-                                )}
-                            </View>
-                        ))}
                     </View>
                 )}
             </ScrollView>
@@ -345,8 +359,8 @@ export default function MealPlanScreen() {
         if (loading) {
             return (
                 <View style={styles.centerContainer}>
-                    <ActivityIndicator size="large" color="#10B981" />
-                    <Text style={styles.loadingText}>{t('mealPlan.loading')}</Text>
+                    <ActivityIndicator size="large" color="#EF4444" />
+                    <Text style={styles.loadingText}>{t('workoutPlan.loading')}</Text>
                 </View>
             );
         }
@@ -354,8 +368,8 @@ export default function MealPlanScreen() {
         return (
             <ScrollView style={styles.createNewContainer} showsVerticalScrollIndicator={false}>
                 <View style={styles.createNewContent}>
-                    <Ionicons name="nutrition" size={64} color="#10B981" />
-                    <Text style={styles.createTitle}>🥗 {t('mealPlan.createFirstPlan')}</Text>
+                    <Ionicons name="sparkles" size={64} color="#EF4444" />
+                    <Text style={styles.createTitle}>🎯 {t('workoutPlan.createFirstPlan')}</Text>
 
                     <TouchableOpacity
                         style={styles.preferencesCard}
@@ -364,8 +378,8 @@ export default function MealPlanScreen() {
                     >
                         <View style={styles.preferencesHeaderRow}>
                             <View style={styles.preferencesHeaderLeft}>
-                                <Ionicons name="options-outline" size={22} color="#10B981" />
-                                <Text style={styles.preferencesTitle}>{t('mealPlan.dietaryPreferences')}</Text>
+                                <Ionicons name="settings-outline" size={22} color="#EF4444" />
+                                <Text style={styles.preferencesTitle}>{t('workoutPlan.workoutPreferences')}</Text>
                             </View>
                             <Ionicons
                                 name={showPreferencesInput ? "chevron-up" : "chevron-down"}
@@ -373,19 +387,19 @@ export default function MealPlanScreen() {
                                 color="#78909c"
                             />
                         </View>
-                        <Text style={styles.preferencesHint}>{t('mealPlan.preferencesHint')}</Text>
+                        <Text style={styles.preferencesHint}>{t('workoutPlan.preferencesHint')}</Text>
                     </TouchableOpacity>
 
                     {showPreferencesInput && (
                         <View style={styles.preferencesInputContainer}>
                             <TextInput
                                 style={styles.preferencesInput}
-                                placeholder={t('mealPlan.preferencesPlaceholder')}
+                                placeholder={t('workoutPlan.preferencesPlaceholder')}
                                 placeholderTextColor="#999"
-                                value={dietaryRestrictions}
+                                value={workoutPreferences}
                                 onChangeText={(text) => {
                                     if (text.length <= 1000) {
-                                        setDietaryRestrictions(text);
+                                        setWorkoutPreferences(text);
                                     }
                                 }}
                                 multiline
@@ -394,14 +408,14 @@ export default function MealPlanScreen() {
                                 textAlignVertical="top"
                             />
                             <Text style={styles.charCounter}>
-                                {t('mealPlan.preferencesCharLimit', { current: dietaryRestrictions.length, max: 1000 })}
+                                {t('workoutPlan.preferencesCharLimit', { current: workoutPreferences.length, max: 1000 })}
                             </Text>
                         </View>
                     )}
 
-                    <TouchableOpacity style={styles.generateButton} onPress={generateMealPlan}>
-                        <Ionicons name="nutrition" size={22} color="#fff" />
-                        <Text style={styles.generateButtonText}>{t('mealPlan.generatePlan')}</Text>
+                    <TouchableOpacity style={styles.generateButton} onPress={generateWorkoutPlan}>
+                        <Ionicons name="sparkles" size={22} color="#fff" />
+                        <Text style={styles.generateButtonText}>{t('workoutPlan.generatePlan')}</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -412,8 +426,8 @@ export default function MealPlanScreen() {
         <View style={{ flex: 1, backgroundColor: '#f0f4f8' }}>
             {/* Header */}
             <View style={styles.header}>
-                <Text style={styles.title}>{t('mealPlan.title')}</Text>
-                <Text style={styles.subtitle}>{t('mealPlan.subtitle')}</Text>
+                <Text style={styles.title}>{t('workoutPlan.title')}</Text>
+                <Text style={styles.subtitle}>{t('workoutPlan.subtitle')}</Text>
             </View>
 
             {/* Tabs */}
@@ -422,9 +436,9 @@ export default function MealPlanScreen() {
                     style={[styles.tab, activeTab === 'myPlans' && styles.tabActive]}
                     onPress={() => setActiveTab('myPlans')}
                 >
-                    <Ionicons name="list" size={20} color={activeTab === 'myPlans' ? '#10B981' : '#666'} />
+                    <Ionicons name="list" size={20} color={activeTab === 'myPlans' ? '#EF4444' : '#666'} />
                     <Text style={[styles.tabText, activeTab === 'myPlans' && styles.tabTextActive]}>
-                        {t('mealPlan.myPlans')}
+                        {t('workoutPlan.myPlans')}
                     </Text>
                 </TouchableOpacity>
 
@@ -432,9 +446,9 @@ export default function MealPlanScreen() {
                     style={[styles.tab, activeTab === 'createNew' && styles.tabActive]}
                     onPress={() => setActiveTab('createNew')}
                 >
-                    <Ionicons name="add-circle" size={20} color={activeTab === 'createNew' ? '#10B981' : '#666'} />
+                    <Ionicons name="add-circle" size={20} color={activeTab === 'createNew' ? '#EF4444' : '#666'} />
                     <Text style={[styles.tabText, activeTab === 'createNew' && styles.tabTextActive]}>
-                        {t('mealPlan.createNew')}
+                        {t('workoutPlan.createNew')}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -451,10 +465,10 @@ export default function MealPlanScreen() {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>{t('mealPlan.namePlan')}</Text>
+                        <Text style={styles.modalTitle}>{t('workoutPlan.namePlan')}</Text>
                         <TextInput
                             style={styles.modalInput}
-                            placeholder={t('mealPlan.planNamePlaceholder')}
+                            placeholder={t('workoutPlan.planNamePlaceholder')}
                             value={planName}
                             onChangeText={setPlanName}
                             maxLength={50}
@@ -469,13 +483,13 @@ export default function MealPlanScreen() {
                                     setPlanName('');
                                 }}
                             >
-                                <Text style={styles.modalButtonTextCancel}>{t('mealPlan.cancel')}</Text>
+                                <Text style={styles.modalButtonTextCancel}>{t('workoutPlan.cancel')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[styles.modalButton, styles.modalButtonSave]}
                                 onPress={savePlan}
                             >
-                                <Text style={styles.modalButtonTextSave}>{t('mealPlan.savePlan')}</Text>
+                                <Text style={styles.modalButtonTextSave}>{t('workoutPlan.savePlan')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -491,10 +505,10 @@ export default function MealPlanScreen() {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>{t('mealPlan.renamePlan')}</Text>
+                        <Text style={styles.modalTitle}>{t('workoutPlan.renamePlan')}</Text>
                         <TextInput
                             style={styles.modalInput}
-                            placeholder={t('mealPlan.enterPlanName')}
+                            placeholder={t('workoutPlan.enterPlanName')}
                             value={newPlanName}
                             onChangeText={setNewPlanName}
                             maxLength={50}
@@ -509,13 +523,13 @@ export default function MealPlanScreen() {
                                     setNewPlanName('');
                                 }}
                             >
-                                <Text style={styles.modalButtonTextCancel}>{t('mealPlan.cancel')}</Text>
+                                <Text style={styles.modalButtonTextCancel}>{t('workoutPlan.cancel')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[styles.modalButton, styles.modalButtonSave]}
                                 onPress={renamePlan}
                             >
-                                <Text style={styles.modalButtonTextSave}>{t('mealPlan.rename')}</Text>
+                                <Text style={styles.modalButtonTextSave}>{t('workoutPlan.rename')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -565,7 +579,7 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     tabActive: {
-        backgroundColor: '#ECFDF5',
+        backgroundColor: '#FEE2E2',
     },
     tabText: {
         fontSize: 14,
@@ -573,7 +587,7 @@ const styles = StyleSheet.create({
         color: '#666',
     },
     tabTextActive: {
-        color: '#10B981',
+        color: '#EF4444',
     },
     emptyState: {
         flex: 1,
@@ -611,7 +625,7 @@ const styles = StyleSheet.create({
     },
     planCardSelected: {
         borderWidth: 2,
-        borderColor: '#10B981',
+        borderColor: '#EF4444',
     },
     planCardHeader: {
         flexDirection: 'row',
@@ -639,12 +653,11 @@ const styles = StyleSheet.create({
     },
     planPreview: {
         fontSize: 14,
-        color: '#10B981',
+        color: '#EF4444',
         fontWeight: '600',
     },
     selectedPlanDetails: {
         marginTop: 20,
-        paddingBottom: 40,
     },
     detailsTitle: {
         fontSize: 22,
@@ -658,39 +671,15 @@ const styles = StyleSheet.create({
         padding: 16,
         marginBottom: 16,
         borderLeftWidth: 4,
-        borderLeftColor: '#10B981',
+        borderLeftColor: '#EF4444',
     },
     preferencesLabel: {
         fontSize: 14,
         fontWeight: '600',
-        color: '#10B981',
+        color: '#EF4444',
         marginBottom: 8,
     },
     preferencesText: {
-        fontSize: 14,
-        color: '#555',
-        lineHeight: 20,
-    },
-    notesCard: {
-        backgroundColor: '#E3F2FD',
-        padding: 16,
-        borderRadius: 12,
-        borderLeftWidth: 4,
-        borderLeftColor: '#2196F3',
-        marginBottom: 16,
-    },
-    notesHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 8,
-    },
-    notesTitle: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: '#1976D2',
-        marginLeft: 8,
-    },
-    notesText: {
         fontSize: 14,
         color: '#555',
         lineHeight: 20,
@@ -712,56 +701,92 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 16,
     },
+    dayHeaderLeft: {
+        flex: 1,
+    },
     dayName: {
         fontSize: 18,
         fontWeight: '700',
         color: '#333',
+        marginBottom: 4,
     },
-    mealsContainer: {
+    dayFocus: {
+        fontSize: 14,
+        color: '#EF4444',
+        fontWeight: '600',
+    },
+    exercisesContainer: {
         padding: 16,
-        paddingTop: 16, // Added for separation
+        paddingTop: 0,
         borderTopWidth: 1,
         borderTopColor: '#f0f0f0',
     },
-    mealItem: {
+    exerciseItem: {
         marginBottom: 16,
         paddingBottom: 16,
         borderBottomWidth: 1,
         borderBottomColor: '#f0f0f0',
     },
-    mealHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
+    exerciseHeader: {
         marginBottom: 8,
     },
-    mealTitleRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        flex: 1,
-    },
-    mealName: {
+    exerciseName: {
         fontSize: 16,
         fontWeight: '600',
         color: '#333',
-        textTransform: 'capitalize',
+        marginBottom: 4,
     },
-    mealCalories: {
-        fontSize: 12,
-        color: '#10B981',
+    exerciseSetsReps: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: '#EF4444',
+    },
+    exerciseDetails: {
+        flexDirection: 'row',
+        gap: 16,
+    },
+    exerciseEquipment: {
+        fontSize: 13,
+        color: '#666',
+    },
+    exerciseBodyPart: {
+        fontSize: 13,
+        color: '#666',
+    },
+    restDayContainer: {
+        padding: 32,
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderTopColor: '#f0f0f0',
+    },
+    restDayText: {
+        fontSize: 16,
+        color: '#999',
+        marginTop: 8,
+    },
+    notesCard: {
+        backgroundColor: '#E3F2FD',
+        padding: 16,
+        borderRadius: 12,
+        borderLeftWidth: 4,
+        borderLeftColor: '#2196F3',
+        marginTop: 16,
+    },
+    notesHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    notesTitle: {
+        fontSize: 16,
         fontWeight: '600',
+        color: '#1976D2',
         marginLeft: 8,
     },
-    mealDescription: {
+    notesText: {
         fontSize: 14,
         color: '#555',
         lineHeight: 20,
-    },
-    mealNotes: {
-        fontSize: 13,
-        color: '#666',
-        marginTop: 6,
-        fontStyle: 'italic',
     },
     createNewContainer: {
         flex: 1,
@@ -792,12 +817,12 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     preferencesCard: {
-        backgroundColor: '#ECFDF5',
+        backgroundColor: '#FEE2E2',
         width: '100%',
         padding: 16,
         borderRadius: 12,
         borderLeftWidth: 4,
-        borderLeftColor: '#10B981',
+        borderLeftColor: '#EF4444',
         marginBottom: 16,
     },
     preferencesHeaderRow: {
@@ -814,12 +839,12 @@ const styles = StyleSheet.create({
     preferencesTitle: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#059669',
+        color: '#DC2626',
         marginLeft: 8,
     },
     preferencesHint: {
         fontSize: 13,
-        color: '#047857',
+        color: '#991B1B',
     },
     preferencesInputContainer: {
         backgroundColor: '#fff',
@@ -850,7 +875,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
     generateButton: {
-        backgroundColor: '#10B981',
+        backgroundColor: '#EF4444',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -918,7 +943,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f0f0f0',
     },
     modalButtonSave: {
-        backgroundColor: '#10B981',
+        backgroundColor: '#EF4444',
     },
     modalButtonTextCancel: {
         color: '#666',
