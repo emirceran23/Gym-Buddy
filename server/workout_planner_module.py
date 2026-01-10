@@ -86,11 +86,114 @@ def build_prompt(age, gender, height_cm, weight_kg, target_weight_kg, weekly_goa
 USER PREFERENCES:
 {workout_preferences}
 
-IMPORTANT: Respect these preferences ONLY if they are logical, safe, and medically sound.
-- If the user says "no weekends", schedule workouts Monday-Friday only
-- If the user says "bodyweight only", use only exercises with Equipment: "Body Only"
-- If the user says "I have dumbbells", prioritize dumbbell exercises
-- If any preference seems unsafe or illogical, you may ignore it and explain why in the 'notes' field
+CRITICAL INSTRUCTIONS FOR HANDLING ALL USER PREFERENCES:
+You MUST carefully analyze the user preferences and respect ALL logical, safe requests. Read the preferences thoroughly and identify ANY of the following:
+
+1. DAY-SPECIFIC PREFERENCES (MANDATORY - READ VERY CAREFULLY):
+   ⚠️ CRITICAL: Only mark the EXACT days mentioned as rest days. Do NOT add extra days!
+   
+   HOW TO PARSE:
+   - Read the preference word by word
+   - Find day names: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+   - Mark ONLY those specific days as rest
+   
+   CONCRETE EXAMPLES - FOLLOW THESE EXACTLY:
+   
+   Example 1:
+   Input: "I do not want to do workouts on monday and saturday"
+   Days mentioned: Monday, Saturday
+   Action: 
+   - Monday → "focus": "Rest Day", "exercises": []
+   - Saturday → "focus": "Rest Day", "exercises": []
+   - Tuesday, Wednesday, Thursday, Friday, Sunday → CREATE WORKOUTS
+   
+   Example 2:
+   Input: "no friday"
+   Days mentioned: Friday
+   Action:
+   - Friday → "focus": "Rest Day", "exercises": []
+   - Monday, Tuesday, Wednesday, Thursday, Saturday, Sunday → CREATE WORKOUTS
+   
+   Example 3:
+   Input: "Create workout only for 4 days"
+   Days mentioned: None specific, but wants only 4 workout days
+   Action:
+   - Choose best 4 days for workouts (e.g., Mon, Tue, Thu, Sat)
+   - Other 3 days → "focus": "Rest Day", "exercises": []
+   
+   Example 4:
+   Input: "no weekends"
+   Days mentioned: Saturday, Sunday (weekends = Sat + Sun)
+   Action:
+   - Saturday → "focus": "Rest Day", "exercises": []
+   - Sunday → "focus": "Rest Day", "exercises": []
+   - Monday through Friday → CREATE WORKOUTS
+
+2. INJURY & HEALTH RESTRICTIONS (MANDATORY):
+   - Identify any injuries, pain, or health conditions mentioned
+   - Phrases: "knee injury", "shoulder pain", "lower back problems", "can't do jumping", etc.
+   - Action: EXCLUDE all exercises that stress the affected area
+   - Examples:
+     * "I have knee problems" → NO squats, lunges, jumping exercises, leg press
+     * "Shoulder injury" → NO overhead press, shoulder raises, pull-ups
+     * "Lower back pain" → NO deadlifts, bent-over rows, avoid heavy compound lifts
+
+3. EQUIPMENT PREFERENCES (MANDATORY):
+   - Identify available or unavailable equipment
+   - Phrases: "bodyweight only", "I have dumbbells", "no gym access", "only resistance bands", etc.
+   - Action: Use ONLY exercises with the specified equipment
+   - Examples:
+     * "Bodyweight only" → Equipment: "Body Only" exercises exclusively
+     * "I have dumbbells and a bench" → Prioritize dumbbell and bench exercises
+     * "No equipment" → Body weight exercises only
+
+4. TIME & DURATION CONSTRAINTS (IMPORTANT):
+   - Identify time limitations per workout
+   - Phrases: "30 minutes max", "short workouts", "only have 20 minutes", "quick sessions", etc.
+   - Action: Reduce number of exercises (3-4 exercises max) and sets (2-3 sets)
+   - Examples:
+     * "30 minute workouts" → 4-5 exercises, 3 sets each
+     * "Only 20 minutes available" → 3-4 exercises, 2-3 sets each
+
+5. EXERCISE TYPE PREFERENCES (IMPORTANT):
+   - Identify preferred or excluded exercise types
+   - Phrases: "no cardio", "hate burpees", "love compound movements", "no isolation exercises", etc.
+   - Action: Include/exclude based on preference
+   - Examples:
+     * "No cardio" → Exclude running, jumping jacks, mountain climbers
+     * "Compound movements only" → Focus on squats, deadlifts, bench press, rows
+     * "I hate burpees" → Never include burpees
+
+6. INTENSITY & EXPERIENCE LEVEL (IMPORTANT):
+   - Identify fitness level or intensity preferences
+   - Phrases: "beginner", "advanced", "low intensity", "high intensity", "easy workouts", etc.
+   - Action: Filter exercises by Level field and adjust sets/reps
+   - Examples:
+     * "I'm a beginner" → Use Level: "Beginner" exercises, higher reps (12-15)
+     * "Advanced lifter" → Use Level: "Expert" exercises, lower reps (6-8)
+     * "Low intensity" → Fewer sets, longer rest, easier exercises
+
+7. SPECIFIC EXERCISE EXCLUSIONS (IMPORTANT):
+   - Identify specific exercises to avoid
+   - Phrases: "no deadlifts", "don't like push-ups", "can't do pull-ups", etc.
+   - Action: Never include those specific exercises
+   - Examples:
+     * "No deadlifts" → Exclude all deadlift variations
+     * "Can't do pull-ups" → Use alternatives like lat pulldowns or rows
+
+8. WORKOUT FOCUS PREFERENCES (HELPFUL):
+   - Identify specific muscle groups or goals
+   - Phrases: "focus on upper body", "want bigger arms", "core strength", etc.
+   - Action: Prioritize those areas in the workout split
+   - Examples:
+     * "Focus on upper body" → More upper body days, fewer leg days
+     * "Want bigger arms" → Include extra bicep/tricep work
+
+SAFETY OVERRIDE:
+- If ANY preference seems medically unsafe or could cause injury, IGNORE it and explain why in the 'notes' field
+- Examples of unsafe requests: "train same muscle every day", "no rest days", "only do one exercise"
+
+REMEMBER: User preferences are MANDATORY unless they compromise safety. Analyze the preferences carefully and respect ALL logical requests.
 """
     
     prompt = f"""You are a professional fitness trainer creating a personalized 7-day workout program.
@@ -109,8 +212,19 @@ USER PROFILE:
 {exercise_db_str}
 
 INSTRUCTIONS:
-1. Create a 7-day workout plan (Monday to Sunday)
-2. For each day, specify:
+1. FIRST, READ USER PREFERENCES VERY CAREFULLY:
+   - Read each word slowly and understand what the user is asking
+   - If they say "no monday and saturday", mark ONLY Monday and Saturday as rest
+   - If they say "4 days only", give EXACTLY 4 workout days (not 5, not 3)
+   - Do NOT add extra rest days unless explicitly requested
+   - Do NOT misinterpret which specific days they mentioned
+   - Check for day restrictions, injuries, equipment, time, intensity, exclusions, and focus
+
+2. Create a 7-day workout plan (Monday to Sunday)
+   CRITICAL: You MUST include ALL 7 DAYS in your response, even if some are rest days.
+   Do NOT skip or omit any days. The workout_plan array must have exactly 7 elements.
+
+3. For each day, specify:
    - "day": Day name (Monday, Tuesday, etc.)
    - "focus": Focus area (e.g., "Chest & Triceps", "Legs & Glutes", "Back & Biceps", "Rest Day")
    - "exercises": List of exercises with:
@@ -119,27 +233,28 @@ INSTRUCTIONS:
      * "reps": Rep range (e.g., "12-15" or "10-12")
      * "equipment": Equipment needed
      * "bodyPart": Target body part
+   - For rest days, use "focus": "Rest Day" and "exercises": []
 
-3. WORKOUT SPLIT STRATEGY:
+4. WORKOUT SPLIT STRATEGY:
    - For "Reduce body fat" / "Weight loss": 4-5 workout days with full-body or upper/lower split + cardio
    - For "Build muscle" / "Muscle gain": 5-6 workout days with traditional split (Push/Pull/Legs or Bro Split)
    - For "General fitness": 3-4 workout days with balanced full-body or upper/lower split
 
-4. SETS & REPS GUIDELINES:
+5. SETS & REPS GUIDELINES:
    - Strength: 3-5 sets of 4-6 reps
    - Hypertrophy (muscle growth): 3-4 sets of 8-12 reps
    - Endurance: 2-3 sets of 15-20 reps
    - Bodyweight: 3-4 sets of 10-15 reps
 
-5. REST DAYS: Include 1-2 rest days per week
+6. REST DAYS: Include 1-2 rest days per week (in addition to any days the user requested off)
 
-6. EXERCISE SELECTION:
+7. EXERCISE SELECTION:
    - ONLY use exercises from the database provided above
    - Match exercises to the focus area (e.g., for "Chest & Triceps", use chest and triceps exercises)
    - Consider user's equipment availability
    - Progress from easier to harder exercises
 
-7. OUTPUT FORMAT: Return ONLY valid JSON in this exact format:
+8. OUTPUT FORMAT: Return ONLY valid JSON in this exact format:
 {{
   "workout_plan": [
     {{
@@ -207,7 +322,7 @@ def generate_workout_for_user(df, age, gender, height_cm, weight_kg, target_weig
     }
     
     payload = {
-        "model": "google/gemma-2-2b-it",
+        "model": "meta-llama/Llama-3.2-3B-Instruct",  # 128K token context window
         "messages": [
             {
                 "role": "user",
@@ -215,7 +330,7 @@ def generate_workout_for_user(df, age, gender, height_cm, weight_kg, target_weig
             }
         ],
         "max_tokens": 2500,
-        "temperature": 0.7,
+        "temperature": 0.2,  # Lowered for strict adherence to instructions
         "top_p": 0.9
     }
     

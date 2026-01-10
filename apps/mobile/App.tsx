@@ -13,6 +13,7 @@ import TrainingScreen from "./src/screens/TrainingScreen";
 import AddMealScreen from "./src/screens/AddMealScreen";
 import ExerciseEvaluationScreen from "./src/screens/ExerciseEvaluationScreen";
 import MealPlanScreen from "./src/screens/MealPlanScreen";
+import WorkoutPlanScreen from "./src/screens/WorkoutPlanScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import TutorialDetailScreen from "./src/screens/TutorialDetailScreen";
 import TutorialListScreen from "./src/screens/TutorialListScreen";
@@ -150,6 +151,7 @@ function AppContent({ initialRoute }: { initialRoute: string }) {
         {/* Other screens (opened from Training or Dashboard) */}
         <Stack.Screen name="AddMeal" component={AddMealScreen} />
         <Stack.Screen name="MealPlan" component={MealPlanScreen} />
+        <Stack.Screen name="WorkoutPlan" component={WorkoutPlanScreen} />
         <Stack.Screen name="MuscleGroup" component={MuscleGroupScreen} />
         <Stack.Screen name="ExerciseList" component={ExerciseListScreen} />
         <Stack.Screen name="TutorialList" component={TutorialListScreen} />

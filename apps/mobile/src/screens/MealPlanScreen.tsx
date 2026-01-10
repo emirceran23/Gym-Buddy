@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert, TextInput, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert, TextInput, Modal, KeyboardAvoidingView, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -46,6 +46,8 @@ export default function MealPlanScreen() {
     const [dietaryRestrictions, setDietaryRestrictions] = useState('');
     const [showPreferencesInput, setShowPreferencesInput] = useState(false);
     const [expandedDay, setExpandedDay] = useState<string | null>(null);
+    const preferencesInputRef = React.useRef<TextInput>(null);
+    const scrollViewRef = React.useRef<ScrollView>(null);
 
     // Plan naming state
     const [showNameModal, setShowNameModal] = useState(false);
@@ -246,98 +248,104 @@ export default function MealPlanScreen() {
         }
 
         return (
-            <ScrollView style={styles.plansListContainer} showsVerticalScrollIndicator={false}>
-                {savedPlans.map((plan) => (
-                    <TouchableOpacity
-                        key={plan.id}
-                        style={[
-                            styles.planCard,
-                            selectedPlan?.id === plan.id && styles.planCardSelected
-                        ]}
-                        onPress={() => setSelectedPlan(plan)}
-                    >
-                        <View style={styles.planCardHeader}>
-                            <Text style={styles.planName}>{plan.name}</Text>
-                            <View style={styles.planActions}>
-                                <TouchableOpacity onPress={() => startRenamePlan(plan.id)} style={styles.actionButton}>
-                                    <Ionicons name="pencil" size={20} color="#666" />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => deletePlan(plan.id)} style={styles.actionButton}>
-                                    <Ionicons name="trash" size={20} color="#EF4444" />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <Text style={styles.planDate}>{t('mealPlan.createdOn', { date: formatDate(plan.createdAt) })}</Text>
-                    </TouchableOpacity>
-                ))}
-
-                {selectedPlan && (
-                    <View style={styles.selectedPlanDetails}>
-                        <Text style={styles.detailsTitle}>🍽️ {selectedPlan.name}</Text>
-
-                        {selectedPlan.preferences && (
-                            <View style={styles.preferencesDisplay}>
-                                <Text style={styles.preferencesLabel}>{t('mealPlan.currentPreferences')}</Text>
-                                <Text style={styles.preferencesText}>{selectedPlan.preferences}</Text>
-                            </View>
-                        )}
-
-                        {selectedPlan.notes && (
-                            <View style={styles.notesCard}>
-                                <View style={styles.notesHeader}>
-                                    <Ionicons name="information-circle" size={20} color="#2196F3" />
-                                    <Text style={styles.notesTitle}>Notes</Text>
+            <View style={{ flex: 1 }}>
+                <ScrollView style={styles.plansListContainer} showsVerticalScrollIndicator={false}>
+                    {savedPlans.map((plan) => (
+                        <TouchableOpacity
+                            key={plan.id}
+                            style={[
+                                styles.planCard,
+                                selectedPlan?.id === plan.id && styles.planCardSelected
+                            ]}
+                            onPress={() => setSelectedPlan(plan)}
+                        >
+                            <View style={styles.planCardHeader}>
+                                <Text style={styles.planName}>{plan.name}</Text>
+                                <View style={styles.planActions}>
+                                    <TouchableOpacity onPress={() => startRenamePlan(plan.id)} style={styles.actionButton}>
+                                        <Ionicons name="pencil" size={20} color="#666" />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => deletePlan(plan.id)} style={styles.actionButton}>
+                                        <Ionicons name="trash" size={20} color="#EF4444" />
+                                    </TouchableOpacity>
                                 </View>
-                                <Text style={styles.notesText}>{selectedPlan.notes}</Text>
                             </View>
-                        )}
+                            <Text style={styles.planDate}>{t('mealPlan.createdOn', { date: formatDate(plan.createdAt) })}</Text>
+                        </TouchableOpacity>
+                    ))}
 
-                        {selectedPlan.diet_plan.map((dayPlan, index) => (
-                            <View key={index} style={styles.dayCard}>
-                                <TouchableOpacity
-                                    style={styles.dayHeader}
-                                    onPress={() => toggleDay(dayPlan.day)}
-                                    activeOpacity={0.7}
-                                >
-                                    <Text style={styles.dayName}>{dayPlan.day}</Text>
-                                    <Ionicons
-                                        name={expandedDay === dayPlan.day ? 'chevron-up' : 'chevron-down'}
-                                        size={24}
-                                        color="#666"
-                                    />
-                                </TouchableOpacity>
+                    {selectedPlan && (
+                        <View style={styles.selectedPlanDetails}>
+                            <Text style={styles.detailsTitle}>🍽️ {selectedPlan.name}</Text>
 
-                                {expandedDay === dayPlan.day && (
-                                    <View style={styles.mealsContainer}>
-                                        {dayPlan.meals.map((meal, mIndex) => (
-                                            <View key={mIndex} style={styles.mealItem}>
-                                                <View style={styles.mealHeader}>
-                                                    <View style={styles.mealTitleRow}>
-                                                        <Ionicons
-                                                            name={meal.name.toLowerCase().includes('snack') ? 'cafe-outline' : 'restaurant-outline'}
-                                                            size={18}
-                                                            color="#10B981"
-                                                            style={{ marginRight: 8 }}
-                                                        />
-                                                        <Text style={styles.mealName}>{meal.name}</Text>
+                            {selectedPlan.preferences && (
+                                <View style={styles.preferencesDisplay}>
+                                    <Text style={styles.preferencesLabel}>{t('mealPlan.currentPreferences')}</Text>
+                                    <Text style={styles.preferencesText}>{selectedPlan.preferences}</Text>
+                                </View>
+                            )}
+
+
+
+                            {selectedPlan.diet_plan.map((dayPlan, index) => (
+                                <View key={index} style={styles.dayCard}>
+                                    <TouchableOpacity
+                                        style={styles.dayHeader}
+                                        onPress={() => toggleDay(dayPlan.day)}
+                                        activeOpacity={0.7}
+                                    >
+                                        <Text style={styles.dayName}>{dayPlan.day}</Text>
+                                        <Ionicons
+                                            name={expandedDay === dayPlan.day ? 'chevron-up' : 'chevron-down'}
+                                            size={24}
+                                            color="#666"
+                                        />
+                                    </TouchableOpacity>
+
+                                    {expandedDay === dayPlan.day && (
+                                        <View style={styles.mealsContainer}>
+                                            {dayPlan.meals.map((meal, mIndex) => (
+                                                <View key={mIndex} style={styles.mealItem}>
+                                                    <View style={styles.mealHeader}>
+                                                        <View style={styles.mealTitleRow}>
+                                                            <Ionicons
+                                                                name={meal.name.toLowerCase().includes('snack') ? 'cafe-outline' : 'restaurant-outline'}
+                                                                size={18}
+                                                                color="#10B981"
+                                                                style={{ marginRight: 8 }}
+                                                            />
+                                                            <Text style={styles.mealName}>{meal.name}</Text>
+                                                        </View>
+                                                        <Text style={styles.mealCalories}>
+                                                            {meal.kcal} kcal • {meal.protein_g}g protein
+                                                        </Text>
                                                     </View>
-                                                    <Text style={styles.mealCalories}>
-                                                        {meal.kcal} kcal • {meal.protein_g}g protein
-                                                    </Text>
+                                                    <Text style={styles.mealDescription}>{meal.description}</Text>
+                                                    {meal.notes && (
+                                                        <Text style={styles.mealNotes}>💡 {meal.notes}</Text>
+                                                    )}
                                                 </View>
-                                                <Text style={styles.mealDescription}>{meal.description}</Text>
-                                                {meal.notes && (
-                                                    <Text style={styles.mealNotes}>💡 {meal.notes}</Text>
-                                                )}
-                                            </View>
-                                        ))}
-                                    </View>
-                                )}
-                            </View>
-                        ))}
+                                            ))}
+                                        </View>
+                                    )}
+                                </View>
+                            ))}
+                        </View>
+                    )}
+                </ScrollView>
+
+                {selectedPlan && selectedPlan.notes && (
+                    <View style={styles.stickyNotesContainer}>
+                        <View style={styles.notesHeader}>
+                            <Ionicons name="information-circle" size={20} color="#2196F3" />
+                            <Text style={styles.notesTitle}>Notes</Text>
+                        </View>
+                        <ScrollView style={{ maxHeight: 100 }}>
+                            <Text style={styles.notesText}>{selectedPlan.notes}</Text>
+                        </ScrollView>
                     </View>
                 )}
-            </ScrollView>
+            </View>
         );
     };
 
@@ -352,92 +360,121 @@ export default function MealPlanScreen() {
         }
 
         return (
-            <ScrollView style={styles.createNewContainer} showsVerticalScrollIndicator={false}>
-                <View style={styles.createNewContent}>
-                    <Ionicons name="nutrition" size={64} color="#10B981" />
-                    <Text style={styles.createTitle}>🥗 {t('mealPlan.createFirstPlan')}</Text>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                style={{ flex: 1 }}
+                keyboardVerticalOffset={0}
+            >
+                <ScrollView
+                    ref={scrollViewRef}
+                    style={styles.createNewContainer}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 200 }}
+                >
+                    <View style={styles.createNewContent}>
+                        {!showPreferencesInput && (
+                            <>
+                                <Ionicons name="nutrition" size={64} color="#10B981" />
+                                <Text style={styles.createTitle}>🥗 {t('mealPlan.createFirstPlan')}</Text>
+                            </>
+                        )}
 
-                    <TouchableOpacity
-                        style={styles.preferencesCard}
-                        onPress={() => setShowPreferencesInput(!showPreferencesInput)}
-                        activeOpacity={0.7}
-                    >
-                        <View style={styles.preferencesHeaderRow}>
-                            <View style={styles.preferencesHeaderLeft}>
-                                <Ionicons name="options-outline" size={22} color="#10B981" />
-                                <Text style={styles.preferencesTitle}>{t('mealPlan.dietaryPreferences')}</Text>
+                        <TouchableOpacity
+                            style={styles.preferencesCard}
+                            onPress={() => {
+                                const newState = !showPreferencesInput;
+                                setShowPreferencesInput(newState);
+                                if (newState) {
+                                    setTimeout(() => {
+                                        preferencesInputRef.current?.focus();
+                                        scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+                                    }, 300);
+                                }
+                            }}
+                            activeOpacity={0.7}
+                        >
+                            <View style={styles.preferencesHeaderRow}>
+                                <View style={styles.preferencesHeaderLeft}>
+                                    <Ionicons name="options-outline" size={22} color="#10B981" />
+                                    <Text style={styles.preferencesTitle}>{t('mealPlan.dietaryPreferences')}</Text>
+                                </View>
+                                <Ionicons
+                                    name={showPreferencesInput ? "chevron-up" : "chevron-down"}
+                                    size={22}
+                                    color="#78909c"
+                                />
                             </View>
-                            <Ionicons
-                                name={showPreferencesInput ? "chevron-up" : "chevron-down"}
-                                size={22}
-                                color="#78909c"
-                            />
-                        </View>
-                        <Text style={styles.preferencesHint}>{t('mealPlan.preferencesHint')}</Text>
-                    </TouchableOpacity>
+                            <Text style={styles.preferencesHint}>{t('mealPlan.preferencesHint')}</Text>
+                        </TouchableOpacity>
 
-                    {showPreferencesInput && (
-                        <View style={styles.preferencesInputContainer}>
-                            <TextInput
-                                style={styles.preferencesInput}
-                                placeholder={t('mealPlan.preferencesPlaceholder')}
-                                placeholderTextColor="#999"
-                                value={dietaryRestrictions}
-                                onChangeText={(text) => {
-                                    if (text.length <= 1000) {
-                                        setDietaryRestrictions(text);
-                                    }
-                                }}
-                                multiline
-                                numberOfLines={4}
-                                maxLength={1000}
-                                textAlignVertical="top"
-                            />
-                            <Text style={styles.charCounter}>
-                                {t('mealPlan.preferencesCharLimit', { current: dietaryRestrictions.length, max: 1000 })}
-                            </Text>
-                        </View>
-                    )}
+                        {showPreferencesInput && (
+                            <View style={styles.preferencesInputContainer}>
+                                <TextInput
+                                    ref={preferencesInputRef}
+                                    style={styles.preferencesInput}
+                                    placeholder={t('mealPlan.preferencesPlaceholder')}
+                                    placeholderTextColor="#999"
+                                    value={dietaryRestrictions}
+                                    onChangeText={(text) => {
+                                        if (text.length <= 1000) {
+                                            setDietaryRestrictions(text);
+                                        }
+                                    }}
+                                    multiline
+                                    numberOfLines={4}
+                                    maxLength={1000}
+                                    textAlignVertical="top"
+                                />
+                                <Text style={styles.charCounter}>
+                                    {t('mealPlan.preferencesCharLimit', { current: dietaryRestrictions.length, max: 1000 })}
+                                </Text>
+                            </View>
+                        )}
 
-                    <TouchableOpacity style={styles.generateButton} onPress={generateMealPlan}>
-                        <Ionicons name="nutrition" size={22} color="#fff" />
-                        <Text style={styles.generateButtonText}>{t('mealPlan.generatePlan')}</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
+                        <TouchableOpacity style={styles.generateButton} onPress={generateMealPlan}>
+                            <Ionicons name="nutrition" size={22} color="#fff" />
+                            <Text style={styles.generateButtonText}>{t('mealPlan.generatePlan')}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         );
     };
 
     return (
         <View style={{ flex: 1, backgroundColor: '#f0f4f8' }}>
-            {/* Header */}
-            <View style={styles.header}>
-                <Text style={styles.title}>{t('mealPlan.title')}</Text>
-                <Text style={styles.subtitle}>{t('mealPlan.subtitle')}</Text>
-            </View>
+            {/* Header - Hide when typing preferences */}
+            {!showPreferencesInput && (
+                <View style={styles.header}>
+                    <Text style={styles.title}>{t('mealPlan.title')}</Text>
+                    <Text style={styles.subtitle}>{t('mealPlan.subtitle')}</Text>
+                </View>
+            )}
 
-            {/* Tabs */}
-            <View style={styles.tabsContainer}>
-                <TouchableOpacity
-                    style={[styles.tab, activeTab === 'myPlans' && styles.tabActive]}
-                    onPress={() => setActiveTab('myPlans')}
-                >
-                    <Ionicons name="list" size={20} color={activeTab === 'myPlans' ? '#10B981' : '#666'} />
-                    <Text style={[styles.tabText, activeTab === 'myPlans' && styles.tabTextActive]}>
-                        {t('mealPlan.myPlans')}
-                    </Text>
-                </TouchableOpacity>
+            {/* Tabs - Hide when typing preferences */}
+            {!showPreferencesInput && (
+                <View style={styles.tabsContainer}>
+                    <TouchableOpacity
+                        style={[styles.tab, activeTab === 'myPlans' && styles.tabActive]}
+                        onPress={() => setActiveTab('myPlans')}
+                    >
+                        <Ionicons name="list" size={20} color={activeTab === 'myPlans' ? '#10B981' : '#666'} />
+                        <Text style={[styles.tabText, activeTab === 'myPlans' && styles.tabTextActive]}>
+                            {t('mealPlan.myPlans')}
+                        </Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={[styles.tab, activeTab === 'createNew' && styles.tabActive]}
-                    onPress={() => setActiveTab('createNew')}
-                >
-                    <Ionicons name="add-circle" size={20} color={activeTab === 'createNew' ? '#10B981' : '#666'} />
-                    <Text style={[styles.tabText, activeTab === 'createNew' && styles.tabTextActive]}>
-                        {t('mealPlan.createNew')}
-                    </Text>
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity
+                        style={[styles.tab, activeTab === 'createNew' && styles.tabActive]}
+                        onPress={() => setActiveTab('createNew')}
+                    >
+                        <Ionicons name="add-circle" size={20} color={activeTab === 'createNew' ? '#10B981' : '#666'} />
+                        <Text style={[styles.tabText, activeTab === 'createNew' && styles.tabTextActive]}>
+                            {t('mealPlan.createNew')}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )}
 
             {/* Tab Content */}
             {activeTab === 'myPlans' ? renderMyPlansTab() : renderCreateNewTab()}
@@ -644,7 +681,6 @@ const styles = StyleSheet.create({
     },
     selectedPlanDetails: {
         marginTop: 20,
-        paddingBottom: 40,
     },
     detailsTitle: {
         fontSize: 22,
@@ -820,6 +856,20 @@ const styles = StyleSheet.create({
     preferencesHint: {
         fontSize: 13,
         color: '#047857',
+    },
+    stickyNotesContainer: {
+        backgroundColor: '#E3F2FD',
+        padding: 16,
+        margin: 16,
+        marginBottom: 20,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: '#90CAF9',
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
     preferencesInputContainer: {
         backgroundColor: '#fff',
